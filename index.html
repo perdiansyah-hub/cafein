@@ -1,0 +1,1467 @@
+html
+
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAFEIN — Coffee for people who think deeply.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+/* ─── CSS VARIABLES ─────────────────────────────────────────── */
+:root {
+  --bg: #111110;
+  --surface: #1c1c1a;
+  --surface2: #222220;
+  --text: #e8e6e0;
+  --text-secondary: #888880;
+  --accent: #c9b89a;
+  --accent2: #8a7d6a;
+  --border: rgba(200,190,170,0.1);
+  --border-light: rgba(200,190,170,0.06);
+  --glow: rgba(201,184,154,0.06);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --transition: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-theme="light"] {
+  --bg: #fafaf8;
+  --surface: #f2f2ee;
+  --surface2: #eaeae5;
+  --text: #2a2a28;
+  --text-secondary: #666660;
+  --accent: #5a4e3c;
+  --accent2: #8a7d6a;
+  --border: rgba(42,42,40,0.1);
+  --border-light: rgba(42,42,40,0.06);
+  --glow: rgba(90,78,60,0.04);
+}
+
+/* ─── RESET ──────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: none;
+}
+@media (pointer: coarse) { body { cursor: auto; } }
+a { color: inherit; text-decoration: none; }
+img { display: block; width: 100%; }
+::selection { background: var(--accent); color: var(--bg); }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent2); }
+
+/* ─── SCROLL PROGRESS ───────────────────────────────────────── */
+#scroll-progress {
+  position: fixed; top: 0; left: 0; height: 1px;
+  background: var(--accent); z-index: 1000;
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* ─── CUSTOM CURSOR ─────────────────────────────────────────── */
+#cursor {
+  position: fixed; width: 8px; height: 8px;
+  border-radius: 50%; background: var(--accent);
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.15s ease, opacity 0.3s ease;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed; width: 32px; height: 32px;
+  border-radius: 50%; border: 1px solid var(--accent);
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+}
+body:hover #cursor { opacity: 1; }
+.cursor-hover #cursor { transform: translate(-50%,-50%) scale(2.5); }
+.cursor-hover #cursor-ring { width: 48px; height: 48px; opacity: 0.2; }
+@media (pointer: coarse) { #cursor, #cursor-ring { display: none; } }
+
+/* ─── GRAIN TEXTURE ─────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 999; opacity: 0.4;
+}
+
+/* ─── NAVIGATION ─────────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 0 48px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  background: rgba(17,17,16,0.6);
+  border-bottom: 1px solid var(--border-light);
+  transition: background var(--transition);
+}
+[data-theme="light"] nav { background: rgba(250,250,248,0.7); }
+.nav-logo {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 300; letter-spacing: 0.35em; color: var(--text);
+}
+.nav-links {
+  display: flex; gap: 40px; list-style: none;
+  font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 400; color: var(--text-secondary);
+}
+.nav-links a { transition: color 0.3s ease; cursor: none; }
+.nav-links a:hover { color: var(--text); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+
+/* ─── BEAN TOGGLE ────────────────────────────────────────────── */
+.bean-toggle {
+  width: 52px; height: 28px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 14px; cursor: none;
+  position: relative; transition: background 0.4s ease, border-color 0.4s ease;
+  flex-shrink: 0; overflow: hidden;
+}
+[data-theme="light"] .bean-toggle {
+  background: #d4c4a8; border-color: rgba(90,78,60,0.3);
+}
+.bean-toggle:hover { border-color: var(--accent); }
+.bean-knob {
+  position: absolute; top: 4px; left: 4px;
+  width: 18px; height: 18px;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-theme="light"] .bean-knob { transform: translateX(24px); }
+/* SVG bean shape inside knob */
+.bean-knob svg {
+  width: 100%; height: 100%;
+}
+/* Moon glow for dark, sun glow for light */
+.bean-glow {
+  position: absolute; inset: 0;
+  border-radius: 14px;
+  background: radial-gradient(circle at 25% 50%, rgba(201,184,154,0.08) 0%, transparent 70%);
+  transition: background 0.4s ease;
+  pointer-events: none;
+}
+[data-theme="light"] .bean-glow {
+  background: radial-gradient(circle at 75% 50%, rgba(201,184,154,0.15) 0%, transparent 70%);
+}
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; }
+.hamburger span { display: block; width: 22px; height: 1px; background: var(--text); transition: all 0.3s ease; }
+
+/* ─── HERO ──────────────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 0 48px 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(90,70,50,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(60,50,40,0.12) 0%, transparent 50%),
+              var(--bg);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--border-light) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-eyebrow {
+  font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--accent); font-family: var(--sans); font-weight: 400;
+  margin-bottom: 32px; display: flex; align-items: center; gap: 16px;
+}
+.hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--accent); flex-shrink: 0; }
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 9rem);
+  font-weight: 300; line-height: 1.0;
+  letter-spacing: -0.01em; color: var(--text);
+  max-width: 900px; margin-bottom: 40px;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+.hero-sub {
+  font-size: 1rem; font-weight: 300;
+  color: var(--text-secondary); max-width: 480px;
+  line-height: 1.8; margin-bottom: 56px; letter-spacing: 0.01em;
+}
+.hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn-primary {
+  padding: 14px 32px; background: var(--text); color: var(--bg);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 500; border: none; cursor: none; transition: all 0.4s ease;
+  display: inline-block;
+}
+.btn-primary:hover { background: var(--accent); color: var(--bg); }
+.btn-ghost {
+  padding: 13px 32px; background: transparent; color: var(--text);
+  font-family: var(--sans); font-size: 0.72rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  font-weight: 500; border: 1px solid var(--border); cursor: none;
+  transition: all 0.4s ease; display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+.hero-scroll {
+  position: absolute; right: 48px; bottom: 80px;
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--text-secondary); writing-mode: vertical-rl;
+  display: flex; align-items: center; gap: 16px;
+}
+.hero-scroll::after { content: ''; width: 1px; height: 60px; background: var(--border); display: block; }
+.hero-year {
+  position: absolute; right: 180px; bottom: 80px;
+  font-family: var(--serif); font-size: 0.85rem;
+  color: var(--text-secondary); letter-spacing: 0.05em;
+}
+
+/* ─── SECTION BASE ──────────────────────────────────────────── */
+section { padding: 120px 48px; position: relative; }
+.section-label {
+  font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 64px;
+}
+.section-label::before {
+  content: attr(data-number);
+  font-family: var(--serif); font-size: 0.9rem;
+  font-style: italic; color: var(--text-secondary);
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  font-weight: 300; line-height: 1.1;
+  letter-spacing: -0.01em; color: var(--text); margin-bottom: 32px;
+}
+.section-title em { font-style: italic; color: var(--accent); }
+.section-body {
+  font-size: 1rem; font-weight: 300;
+  color: var(--text-secondary); line-height: 1.9;
+  max-width: 600px; letter-spacing: 0.01em;
+}
+
+/* ─── REVEAL ─────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ─── DIVIDER ───────────────────────────────────────────────── */
+.divider { height: 1px; background: var(--border); margin: 0 48px; }
+
+/* ─── BRAND STORY ───────────────────────────────────────────── */
+#story { background: var(--bg); }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 80px; }
+.story-quote {
+  font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  font-weight: 300; line-height: 1.45; color: var(--text); font-style: italic; margin-bottom: 48px;
+}
+.story-right { padding-top: 8px; }
+.story-para {
+  font-size: 0.95rem; font-weight: 300;
+  color: var(--text-secondary); line-height: 2.0; margin-bottom: 24px; letter-spacing: 0.01em;
+}
+.story-stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 64px;
+}
+.story-stat { padding: 32px 24px; background: var(--bg); }
+.story-stat-num { font-family: var(--serif); font-size: 2.4rem; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
+.story-stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); }
+
+/* ─── MARKET ANALYSIS ───────────────────────────────────────── */
+#market { background: var(--surface); }
+.market-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.market-card { padding: 48px 40px; background: var(--surface); position: relative; overflow: hidden; transition: background 0.4s ease; }
+.market-card:hover { background: var(--surface2); }
+.market-card-num { font-family: var(--serif); font-size: 4rem; font-weight: 300; color: var(--border); line-height: 1; margin-bottom: 24px; transition: color 0.4s ease; }
+.market-card:hover .market-card-num { color: var(--accent); }
+.market-card-title { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--text); margin-bottom: 16px; line-height: 1.3; }
+.market-card-body { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; }
+.market-highlight { display: inline-block; margin-top: 20px; font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); border-top: 1px solid var(--border); padding-top: 12px; width: 100%; }
+.market-bar-section { margin-top: 80px; }
+.market-bar-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--text); margin-bottom: 40px; }
+.bar-row { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+.bar-label { width: 180px; font-size: 0.82rem; color: var(--text-secondary); flex-shrink: 0; }
+.bar-track { flex: 1; height: 2px; background: var(--border); position: relative; }
+.bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+.bar-fill.animate { width: var(--w); }
+.bar-value { width: 40px; font-family: var(--serif); font-size: 1.1rem; color: var(--text); text-align: right; }
+
+/* ─── AUDIENCE ──────────────────────────────────────────────── */
+#audience { background: var(--bg); }
+.audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.persona-card { padding: 40px 32px; background: var(--bg); transition: background 0.4s ease; position: relative; }
+.persona-card:hover { background: var(--surface); }
+.persona-icon { width: 40px; height: 40px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 1rem; color: var(--accent); font-family: var(--serif); font-style: italic; transition: border-color 0.3s ease; }
+.persona-card:hover .persona-icon { border-color: var(--accent); }
+.persona-type { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.persona-name { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--text); margin-bottom: 16px; line-height: 1.3; }
+.persona-desc { font-size: 0.83rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; margin-bottom: 24px; }
+.persona-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.persona-tag { font-size: 0.62rem; letter-spacing: 0.1em; padding: 4px 10px; border: 1px solid var(--border); color: var(--text-secondary); text-transform: uppercase; }
+
+/* ─── BRAND POSITIONING ─────────────────────────────────────── */
+#positioning { background: var(--surface); }
+.positioning-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 80px; align-items: start; }
+.value-prop { padding: 32px 0; border-bottom: 1px solid var(--border); display: flex; gap: 24px; align-items: flex-start; }
+.value-prop:first-child { border-top: 1px solid var(--border); }
+.vp-num { font-family: var(--serif); font-size: 0.85rem; font-style: italic; color: var(--text-secondary); width: 32px; flex-shrink: 0; padding-top: 2px; }
+.vp-title { font-family: var(--serif); font-size: 1.2rem; font-weight: 400; color: var(--text); margin-bottom: 8px; }
+.vp-desc { font-size: 0.85rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; }
+.competitor-map { background: var(--surface2); border: 1px solid var(--border); padding: 40px; position: relative; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; }
+.map-axis-h { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--border); }
+.map-axis-v { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: var(--border); }
+.map-label { position: absolute; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); }
+.map-label.top { top: 16px; left: 50%; transform: translateX(-50%); }
+.map-label.bottom { bottom: 16px; left: 50%; transform: translateX(-50%); }
+.map-label.left2 { left: 16px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+.map-label.right2 { right: 16px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; }
+.map-dot { position: absolute; width: 8px; height: 8px; border-radius: 50%; transform: translate(-50%, -50%); }
+.map-dot-label { position: absolute; font-size: 0.62rem; letter-spacing: 0.05em; color: var(--text-secondary); white-space: nowrap; transform: translate(-50%, 12px); }
+.map-dot.cafein { background: var(--accent); width: 12px; height: 12px; }
+.map-dot.cafein + .map-dot-label { color: var(--accent); font-weight: 500; }
+
+/* ─── PRODUCT STRATEGY ──────────────────────────────────────── */
+#product { background: var(--bg); }
+.menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.menu-item { padding: 48px 40px; background: var(--bg); transition: background 0.4s ease; cursor: none; }
+.menu-item:hover { background: var(--surface); }
+.menu-temp { font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; }
+.menu-name { font-family: var(--serif); font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: 8px; line-height: 1.2; }
+.menu-sub { font-family: var(--serif); font-size: 1rem; font-style: italic; color: var(--accent); margin-bottom: 20px; }
+.menu-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; margin-bottom: 24px; }
+.menu-price { font-family: var(--serif); font-size: 1rem; color: var(--text-secondary); border-top: 1px solid var(--border); padding-top: 16px; }
+.sourcing-section { margin-top: 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.sourcing-visual { background: var(--surface); border: 1px solid var(--border); padding: 64px 48px; text-align: center; }
+.sourcing-icon { font-family: var(--serif); font-size: 6rem; font-weight: 300; color: var(--border); line-height: 1; margin-bottom: 24px; }
+.sourcing-tagline { font-family: var(--serif); font-size: 1.2rem; font-style: italic; color: var(--text-secondary); }
+
+/* ─── MARKETING STRATEGY ────────────────────────────────────── */
+#marketing { background: var(--surface); }
+.marketing-channels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.channel-card { padding: 56px 48px; background: var(--surface); transition: background 0.4s ease; }
+.channel-card:hover { background: var(--surface2); }
+.channel-platform { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.channel-title { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--text); margin-bottom: 20px; line-height: 1.2; }
+.channel-desc { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; margin-bottom: 32px; }
+.channel-tactics { list-style: none; }
+.channel-tactics li { font-size: 0.82rem; font-weight: 300; color: var(--text-secondary); padding: 10px 0; border-top: 1px solid var(--border-light); display: flex; gap: 12px; align-items: flex-start; }
+.channel-tactics li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+.collab-section { margin-top: 80px; }
+.collab-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--text); margin-bottom: 40px; }
+.collab-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+.collab-item { padding: 32px 28px; background: var(--surface); text-align: center; transition: background 0.3s ease; }
+.collab-item:hover { background: var(--surface2); }
+.collab-emoji { font-size: 1.6rem; margin-bottom: 12px; display: block; filter: grayscale(1); transition: filter 0.3s ease; }
+.collab-item:hover .collab-emoji { filter: grayscale(0); }
+.collab-name { font-family: var(--serif); font-size: 1rem; color: var(--text); margin-bottom: 6px; }
+.collab-role { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); }
+
+/* ─── VISUAL BRAND SYSTEM ───────────────────────────────────── */
+#brand-system { background: var(--bg); }
+.brand-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 80px; align-items: start; }
+.logo-showcase {
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 60px; text-align: center;
+  min-height: 220px;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  position: relative; overflow: hidden;
+}
+.logo-showcase::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, var(--glow) 0%, transparent 70%);
+}
+.logo-main {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 300; letter-spacing: 0.35em; color: var(--text);
+  line-height: 1; margin-bottom: 16px; position: relative;
+}
+.logo-tagline { font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-secondary); position: relative; }
+.palette-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; display: block; margin-top: 28px; }
+.palette-row { display: flex; height: 56px; border: 1px solid var(--border); overflow: hidden; margin-bottom: 28px; }
+.swatch { flex: 1; position: relative; cursor: none; transition: flex 0.4s ease; }
+.swatch:hover { flex: 2; }
+.swatch-label { position: absolute; bottom: 6px; left: 6px; font-size: 0.5rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); text-transform: uppercase; }
+
+/* Typography showcase */
+.type-showcase { background: var(--surface); border: 1px solid var(--border); padding: 32px; }
+.type-showcase-title { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; display: block; }
+.type-row { padding: 16px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+.type-meta { width: 100px; font-size: 0.65rem; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; flex-shrink: 0; }
+.type-sample { flex: 1; min-width: 120px; }
+.type-sample.h1 { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 300; color: var(--text); line-height: 1.1; }
+.type-sample.h2 { font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight: 400; font-style: italic; color: var(--text); }
+.type-sample.h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 300; color: var(--text); letter-spacing: 0.02em; }
+.type-sample.body { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; }
+.type-sample.label { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); }
+
+/* Photo direction card */
+.photo-direction { margin-top: 24px; padding: 28px; border: 1px solid var(--border); background: var(--surface); }
+.photo-direction-title { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 16px; display: block; }
+.photo-row { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--border-light); }
+.photo-row:last-child { border-bottom: none; }
+.photo-key { font-family: var(--serif); font-size: 0.85rem; color: var(--accent); width: 70px; flex-shrink: 0; }
+.photo-val { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+/* ─── BUSINESS MODEL ────────────────────────────────────────── */
+#business { background: var(--surface); }
+.revenue-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.revenue-item { padding: 48px 40px; background: var(--surface); transition: background 0.4s ease; }
+.revenue-item:hover { background: var(--surface2); }
+.revenue-pct { font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: var(--text); line-height: 1; margin-bottom: 8px; }
+.revenue-name { font-family: var(--serif); font-size: 1.1rem; color: var(--text); margin-bottom: 12px; }
+.revenue-desc { font-size: 0.82rem; font-weight: 300; color: var(--text-secondary); line-height: 1.8; }
+
+/* ─── MEMBERSHIP REDESIGN ───────────────────────────────────── */
+.membership-section { margin-top: 64px; }
+.membership-header {
+  background: var(--surface2); border: 1px solid var(--border);
+  padding: 48px 56px 40px;
+  border-bottom: none;
+}
+.membership-header-inner { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+.mb-main { flex: 1; min-width: 260px; }
+.mb-title { font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 300; color: var(--text); margin-bottom: 12px; }
+.mb-desc { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; max-width: 400px; }
+.mb-badge {
+  flex-shrink: 0;
+  border: 1px solid var(--border);
+  padding: 16px 24px; text-align: center; background: var(--surface);
+}
+.mb-badge-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 6px; }
+.mb-badge-value { font-family: var(--serif); font-size: 1.6rem; color: var(--accent); }
+
+/* Tier cards */
+.mb-tiers-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border);
+}
+.mb-tier-card {
+  padding: 40px 36px; background: var(--surface2);
+  transition: background 0.4s ease; position: relative; overflow: hidden;
+}
+.mb-tier-card:hover { background: var(--surface); }
+.mb-tier-card.featured {
+  background: var(--surface);
+  border-top: 2px solid var(--accent);
+}
+.mb-tier-card.featured::before {
+  content: 'POPULER';
+  position: absolute; top: 14px; right: 14px;
+  font-size: 0.55rem; letter-spacing: 0.2em; color: var(--accent);
+  border: 1px solid var(--accent); padding: 3px 8px;
+}
+.mb-tier-name { font-family: var(--serif); font-size: 1.3rem; color: var(--text); margin-bottom: 6px; }
+.mb-tier-sub { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 20px; }
+.mb-tier-price { font-family: var(--serif); font-size: 2.2rem; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+.mb-tier-freq { font-size: 0.68rem; color: var(--text-secondary); letter-spacing: 0.1em; margin-bottom: 28px; }
+.mb-tier-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+.mb-tier-benefits { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.mb-tier-benefit {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 0.82rem; font-weight: 300; color: var(--text-secondary); line-height: 1.5;
+}
+.mb-tier-benefit::before { content: '✦'; color: var(--accent); font-size: 0.55rem; flex-shrink: 0; margin-top: 3px; }
+.mb-tier-benefit.dim { opacity: 0.4; }
+.mb-tier-benefit.dim::before { content: '○'; }
+
+/* ─── FINANCIAL PROJECTION ──────────────────────────────────── */
+#financials { background: var(--bg); }
+.fin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 80px; }
+.fin-panel { padding: 48px 40px; background: var(--bg); }
+.fin-panel:nth-child(even) { background: var(--surface); }
+.fin-panel-title { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; }
+.fin-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-light); font-size: 0.85rem; gap: 12px; }
+.fin-row-label { font-weight: 300; color: var(--text-secondary); flex: 1; }
+.fin-row-value { font-family: var(--serif); font-size: 0.95rem; color: var(--text); white-space: nowrap; }
+.fin-total { display: flex; justify-content: space-between; align-items: center; padding: 20px 0 0; margin-top: 8px; font-size: 1rem; }
+.fin-total-label { color: var(--text); font-weight: 400; }
+.fin-total-value { font-family: var(--serif); font-size: 1.6rem; color: var(--accent); }
+
+/* ─── FINANCIAL DROPDOWN ────────────────────────────────────── */
+.fin-row-clickable {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 0; border-bottom: 1px solid var(--border-light);
+  font-size: 0.85rem; gap: 12px; cursor: pointer;
+  transition: all 0.2s ease; user-select: none;
+}
+.fin-row-clickable:hover .fin-row-label { color: var(--accent); }
+.fin-row-clickable .fin-row-label { font-weight: 300; color: var(--text-secondary); flex: 1; transition: color 0.2s; }
+.fin-row-clickable .fin-row-value { font-family: var(--serif); font-size: 0.95rem; color: var(--text); white-space: nowrap; }
+.fin-expand-icon {
+  width: 18px; height: 18px; flex-shrink: 0;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; color: var(--accent);
+  transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  font-style: normal; line-height: 1;
+}
+.fin-row-clickable.open .fin-expand-icon {
+  background: var(--accent); color: var(--bg);
+  border-color: var(--accent); transform: rotate(45deg);
+}
+.fin-dropdown {
+  overflow: hidden;
+  max-height: 0; opacity: 0;
+  transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease;
+}
+.fin-dropdown.open { max-height: 600px; opacity: 1; }
+.fin-dropdown-body {
+  padding: 16px 0 4px;
+  border-bottom: 1px solid var(--border-light);
+}
+.fin-dropdown-head {
+  font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px; display: block;
+}
+.fin-dd-item {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 8px 0; border-bottom: 1px dashed var(--border-light); gap: 16px;
+}
+.fin-dd-item:last-of-type { border-bottom: none; }
+.fin-dd-name { font-size: 0.78rem; color: var(--text-secondary); flex: 1; line-height: 1.6; }
+.fin-dd-amount { font-family: var(--serif); font-size: 0.85rem; color: var(--text); white-space: nowrap; text-align: right; }
+.fin-dd-note {
+  margin-top: 10px; padding: 10px 12px;
+  background: var(--surface2); border-left: 2px solid var(--accent);
+  font-size: 0.75rem; color: var(--text-secondary); line-height: 1.7; font-style: italic;
+}
+
+/* Growth chart */
+.growth-chart { margin-top: 80px; }
+.growth-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--text); margin-bottom: 40px; }
+.chart-container { position: relative; height: 200px; border-bottom: 1px solid var(--border); border-left: 1px solid var(--border); display: flex; align-items: flex-end; gap: 2px; }
+.chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; }
+.chart-bar { width: 100%; background: var(--surface2); position: relative; overflow: hidden; transition: height 1.2s cubic-bezier(0.16,1,0.3,1); height: 0; }
+.chart-bar::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); }
+.chart-label { font-size: 0.62rem; letter-spacing: 0.1em; color: var(--text-secondary); text-transform: uppercase; text-align: center; }
+.chart-value { font-family: var(--serif); font-size: 0.85rem; color: var(--text); margin-bottom: 8px; text-align: center; }
+
+/* ─── ROADMAP ───────────────────────────────────────────────── */
+#roadmap { background: var(--surface); }
+.timeline { margin-top: 80px; position: relative; padding-left: 2px; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.timeline-item { padding: 0 0 64px 48px; position: relative; }
+.timeline-item::before { content: ''; position: absolute; left: -4px; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--surface); border: 1px solid var(--accent); }
+.timeline-phase { font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.timeline-title { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--text); margin-bottom: 16px; }
+.timeline-desc { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.9; max-width: 560px; margin-bottom: 20px; }
+.timeline-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.timeline-tag { font-size: 0.65rem; letter-spacing: 0.1em; padding: 5px 12px; border: 1px solid var(--border); color: var(--text-secondary); text-transform: uppercase; }
+.timeline-duration { position: absolute; right: 0; top: 0; font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--border); }
+
+/* ─── FINAL CTA ─────────────────────────────────────────────── */
+#cta {
+  background: var(--bg); min-height: 80vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 120px 48px;
+  position: relative; overflow: hidden;
+}
+#cta::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(90,70,50,0.12) 0%, transparent 70%); pointer-events: none; }
+.cta-eyebrow { font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--accent); margin-bottom: 40px; }
+.cta-quote { font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 5rem); font-weight: 300; line-height: 1.25; color: var(--text); max-width: 800px; margin-bottom: 56px; }
+.cta-quote em { font-style: italic; color: var(--accent); }
+.cta-sub { font-size: 0.9rem; font-weight: 300; color: var(--text-secondary); margin-bottom: 56px; max-width: 400px; line-height: 1.9; letter-spacing: 0.01em; }
+.cta-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.contact-row { display: flex; gap: 80px; margin-top: 80px; padding-top: 64px; border-top: 1px solid var(--border); flex-wrap: wrap; justify-content: center; }
+.contact-item { text-align: center; }
+.contact-label { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+.contact-value { font-family: var(--serif); font-size: 1.1rem; color: var(--text); }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 40px 48px; display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.footer-logo { font-family: var(--serif); font-size: 1.2rem; letter-spacing: 0.3em; color: var(--text); }
+.footer-copy { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-secondary); }
+
+/* ─── MOBILE MENU ────────────────────────────────────────────── */
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: var(--bg); z-index: 90;
+  padding: 100px 48px 48px;
+  flex-direction: column; gap: 32px;
+  overflow-y: auto;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+  font-family: var(--serif); font-size: 2.4rem; font-weight: 300;
+  color: var(--text); letter-spacing: 0.02em;
+  border-bottom: 1px solid var(--border); padding-bottom: 24px;
+}
+
+/* ─── RESPONSIVE 1024 ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .nav-links { gap: 24px; font-size: 0.68rem; }
+  .story-grid, .positioning-layout, .sourcing-section, .brand-layout, .fin-grid { grid-template-columns: 1fr; }
+  .audience-grid { grid-template-columns: repeat(2, 1fr); }
+  .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  .revenue-grid { grid-template-columns: repeat(2, 1fr); }
+  .collab-grid { grid-template-columns: repeat(2, 1fr); }
+  .marketing-channels { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: repeat(2, 1fr); }
+  .mb-tiers-grid { grid-template-columns: 1fr; }
+  .membership-header-inner { gap: 32px; }
+}
+
+/* ─── RESPONSIVE 768 ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  section { padding: 72px 20px; }
+  .divider { margin: 0 20px; }
+  #hero { padding: 0 20px 60px; }
+  .hero-scroll, .hero-year { display: none; }
+  .hero-ctas { flex-direction: column; }
+  .btn-primary, .btn-ghost { text-align: center; }
+
+  /* Brand system mobile fix */
+  .brand-layout { grid-template-columns: 1fr; gap: 40px; }
+  .logo-showcase { padding: 40px 24px; min-height: 160px; }
+  .logo-main { font-size: clamp(2rem, 10vw, 3rem); letter-spacing: 0.25em; }
+  .logo-tagline { font-size: 0.55rem; letter-spacing: 0.15em; }
+  .palette-row { height: 44px; }
+  .swatch-label { display: none; }
+  .type-showcase { padding: 20px; }
+  .type-row { flex-direction: column; gap: 4px; }
+  .type-meta { width: auto; }
+  .type-sample.h1 { font-size: 1.8rem; }
+  .type-sample.h2 { font-size: 1.3rem; }
+  .photo-direction { padding: 20px; }
+
+  /* Audience */
+  .audience-grid { grid-template-columns: 1fr; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .revenue-grid { grid-template-columns: 1fr; }
+  .market-grid { grid-template-columns: 1fr; }
+  .collab-grid { grid-template-columns: repeat(2, 1fr); }
+  .story-stat-row { grid-template-columns: repeat(3, 1fr); }
+
+  /* Membership */
+  .mb-tiers-grid { grid-template-columns: 1fr; }
+  .membership-header { padding: 32px 24px; }
+  .mb-main { min-width: unset; }
+
+  /* Financial */
+  .fin-grid { grid-template-columns: 1fr; }
+  .fin-panel { padding: 32px 20px; }
+
+  /* Bar chart */
+  .bar-label { width: 120px; font-size: 0.75rem; }
+
+  /* CTA */
+  .contact-row { gap: 40px; }
+  .mobile-menu { padding: 90px 20px 48px; }
+  .mobile-menu a { font-size: 1.8rem; }
+  footer { padding: 28px 20px; text-align: center; justify-content: center; }
+
+  /* Chart responsive */
+  .chart-value { font-size: 0.72rem; }
+}
+
+/* ─── RESPONSIVE 480 ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-title { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+  .section-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+  .story-stat-row { grid-template-columns: 1fr 1fr; }
+  .story-stat:last-child { grid-column: span 2; }
+  .fin-row { flex-wrap: wrap; gap: 4px; }
+  .fin-row-value { font-size: 0.9rem; }
+  .bar-row { gap: 12px; }
+  .bar-label { width: 100px; font-size: 0.72rem; }
+  .bar-value { width: 32px; font-size: 0.9rem; }
+  .channel-card { padding: 36px 20px; }
+  .collab-grid { grid-template-columns: 1fr 1fr; }
+  .market-card { padding: 32px 20px; }
+  .mb-tier-card { padding: 28px 20px; }
+  .fin-row-clickable { flex-wrap: wrap; }
+  .timeline-duration { font-size: 1.4rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="scroll-progress"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────────────── -->
+<nav id="navbar">
+  <div class="nav-logo">CAFEIN</div>
+  <ul class="nav-links">
+    <li><a href="#story">Story</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#product">Product</a></li>
+    <li><a href="#marketing">Marketing</a></li>
+    <li><a href="#financials">Financials</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+  <div class="nav-right">
+    <!-- Bean toggle replaces plain switch -->
+    <button class="bean-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+      <div class="bean-glow"></div>
+      <div class="bean-knob">
+        <!-- Dark mode: moon/bean icon -->
+        <svg id="bean-icon-dark" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="9" cy="9" rx="6.5" ry="8" fill="#c9b89a" opacity="0.9"/>
+          <path d="M9 1.5 Q5 9 9 16.5" stroke="#111110" stroke-width="1.2" fill="none"/>
+        </svg>
+        <!-- Light mode: sun/coffee bean icon (same shape, different fill) -->
+        <svg id="bean-icon-light" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+          <ellipse cx="9" cy="9" rx="6.5" ry="8" fill="#5a4e3c" opacity="0.9"/>
+          <path d="M9 1.5 Q5 9 9 16.5" stroke="#fafaf8" stroke-width="1.2" fill="none"/>
+        </svg>
+      </div>
+    </button>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#story" onclick="closeMobile()">Story</a>
+  <a href="#market" onclick="closeMobile()">Market</a>
+  <a href="#product" onclick="closeMobile()">Product</a>
+  <a href="#marketing" onclick="closeMobile()">Marketing</a>
+  <a href="#financials" onclick="closeMobile()">Financials</a>
+  <a href="#roadmap" onclick="closeMobile()">Roadmap</a>
+  <a href="#cta" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ─── HERO ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow reveal">Coffee Shop Concept Proposal · 2030</div>
+  <h1 class="hero-title reveal reveal-delay-1">
+    Coffee for people<br>who <em>think deeply.</em>
+  </h1>
+  <p class="hero-sub reveal reveal-delay-2">
+    CAFEIN — tempat dimana kopi, suasana, dan pikiran bertemu dalam tenangnya malam.
+  </p>
+  <div class="hero-ctas reveal reveal-delay-3">
+    <a href="#story" class="btn-primary">Explore Brand Vision</a>
+    <a href="#marketing" class="btn-ghost">View Marketing Strategy</a>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+  <div class="hero-year">Est. 2030</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── BRAND STORY ───────────────────────────────────────────── -->
+<section id="story">
+  <div class="section-label reveal" data-number="01">Brand Story</div>
+  <div class="story-grid">
+    <div class="story-left">
+      <blockquote class="story-quote reveal">
+        "keresahan akan ramai dan bisingnya dunia membuat banyak orang kehilangan ruang untuk benar-benar berhenti, berpikir, dan menikmati waktu sejenak.
+Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati yang sudah mati."
+      </blockquote>
+      <div class="story-stat-row reveal reveal-delay-1">
+        <div class="story-stat"><div class="story-stat-num">∞</div><div class="story-stat-label">Ideas brewed</div></div>
+        <div class="story-stat"><div class="story-stat-num">1 AM</div><div class="story-stat-label">Peak clarity</div></div>
+        <div class="story-stat"><div class="story-stat-num">01</div><div class="story-stat-label">Origin vision</div></div>
+      </div>
+    </div>
+    <div class="story-right">
+      <p class="story-para reveal">Di tengah dunia yang terus bergerak, banyak orang hidup seperti mesin yang tidak pernah benar-benar berhenti. Hari dipenuhi suara notifikasi, tuntutan, tekanan, dan perlombaan yang seolah tidak ada garis akhirnya. Keramaian perlahan membuat manusia kehilangan sesuatu yang sederhana: ruang untuk berhenti. Ruang untuk bernapas. Ruang untuk mendengar isi kepalanya sendiri.</p>
+      <p class="story-para reveal reveal-delay-1">Dari keresahan itu, lahirlah CAFEIN. Bukan sekadar coffee shop, tetapi ruang kecil bagi mereka yang lelah dengan bisingnya dunia. Tempat di mana waktu berjalan lebih pelan, aroma kopi yang perlahan memberikan kenyamanan, dan satu tegukan yang mampu menghadirkan kembali rasa hidup yang sempat redup.</p>
+      <p class="story-para reveal reveal-delay-2">Kami percaya, kopi bukan hanya minuman. Ia adalah jeda. Ia adalah percakapan. Ia adalah teman bagi orang-orang yang sedang berusaha untuk bertahan.</p>
+      <p class="story-para reveal reveal-delay-3">Karena terkadang, yang dibutuhkan seseorang bukan pelarian. Cukup segelas kopi, suasana yang tenang, dan sedikit alasan untuk kembali merasa hidup.<br><br><em>Cafein. One Sip. One Pause. One More Reason to Feel Alive.</em></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── MARKET ANALYSIS ───────────────────────────────────────── -->
+<section id="market">
+  <div class="section-label reveal" data-number="02">Market Analysis</div>
+  <h2 class="section-title reveal reveal-delay-1">The specialty coffee<br><em>landscape</em> is shifting.</h2>
+  <p class="section-body reveal reveal-delay-2">Perubahan gaya hidup melahirkan generasi baru penikmat kopi yang tidak lagi mencari sekadar minuman, tetapi pengalaman, suasana, dan identitas dalam setiap kunjungan.</p>
+  <div class="market-grid">
+    <div class="market-card reveal">
+      <div class="market-card-num">01</div>
+      <div class="market-card-title">Third-Wave Coffee Growth</div>
+      <div class="market-card-body">Pasar kopi spesialti global diproyeksikan mencapai $83,5B pada tahun 2025 dengan pertumbuhan tahunan sebesar 11,2%. Konsumen mulai beralih dari kopi komoditas biasa menuju pengalaman kopi berkualitas yang memiliki asal-usul jelas dan nilai lebih.</div>
+      <div class="market-highlight">$83.5B market by 2025</div>
+    </div>
+    <div class="market-card reveal reveal-delay-1">
+      <div class="market-card-num">02</div>
+      <div class="market-card-title">Gen Z Creative Consumer</div>
+      <div class="market-card-body">Gen Z menghabiskan 2,4× lebih banyak untuk pengalaman dibanding generasi sebelumnya. Mereka tertarik pada brand yang memiliki identitas dan filosofi yang jelas, bukan sekadar produk, tetapi cara pandang dan gaya hidup yang bisa mereka rasakan dan bagikan.</div>
+      <div class="market-highlight">2.4× experiential spending</div>
+    </div>
+    <div class="market-card reveal reveal-delay-2">
+      <div class="market-card-num">03</div>
+      <div class="market-card-title">Remote Work Culture</div>
+      <div class="market-card-body">Sebanyak 68% pekerja berbasis pengetahuan kini bekerja dari luar kantor setidaknya 3 hari dalam seminggu. Ruang café premium yang mendukung fokus dan produktivitas mendalam mengalami peningkatan permintaan dan loyalitas pelanggan yang belum pernah terjadi sebelumnya.</div>
+      <div class="market-highlight">68% remote/hybrid workers</div>
+    </div>
+    <div class="market-card reveal reveal-delay-1">
+      <div class="market-card-num">04</div>
+      <div class="market-card-title">Aesthetic-Driven Discovery</div>
+      <div class="market-card-body">Lebih dari 74% kunjungan baru ke café dari kelompok usia 18–30 tahun dipengaruhi oleh penemuan melalui platform sosial visual. Identitas brand yang kuat dan konsisten secara visual kini menjadi saluran pemasaran utama.</div>
+      <div class="market-highlight">74% visual discovery</div>
+    </div>
+    <div class="market-card reveal reveal-delay-2">
+      <div class="market-card-num">05</div>
+      <div class="market-card-title">Premiumisation</div>
+      <div class="market-card-body">Segmen kopi premium tumbuh 4 kali lebih cepat dibanding pasar kopi massal. Konsumen kini mulai melihat kopi bukan sekadar kebutuhan, tetapi bagian dari gaya hidup dan kemewahan harian yang memiliki makna lebih.</div>
+      <div class="market-highlight">4× premium growth rate</div>
+    </div>
+    <div class="market-card reveal reveal-delay-3">
+      <div class="market-card-num">06</div>
+      <div class="market-card-title">Community &amp; Belonging</div>
+      <div class="market-card-body">Pasca pandemi, 61% konsumen mulai mencari "ruang ketiga" fisik, yaitu tempat yang bukan rumah maupun tempat kerja. Café dengan identitas yang kuat kini hadir mengisi kebutuhan tersebut dan membangun loyalitas pelanggan yang tinggi.</div>
+      <div class="market-highlight">61% seek third places</div>
+    </div>
+  </div>
+  <div class="market-bar-section">
+    <div class="market-bar-title reveal">Consumer preference trends</div>
+    <div class="bar-row reveal"><div class="bar-label">Specialty quality</div><div class="bar-track"><div class="bar-fill" style="--w:87%"></div></div><div class="bar-value">87%</div></div>
+    <div class="bar-row reveal reveal-delay-1"><div class="bar-label">Aesthetic environment</div><div class="bar-track"><div class="bar-fill" style="--w:79%"></div></div><div class="bar-value">79%</div></div>
+    <div class="bar-row reveal reveal-delay-2"><div class="bar-label">Brand identity</div><div class="bar-track"><div class="bar-fill" style="--w:71%"></div></div><div class="bar-value">71%</div></div>
+    <div class="bar-row reveal reveal-delay-3"><div class="bar-label">Ethical sourcing</div><div class="bar-track"><div class="bar-fill" style="--w:65%"></div></div><div class="bar-value">65%</div></div>
+    <div class="bar-row reveal reveal-delay-4"><div class="bar-label">Exclusive coffees</div><div class="bar-track"><div class="bar-fill" style="--w:58%"></div></div><div class="bar-value">58%</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── AUDIENCE ──────────────────────────────────────────────── -->
+<section id="audience">
+  <div class="section-label reveal" data-number="03">Target Audience</div>
+  <h2 class="section-title reveal reveal-delay-1">Those who arrive early<br>and leave <em>late.</em></h2>
+  <div class="audience-grid">
+    <div class="persona-card reveal"><div class="persona-icon">✦</div><div class="persona-type">Persona 01</div><div class="persona-name">The Night Creator</div><div class="persona-desc">Penulis, desainer, dan musisi yang menemukan ide terbaik mereka di malam hari. Mereka membutuhkan ruang yang selaras dengan ritme berpikir mereka, tenang, tidak terburu-buru, dan memiliki suasana estetis yang mendalam.</div><div class="persona-tags"><span class="persona-tag">Age 22–32</span><span class="persona-tag">Creative industry</span><span class="persona-tag">Night owl</span></div></div>
+    <div class="persona-card reveal reveal-delay-1"><div class="persona-icon">◎</div><div class="persona-type">Persona 02</div><div class="persona-name">The Deep Worker</div><div class="persona-desc">Freelancer, pekerja remote, dan pekerja kreatif yang membutuhkan suasana nyaman untuk menjaga fokus dalam waktu lama. Mereka cenderung loyal pada tempat yang mampu menghargai dan mendukung konsentrasi mereka.</div><div class="persona-tags"><span class="persona-tag">Age 26–40</span><span class="persona-tag">Remote work</span><span class="persona-tag">High income</span></div></div>
+    <div class="persona-card reveal reveal-delay-2"><div class="persona-icon">◇</div><div class="persona-type">Persona 03</div><div class="persona-name">The Curious Student</div><div class="persona-desc">Mahasiswa yang menekuni bidang desain, arsitektur, filsafat, film, atau sastra. Mereka sedang membangun selera dan identitas diri, serta tertarik pada brand yang mencerminkan pribadi yang ingin mereka menjadi.</div><div class="persona-tags"><span class="persona-tag">Age 18–24</span><span class="persona-tag">University</span><span class="persona-tag">Aesthetic-led</span></div></div>
+    <div class="persona-card reveal reveal-delay-3"><div class="persona-icon">△</div><div class="persona-type">Persona 04</div><div class="persona-name">The Coffee Purist</div><div class="persona-desc">Penikmat specialty coffee yang memahami asal biji kopi dan menikmati diskusi tentang teknik brewing dengan penuh antusias. Mereka menghargai kualitas dan proses, serta menjadi pendukung awal yang paling berharga bagi sebuah brand.</div><div class="persona-tags"><span class="persona-tag">Age 28–45</span><span class="persona-tag">Coffee-led</span><span class="persona-tag">Advocate</span></div></div>
+    <div class="persona-card reveal"><div class="persona-icon">○</div><div class="persona-type">Persona 05</div><div class="persona-name">The Quiet Romantic</div><div class="persona-desc">Orang-orang yang menemukan makna dalam kesendirian seperti membaca, menulis jurnal, dan mengamati sekitar. Mereka memandang ritual minum kopi sebagai pengalaman yang intim dan mencari ruang yang terasa seperti adegan dalam film kehidupan mereka sendiri.</div><div class="persona-tags"><span class="persona-tag">Age 20–35</span><span class="persona-tag">Introvert</span><span class="persona-tag">Ritualistic</span></div></div>
+    <div class="persona-card reveal reveal-delay-1"><div class="persona-icon">⬡</div><div class="persona-type">Persona 06</div><div class="persona-name">The Cultural Tastemaker</div><div class="persona-desc">Influencer, editor, dan individu yang menjadi penghubung dalam komunitasnya melalui pengalaman yang mereka kurasi. Satu unggahan yang autentik dari mereka mampu menjangkau ribuan orang dengan selera dan pemikiran serupa.</div><div class="persona-tags"><span class="persona-tag">Age 24–36</span><span class="persona-tag">Social influence</span><span class="persona-tag">Multiplier</span></div></div>
+    <div class="persona-card reveal reveal-delay-2"><div class="persona-icon">▽</div><div class="persona-type">Persona 07</div><div class="persona-name">The Intentional Pair</div><div class="persona-desc">Dua orang yang ingin benar-benar berbicara, bukan sekadar duduk sambil sibuk dengan layar masing-masing. Suasana CAFEIN hadir sebagai ruang untuk percakapan yang bermakna, hingga akhirnya mereka menjadi orang-orang yang paling tulus menceritakan pengalaman tentang brand ini.</div><div class="persona-tags"><span class="persona-tag">Age 22–40</span><span class="persona-tag">Conversational</span><span class="persona-tag">Loyal visitor</span></div></div>
+    <div class="persona-card reveal reveal-delay-3"><div class="persona-icon">◉</div><div class="persona-type">Persona 08</div><div class="persona-name">The Premium Seeker</div><div class="persona-desc">Para profesional yang memiliki selera tinggi dan menghargai segala sesuatu yang dibuat dengan kualitas serta perhatian terhadap detail. Mereka tidak keberatan membayar lebih selama pengalaman yang diberikan benar-benar sepadan, karena mereka memperhatikan setiap hal kecil.</div><div class="persona-tags"><span class="persona-tag">Age 30–50</span><span class="persona-tag">Premium segment</span><span class="persona-tag">Detail-aware</span></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── BRAND POSITIONING ──────────────────────────────────────── -->
+<section id="positioning">
+  <div class="section-label reveal" data-number="04">Brand Positioning</div>
+  <h2 class="section-title reveal reveal-delay-1">Where <em>precision</em><br>meets atmosphere.</h2>
+  <div class="positioning-layout">
+    <div class="value-props">
+      <div class="value-prop reveal"><div class="vp-num">i.</div><div class="vp-content"><div class="vp-title">Coffee as a thinking tool</div><div class="vp-desc">CAFEIN positions coffee not as fuel but as ritual — a practice that frames and elevates thought. Our coffee is selected, prepared, and served as a deliberate act, not a transaction.</div></div></div>
+      <div class="value-prop reveal reveal-delay-1"><div class="vp-num">ii.</div><div class="vp-content"><div class="vp-title">Atmosphere as product</div><div class="vp-desc">Ruang di CAFEIN dirancang seistimewa kopinya. Tata suara, pencahayaan, kenyamanan furnitur, hingga aroma ruangan dipikirkan secara detail. Karena yang ditawarkan bukan hanya minuman, tetapi pengalaman dan suasana yang mampu mengubah cara seseorang menikmati waktu.</div></div></div>
+      <div class="value-prop reveal reveal-delay-2"><div class="vp-num">iii.</div><div class="vp-content"><div class="vp-title">Minimal, memorable identity</div><div class="vp-desc">CAFEIN memilih satu identitas dan menjaganya dengan konsisten. Tanpa gimmick musiman atau tren sesaat, melainkan karakter brand yang kuat dan bertahan lama, tetap relevan dari tahun pertama hingga tahun-tahun berikutnya.</div></div></div>
+      <div class="value-prop reveal reveal-delay-3"><div class="vp-num">iv.</div><div class="vp-content"><div class="vp-title">Community without noise</div><div class="vp-desc">CAFEIN membangun komunitas seperti toko buku independen terbaik, dengan terus menarik orang-orang yang memiliki selera, cara berpikir, dan suasana yang sama, hingga akhirnya tercipta komunitas secara alami tanpa perlu dipaksakan.</div></div></div>
+    </div>
+    <div>
+      <div class="competitor-map reveal reveal-delay-2">
+        <div class="map-axis-h"></div>
+        <div class="map-axis-v"></div>
+        <span class="map-label top">Premium</span>
+        <span class="map-label bottom">Commodity</span>
+        <span class="map-label left2">Functional</span>
+        <span class="map-label right2">Experiential</span>
+        <div class="map-dot cafein" style="left:75%;top:20%;"></div>
+        <div class="map-dot-label" style="left:75%;top:20%;color:var(--accent);font-size:0.7rem;font-weight:500;transform:translate(-50%,14px);">CAFEIN</div>
+        <div class="map-dot" style="left:55%;top:55%;background:var(--text-secondary);"></div>
+        <div class="map-dot-label" style="left:55%;top:55%;transform:translate(-50%,14px);">Starbucks</div>
+        <div class="map-dot" style="left:35%;top:42%;background:var(--text-secondary);"></div>
+        <div class="map-dot-label" style="left:35%;top:42%;transform:translate(-50%,14px);">Local Chains</div>
+        <div class="map-dot" style="left:65%;top:32%;background:var(--text-secondary);"></div>
+        <div class="map-dot-label" style="left:65%;top:32%;transform:translate(-50%,14px);">Specialty Shops</div>
+        <div class="map-dot" style="left:25%;top:75%;background:var(--text-secondary);"></div>
+        <div class="map-dot-label" style="left:25%;top:75%;transform:translate(-50%,14px);">Street Coffee</div>
+      </div>
+      <p style="font-size:0.72rem;color:var(--text-secondary);margin-top:16px;letter-spacing:0.05em;text-align:center;">Brand perception map — Premium × Experiential positioning</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── PRODUCT STRATEGY ──────────────────────────────────────── -->
+<section id="product">
+  <div class="section-label reveal" data-number="05">Product Strategy</div>
+  <h2 class="section-title reveal reveal-delay-1">A menu as <em>considered</em><br>as a curated playlist.</h2>
+  <div class="menu-grid">
+    <div class="menu-item reveal"><div class="menu-temp">— Hot / Signature</div><div class="menu-name">Noir</div><div class="menu-sub">Single origin espresso</div><div class="menu-desc">Espresso murni dengan karakter rasa yang jernih dan berkelas. Menggunakan biji single origin pilihan dari berbagai micro-lot terbaik, disajikan tepat pada momen ekstraksi paling sempurna. Tanpa susu. Tanpa tambahan berlebihan. Hanya kopi dalam bentuk terbaiknya.</div><div class="menu-price">From Rp 38.000</div></div>
+    <div class="menu-item reveal reveal-delay-1"><div class="menu-temp">— Hot / Signature</div><div class="menu-name">Solitude</div><div class="menu-sub">Hand-drip filter</div><div class="menu-desc">Manual brew yang menghargai kesabaran. Diseduh langsung saat dipesan, dengan proses selama dua belas menit untuk mengeluarkan setiap karakter rasa secara perlahan dan sempurna.</div><div class="menu-price">From Rp 52.000</div></div>
+    <div class="menu-item reveal reveal-delay-2"><div class="menu-temp">— Cold / Signature</div><div class="menu-name">Dusk</div><div class="menu-sub">Cold-brew clarity</div><div class="menu-desc">Proses ekstraksi selama delapan belas jam pada suhu rendah menghasilkan kopi dengan rasa yang lembut, dalam, dan berbeda dari biasanya. Gelap namun tetap ringan dinikmati.</div><div class="menu-price">From Rp 48.000</div></div>
+    <div class="menu-item reveal"><div class="menu-temp">— Milk / Signature</div><div class="menu-name">Lumen</div><div class="menu-sub">Oat milk cortado</div><div class="menu-desc">Perpaduan seimbang antara espresso dan oat milk, seperti harmoni antara percakapan dan keheningan. Oat milk dipanaskan pada suhu yang tepat untuk menjaga karakter dan kompleksitas rasa kopi.</div><div class="menu-price">From Rp 44.000</div></div>
+    <div class="menu-item reveal reveal-delay-1"><div class="menu-temp">— Seasonal</div><div class="menu-name">Umbra</div><div class="menu-sub">Hojicha espresso tonic</div><div class="menu-desc">Espresso tonic yang dipadukan ulang dengan hojicha panggang khas Jepang dan disajikan di atas es potong handmade. Perpaduan antara rasa pahit dan segar yang unik dalam setiap tegukan.</div><div class="menu-price">From Rp 56.000</div></div>
+    <div class="menu-item reveal reveal-delay-2"><div class="menu-temp">— Non-caffeine</div><div class="menu-name">Murmur</div><div class="menu-sub">Warm cacao ceremonial</div><div class="menu-desc">Untuk mereka yang datang mencari suasana, bukan sekadar stimulasi. Menggunakan ceremonial cacao pilihan dari Flores yang disiapkan dengan perhatian yang sama seperti espresso terbaik kami.</div><div class="menu-price">From Rp 46.000</div></div>
+  </div>
+  <div class="sourcing-section">
+    <div class="sourcing-text">
+      <h3 class="section-title reveal" style="font-size:2.2rem;">Our sourcing<br><em>philosophy.</em></h3>
+      <p class="section-body reveal reveal-delay-1" style="max-width:100%;">CAFEIN bekerja langsung dengan koperasi petani di Aceh, Flores, Toraja, Jawa Barat, hingga perkebunan pilihan yang menghasilkan varietas premium seperti Geisha, Typica, dan Bourbon. Kami juga berkolaborasi dengan Selaawi Coffee sebagai representasi kopi lokal Tasikmalaya.</p>
+      <p class="section-body reveal reveal-delay-2" style="max-width:100%;margin-top:20px;">Kami membayar di atas standar Fair Trade dan mengunjungi setiap kebun secara rutin untuk memastikan kualitas, keberlanjutan, dan hubungan yang lebih manusiawi dengan para petani.</p>
+    </div>
+    <div class="sourcing-visual reveal reveal-delay-2">
+      <div class="sourcing-icon">☽</div>
+      <div class="sourcing-tagline">"From altitude to atmosphere."</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── MARKETING STRATEGY ────────────────────────────────────── -->
+<section id="marketing">
+  <div class="section-label reveal" data-number="06">Marketing Strategy</div>
+  <h2 class="section-title reveal reveal-delay-1">The brand that<br>whispers <em>loudest.</em></h2>
+  <p class="section-body reveal reveal-delay-2">CAFEIN percaya bahwa hal-hal yang paling berkesan tidak selalu datang dengan suara paling keras. Lewat suasana yang tenang, detail yang hangat, dan pengalaman yang intim, CAFEIN hadir secara perlahan namun tinggal lebih lama di ingatan.</p>
+  <div class="marketing-channels">
+    <div class="channel-card reveal"><div class="channel-platform">Platform 01 · Instagram</div><div class="channel-title">Visual<br>Stillness</div><div class="channel-desc">Instagram is the brand's portfolio — a curated visual essay that exists between editorial magazine and coffee journal. Each post is a frame, not an advertisement.</div><ul class="channel-tactics"><li>Monochromatic editorial photography with intentional negative space</li><li>Behind-the-brew documentary content — process over product</li><li>Atmospheric Reels: the sound of brewing, steam, ceramic, silence</li><li>Monthly "Reading List" story series — books that pair with our menu</li><li>Minimal typography graphics: one sentence, one idea per week</li></ul></div>
+    <div class="channel-card reveal reveal-delay-1"><div class="channel-platform">Platform 02 · TikTok</div><div class="channel-title">Cinematic<br>Intimacy</div><div class="channel-desc">TikTok is where the brand's personality breathes. Not trends, not dances — slow, cinematic 60-second films about the experience of being at CAFEIN, narrated by atmosphere.</div><ul class="channel-tactics"><li>"It's 1 AM at CAFEIN" series — ASMR café ambience with voiceover</li><li>Coffee origin travel documentaries: 30-second field trips to our farms</li><li>Barista POV: the meditative act of a perfect pour-over from first person</li><li>Philosophical captions that invite comments, not just likes</li><li>Duet invitations: "What are you working on?" community prompts</li></ul></div>
+    <div class="channel-card reveal reveal-delay-2"><div class="channel-platform">Strategy 03 · Creators</div><div class="channel-title">Earned<br>Authority</div><div class="channel-desc">CAFEIN does not pay for reach. It creates conditions for authentic advocacy. We invite creators whose aesthetic sensibility aligns with ours and give them full creative latitude.</div><ul class="channel-tactics"><li>Residency program: designers &amp; writers spend a month working from CAFEIN</li><li>Limited "Designed Here" capsule — merchandise co-created with featured artists</li><li>No scripted content — creators document honestly, or not at all</li><li>Micro-influencer focus (10k–100k): depth over breadth</li><li>Academic community seeding: one complimentary membership per university design faculty</li></ul></div>
+    <div class="channel-card reveal reveal-delay-3"><div class="channel-platform">Strategy 04 · Community</div><div class="channel-title">A Place<br>Worth Naming</div><div class="channel-desc">The deepest marketing CAFEIN can achieve is creating a space so distinctive that regulars describe it to people who have never been. Earned word-of-mouth is the only media that compounds.</div><ul class="channel-tactics"><li>Monthly "Late Edit" evenings: talks, screenings, readings after closing hours</li><li>CAFEIN Press: a quarterly printed journal distributed in-store, free</li><li>Open Wi-Fi with a daily essay — connecting to the internet connects you to an idea</li><li>Members' wall: a corkboard of work by regulars, updated monthly</li><li>Partnership with independent bookshops for cross-community activation</li></ul></div>
+  </div>
+  <div class="collab-section">
+    <div class="collab-title reveal">Creator collaboration archetypes</div>
+    <div class="collab-grid">
+      <div class="collab-item reveal"><span class="collab-emoji">✏️</span><div class="collab-name">The Writer</div><div class="collab-role">Long-form journalist, novelist, essayist</div></div>
+      <div class="collab-item reveal reveal-delay-1"><span class="collab-emoji">📷</span><div class="collab-name">The Photographer</div><div class="collab-role">Editorial, documentary, still life</div></div>
+      <div class="collab-item reveal reveal-delay-2"><span class="collab-emoji">🎵</span><div class="collab-name">The Composer</div><div class="collab-role">Ambient, neo-classical, generative</div></div>
+      <div class="collab-item reveal reveal-delay-3"><span class="collab-emoji">🎨</span><div class="collab-name">The Visual Artist</div><div class="collab-role">Illustrator, typographer, designer</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── VISUAL BRAND SYSTEM ───────────────────────────────────── -->
+<section id="brand-system">
+  <div class="section-label reveal" data-number="07">Visual Brand System</div>
+  <h2 class="section-title reveal reveal-delay-1">A mark designed<br>to <em>endure.</em></h2>
+
+  <div class="brand-layout">
+    <!-- Left column -->
+    <div>
+      <div class="logo-showcase reveal">
+        <div class="logo-main">CAFEIN</div>
+        <div class="logo-tagline">Coffee for people who think deeply.</div>
+      </div>
+      <span class="palette-label reveal">Colour palette</span>
+      <div class="palette-row reveal reveal-delay-1">
+        <div class="swatch" style="background:#111110;"><span class="swatch-label">#111110</span></div>
+        <div class="swatch" style="background:#1c1c1a;"><span class="swatch-label">#1c1c1a</span></div>
+        <div class="swatch" style="background:#3a342a;"><span class="swatch-label">#3a342a</span></div>
+        <div class="swatch" style="background:#8a7d6a;"><span class="swatch-label">#8a7d6a</span></div>
+        <div class="swatch" style="background:#c9b89a;"><span class="swatch-label">#c9b89a</span></div>
+        <div class="swatch" style="background:#e8e6e0;"><span class="swatch-label">#e8e6e0</span></div>
+      </div>
+      <p class="reveal" style="font-size:0.85rem;font-weight:300;color:var(--text-secondary);line-height:1.9;">
+        The CAFEIN colour system is derived from the actual palette of exceptional coffee — from the deep near-black of a lungo to the warm ivory of steamed milk. No chromatic artifice. Only truth.
+      </p>
+    </div>
+    <!-- Right column -->
+    <div>
+      <div class="type-showcase reveal">
+        <span class="type-showcase-title">Typography system</span>
+        <div class="type-row"><div class="type-meta">Display</div><div class="type-sample h1">Cormorant</div></div>
+        <div class="type-row"><div class="type-meta">Accent</div><div class="type-sample h2">Italic Serif</div></div>
+        <div class="type-row"><div class="type-meta">Sub-heading</div><div class="type-sample h3">Brand Identity</div></div>
+        <div class="type-row"><div class="type-meta">Body</div><div class="type-sample body">Coffee for people who think deeply. A modern ritual space for creatives.</div></div>
+        <div class="type-row"><div class="type-meta">Label</div><div class="type-sample label">Single Origin · Specialty Grade</div></div>
+      </div>
+      <div class="photo-direction reveal reveal-delay-1">
+        <span class="photo-direction-title">Photography direction</span>
+        <div class="photo-row"><span class="photo-key">Light</span><span class="photo-val">Warm tungsten, window light, dawn and dusk</span></div>
+        <div class="photo-row"><span class="photo-key">Texture</span><span class="photo-val">Ceramic, linen, aged paper, polished concrete</span></div>
+        <div class="photo-row"><span class="photo-key">Mood</span><span class="photo-val">Introspective, cinematic, slightly underexposed</span></div>
+        <div class="photo-row"><span class="photo-key">Avoid</span><span class="photo-val">Bright overhead flash, saturated filters, smiling poses</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── BUSINESS MODEL ────────────────────────────────────────── -->
+<section id="business">
+  <div class="section-label reveal" data-number="08">Business Model</div>
+  <h2 class="section-title reveal reveal-delay-1">Revenue built on<br><em>meaning,</em> not volume.</h2>
+  <div class="revenue-grid">
+    <div class="revenue-item reveal"><div class="revenue-pct">42%</div><div class="revenue-name">In-store Beverages</div><div class="revenue-desc">The primary revenue stream. Premium pricing justified by exceptional product, atmosphere, and service ritual. Average ticket size 2.8× market average.</div></div>
+    <div class="revenue-item reveal reveal-delay-1"><div class="revenue-pct">18%</div><div class="revenue-name">Retail Beans</div><div class="revenue-desc">Single-origin bags and seasonal blends available in-store and through a direct subscription. The beans enter people's homes and become part of a daily private ritual.</div></div>
+    <div class="revenue-item reveal reveal-delay-2"><div class="revenue-pct">15%</div><div class="revenue-name">Membership Program</div><div class="revenue-desc">Monthly and annual memberships offering early access, extended-hours reservations, and priority seating. Predictable recurring revenue with high retention.</div></div>
+    <div class="revenue-item reveal reveal-delay-1"><div class="revenue-pct">12%</div><div class="revenue-name">Merchandise</div><div class="revenue-desc">Purposely minimal: one ceramic, one notebook, one tote — designed to be objects worth owning. Each piece is a portable brand advertisement carried by someone who cares.</div></div>
+    <div class="revenue-item reveal reveal-delay-2"><div class="revenue-pct">8%</div><div class="revenue-name">Events &amp; Space Hire</div><div class="revenue-desc">After-hours bookings for intimate creative events, brand dinners, editorial shoots, and private gatherings. Each event curated to maintain brand integrity.</div></div>
+    <div class="revenue-item reveal reveal-delay-3"><div class="revenue-pct">5%</div><div class="revenue-name">Digital Products</div><div class="revenue-desc">A downloadable ambient soundscape series, a quarterly digital zine, and a coffee brewing guide — digital extensions of the CAFEIN world for those who cannot yet visit.</div></div>
+  </div>
+
+  <!-- ─── MEMBERSHIP TIERS WITH BENEFITS ─── -->
+  <div class="membership-section reveal reveal-delay-1">
+    <div class="membership-header">
+      <div class="membership-header-inner">
+        <div class="mb-main">
+          <div class="mb-title">The CAFEIN Membership</div>
+          <div class="mb-desc">A membership for people who don't want to explain why they like this place. They just want to be here — regularly, without ceremony, with a seat that feels theirs.</div>
+        </div>
+        <div class="mb-badge">
+          <div class="mb-badge-label">Active members</div>
+          <div class="mb-badge-value">Target: 80+</div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-tiers-grid">
+      <!-- Dawn -->
+      <div class="mb-tier-card">
+        <div class="mb-tier-name">Dawn</div>
+        <div class="mb-tier-sub">Tier Pemula</div>
+        <div class="mb-tier-price">Rp 180k</div>
+        <div class="mb-tier-freq">/ bulan</div>
+        <div class="mb-tier-divider"></div>
+        <ul class="mb-tier-benefits">
+          <li class="mb-tier-benefit">1 minuman gratis per minggu (pilihan tertentu)</li>
+          <li class="mb-tier-benefit">Diskon 10% untuk semua menu</li>
+          <li class="mb-tier-benefit">Akses ke reading list bulanan CAFEIN</li>
+          <li class="mb-tier-benefit">Member card eksklusif edisi pertama</li>
+          <li class="mb-tier-benefit dim">Priority seating (tidak termasuk)</li>
+          <li class="mb-tier-benefit dim">Akses Late Edit Events (tidak termasuk)</li>
+        </ul>
+      </div>
+      <!-- Dusk (featured) -->
+      <div class="mb-tier-card featured">
+        <div class="mb-tier-name">Dusk</div>
+        <div class="mb-tier-sub">Tier Utama</div>
+        <div class="mb-tier-price">Rp 320k</div>
+        <div class="mb-tier-freq">/ bulan</div>
+        <div class="mb-tier-divider"></div>
+        <ul class="mb-tier-benefits">
+          <li class="mb-tier-benefit">2 minuman gratis per minggu (pilihan bebas)</li>
+          <li class="mb-tier-benefit">Diskon 15% untuk semua menu &amp; merchandise</li>
+          <li class="mb-tier-benefit">Priority seating — kursi favorit tersedia untukmu</li>
+          <li class="mb-tier-benefit">Akses penuh ke Late Edit Evening setiap bulan</li>
+          <li class="mb-tier-benefit">Satu edisi CAFEIN Press kuartalan</li>
+          <li class="mb-tier-benefit">Nama di Members' Wall selama aktif berlangganan</li>
+        </ul>
+      </div>
+      <!-- Noir -->
+      <div class="mb-tier-card">
+        <div class="mb-tier-name">Noir</div>
+        <div class="mb-tier-sub">Tier Tahunan</div>
+        <div class="mb-tier-price">Rp 1.6jt</div>
+        <div class="mb-tier-freq">/ tahun · hemat 2 bulan</div>
+        <div class="mb-tier-divider"></div>
+        <ul class="mb-tier-benefits">
+          <li class="mb-tier-benefit">Semua benefit Dusk sepanjang tahun</li>
+          <li class="mb-tier-benefit">Undangan eksklusif Soft Opening &amp; preview menu</li>
+          <li class="mb-tier-benefit">Satu set merchandise Noir edisi terbatas (nilai Rp 150k)</li>
+          <li class="mb-tier-benefit">Sesi brewing private 1 kali bersama head barista</li>
+          <li class="mb-tier-benefit">Akses khusus "After Midnight Hours" — buka lebih malam</li>
+          <li class="mb-tier-benefit">Profil member di CAFEIN Press edisi tahunan</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── FINANCIAL PROJECTIONS ─────────────────────────────────── -->
+<section id="financials">
+  <div class="section-label reveal" data-number="09">Financial Projection</div>
+  <h2 class="section-title reveal reveal-delay-1">Built to sustain,<br>designed to <em>grow.</em></h2>
+
+  <div class="fin-grid">
+    <!-- PANEL 1: Initial Investment with dropdowns -->
+    <div class="fin-panel reveal">
+      <div class="fin-panel-title">Initial Investment</div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd1',this)">
+        <span class="fin-row-label">Location &amp; lease deposit</span>
+        <span class="fin-row-value">Rp 180.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd1">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Lokasi &amp; Deposit Sewa</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Deposit sewa 3 bulan pertama (jaminan ke pemilik, dikembalikan)</span><span class="fin-dd-amount">Rp 90.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Biaya notaris, survei, &amp; administrasi perjanjian sewa</span><span class="fin-dd-amount">Rp 15.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Sewa bulan 1–2 (masa pra-operasional)</span><span class="fin-dd-amount">Rp 56.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Izin lokasi, HO, pengurusan NIB &amp; perizinan usaha</span><span class="fin-dd-amount">Rp 19.000.000</span></div>
+          <div class="fin-dd-note">Asumsi luas 80–120 m², area semi-komersial dekat jalan raya. Harga sewa bervariasi sesuai negosiasi.</div>
+        </div>
+      </div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd2',this)">
+        <span class="fin-row-label">Interior design &amp; construction</span>
+        <span class="fin-row-value">Rp 250.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd2">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Desain Interior &amp; Konstruksi</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Jasa arsitek/desainer interior (konsep, gambar kerja, pengawasan)</span><span class="fin-dd-amount">Rp 35.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Pekerjaan sipil: dinding, lantai beton poles, plafon industrial exposed</span><span class="fin-dd-amount">Rp 70.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Instalasi listrik, sistem pencahayaan warm tungsten, titik lampu sorot</span><span class="fin-dd-amount">Rp 35.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Furnitur: meja, kursi, bangku bar, sofa custom minimal-industrial</span><span class="fin-dd-amount">Rp 55.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Meja bar kopi, counter kasir, rak display custom kayu &amp; besi</span><span class="fin-dd-amount">Rp 30.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Sistem akustik (panel peredam), instalasi AC &amp; ventilasi</span><span class="fin-dd-amount">Rp 25.000.000</span></div>
+          <div class="fin-dd-note">Material utama: beton, kayu natural, besi matte, kaca — estetika Jepang-Skandinavia-industrial.</div>
+        </div>
+      </div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd3',this)">
+        <span class="fin-row-label">Espresso equipment (La Marzocco)</span>
+        <span class="fin-row-value">Rp 140.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd3">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Peralatan Espresso</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Mesin espresso La Marzocco Linea Mini 2-group — investasi utama kualitas ekstraksi</span><span class="fin-dd-amount">Rp 100.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Grinder espresso Mahlkönig E65S / Eureka Mignon Specialita (2 unit)</span><span class="fin-dd-amount">Rp 25.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Aksesori: tamper, distributor, knock box, tray, pitcher (set lengkap)</span><span class="fin-dd-amount">Rp 8.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Instalasi plumbing khusus mesin + filter air RO &amp; softener</span><span class="fin-dd-amount">Rp 7.000.000</span></div>
+          <div class="fin-dd-note">La Marzocco = simbol kualitas specialty coffee. Bisa dipertimbangkan unit second bergaransi untuk efisiensi biaya awal.</div>
+        </div>
+      </div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd4',this)">
+        <span class="fin-row-label">Brewing equipment &amp; tools</span>
+        <span class="fin-row-value">Rp 45.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd4">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Peralatan Seduhan &amp; Perkakas</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Set pour-over: Hario V60, Chemex, Kalita Wave (masing-masing 2 unit)</span><span class="fin-dd-amount">Rp 8.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Grinder manual: Comandante C40 / Fellow Ode Brew (2 unit)</span><span class="fin-dd-amount">Rp 10.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Cold brew system: toddler maker, botol kaca, kulkas display 2 pintu</span><span class="fin-dd-amount">Rp 12.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Timbangan presisi Acaia Pearl, thermometer, timer, kettle leher angsa</span><span class="fin-dd-amount">Rp 8.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Peralatan dapur: blender, perangkat es batu, kulkas bahan, rak penyimpanan</span><span class="fin-dd-amount">Rp 7.000.000</span></div>
+          <div class="fin-dd-note">Semua alat dipilih berdasarkan standar specialty coffee dan estetika yang selaras dengan identitas CAFEIN.</div>
+        </div>
+      </div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd5',this)">
+        <span class="fin-row-label">Brand identity &amp; digital</span>
+        <span class="fin-row-value">Rp 35.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd5">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Identitas Brand &amp; Digital</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Jasa desain logo, sistem identitas visual, brand guidelines lengkap</span><span class="fin-dd-amount">Rp 10.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Desain &amp; cetak packaging: cup sleeve, paper bag, stiker, kartu nama</span><span class="fin-dd-amount">Rp 8.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Website, landing page, domain &amp; hosting 1 tahun</span><span class="fin-dd-amount">Rp 7.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Setup media sosial, template konten, preset foto &amp; video sinematik</span><span class="fin-dd-amount">Rp 5.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Produksi konten pre-launch: sesi foto brand + video profil 60 detik</span><span class="fin-dd-amount">Rp 5.000.000</span></div>
+          <div class="fin-dd-note">Investasi identitas brand kuat di awal mengurangi biaya rebranding dan mempercepat pembentukan persepsi premium.</div>
+        </div>
+      </div>
+
+      <div class="fin-row-clickable" onclick="toggleFinDD('dd6',this)">
+        <span class="fin-row-label">Opening inventory</span>
+        <span class="fin-row-value">Rp 20.000.000</span>
+        <span class="fin-expand-icon">+</span>
+      </div>
+      <div class="fin-dropdown" id="dd6">
+        <div class="fin-dropdown-body">
+          <span class="fin-dropdown-head">Rincian · Inventaris Pembukaan</span>
+          <div class="fin-dd-item"><span class="fin-dd-name">Stok biji kopi awal: 3–5 varietas single origin (50kg) dari mitra roastery</span><span class="fin-dd-amount">Rp 7.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Keramik servis: cangkir espresso, filter, gelas, teko (set 40 meja)</span><span class="fin-dd-amount">Rp 6.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Bahan minuman: susu oat, kakao Flores, sirup premium, hojicha</span><span class="fin-dd-amount">Rp 4.000.000</span></div>
+          <div class="fin-dd-item"><span class="fin-dd-name">Perlengkapan operasional: kain lap, wadah, formulir order, sistem POS</span><span class="fin-dd-amount">Rp 3.000.000</span></div>
+          <div class="fin-dd-note">Stok awal untuk 2–3 minggu pertama. Pemesanan rutin mingguan setelah operasional berjalan.</div>
+        </div>
+      </div>
+
+      <div class="fin-total">
+        <span class="fin-total-label">Total Investment</span>
+        <span class="fin-total-value">Rp 670jt</span>
+      </div>
+    </div>
+
+    <!-- PANEL 2 -->
+    <div class="fin-panel reveal reveal-delay-1">
+      <div class="fin-panel-title">Monthly Operating Costs</div>
+      <div class="fin-row"><span class="fin-row-label">Rent &amp; utilities</span><span class="fin-row-value">Rp 28.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Staff (4 baristas + manager)</span><span class="fin-row-value">Rp 32.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Coffee &amp; consumables</span><span class="fin-row-value">Rp 18.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Marketing &amp; content</span><span class="fin-row-value">Rp 8.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Maintenance &amp; misc</span><span class="fin-row-value">Rp 6.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Packaging &amp; merchandise</span><span class="fin-row-value">Rp 5.000.000</span></div>
+      <div class="fin-total"><span class="fin-total-label">Total Monthly</span><span class="fin-total-value">Rp 97jt</span></div>
+    </div>
+
+    <!-- PANEL 3 -->
+    <div class="fin-panel reveal reveal-delay-2">
+      <div class="fin-panel-title">Monthly Revenue Projection (Year 1)</div>
+      <div class="fin-row"><span class="fin-row-label">In-store beverages (60 cups/day)</span><span class="fin-row-value">Rp 81.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Retail beans &amp; subscriptions</span><span class="fin-row-value">Rp 22.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Memberships (target: 80 members)</span><span class="fin-row-value">Rp 18.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Merchandise &amp; events</span><span class="fin-row-value">Rp 12.000.000</span></div>
+      <div class="fin-row"><span class="fin-row-label">Digital products</span><span class="fin-row-value">Rp 4.000.000</span></div>
+      <div class="fin-total"><span class="fin-total-label">Total Revenue</span><span class="fin-total-value">Rp 137jt</span></div>
+    </div>
+
+    <!-- PANEL 4 -->
+    <div class="fin-panel reveal reveal-delay-3">
+      <div class="fin-panel-title">Key Metrics</div>
+      <div class="fin-row"><span class="fin-row-label">Gross margin target</span><span class="fin-row-value">68%</span></div>
+      <div class="fin-row"><span class="fin-row-label">Monthly net profit (Y1)</span><span class="fin-row-value">Rp 40jt</span></div>
+      <div class="fin-row"><span class="fin-row-label">Break-even timeline</span><span class="fin-row-value">16–20 months</span></div>
+      <div class="fin-row"><span class="fin-row-label">Target daily customers (Y1)</span><span class="fin-row-value">60–80</span></div>
+      <div class="fin-row"><span class="fin-row-label">Target daily customers (Y3)</span><span class="fin-row-value">120–160</span></div>
+      <div class="fin-row"><span class="fin-row-label">Revenue growth Y2–Y3</span><span class="fin-row-value">+35–45%</span></div>
+    </div>
+  </div>
+
+  <div class="growth-chart">
+    <div class="growth-title reveal">Projected monthly revenue growth</div>
+    <div class="chart-container reveal reveal-delay-1" id="growthChart">
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 72jt</div><div class="chart-bar" data-h="40"></div><div class="chart-label">M1</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 85jt</div><div class="chart-bar" data-h="55"></div><div class="chart-label">M3</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 97jt</div><div class="chart-bar" data-h="70"></div><div class="chart-label">M6</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 115jt</div><div class="chart-bar" data-h="90"></div><div class="chart-label">M9</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 137jt</div><div class="chart-bar" data-h="110"></div><div class="chart-label">M12</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 165jt</div><div class="chart-bar" data-h="135"></div><div class="chart-label">Y2</div></div>
+      <div class="chart-bar-wrap"><div class="chart-value">Rp 198jt</div><div class="chart-bar" data-h="165"></div><div class="chart-label">Y3</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── ROADMAP ───────────────────────────────────────────────── -->
+<section id="roadmap">
+  <div class="section-label reveal" data-number="10">Development Roadmap</div>
+  <h2 class="section-title reveal reveal-delay-1">Every icon starts as<br>a <em>single room.</em></h2>
+  <div class="timeline">
+    <div class="timeline-item reveal"><div class="timeline-phase">Phase 01 · Months 1–4</div><div class="timeline-title">Foundation</div><div class="timeline-desc">Penyempurnaan identitas brand. Pencarian lokasi dan negosiasi tempat. Pengembangan konsep interior. Pengadaan peralatan. Perekrutan dan pelatihan tim awal. Membangun kehadiran digital secara perlahan melalui 90 hari konten sebelum pintu pertama kali dibuka.</div><div class="timeline-tags"><span class="timeline-tag">Brand identity</span><span class="timeline-tag">Location</span><span class="timeline-tag">Recruitment</span><span class="timeline-tag">Pre-launch content</span></div><div class="timeline-duration">01</div></div>
+    <div class="timeline-item reveal reveal-delay-1"><div class="timeline-phase">Phase 02 · Months 5–6</div><div class="timeline-title">Soft Opening</div><div class="timeline-desc">Pembukaan secara tertutup untuk 200 tamu undangan — para kreator, tokoh industri kopi, serta calon penggerak komunitas. Tanpa siaran pers, tanpa pengumuman. Hanya melalui komunikasi dari mulut ke mulut.</div><div class="timeline-tags"><span class="timeline-tag">Soft opening</span><span class="timeline-tag">Community seed</span><span class="timeline-tag">Operations refinement</span></div><div class="timeline-duration">02</div></div>
+    <div class="timeline-item reveal reveal-delay-2"><div class="timeline-phase">Phase 03 · Months 7–12</div><div class="timeline-title">Content &amp; Community</div><div class="timeline-desc">Pembukaan penuh untuk umum. Mesin konten berjalan dengan kecepatan penuh. Peluncuran program keanggotaan. Seri acara 'Late Edit' yang pertama. Program residensi kreator dimulai. Target: 500+ pelanggan tetap bulanan, 100+ anggota aktif.</div><div class="timeline-tags"><span class="timeline-tag">Full opening</span><span class="timeline-tag">Membership launch</span><span class="timeline-tag">Events series</span><span class="timeline-tag">Content scale</span></div><div class="timeline-duration">03</div></div>
+    <div class="timeline-item reveal reveal-delay-3"><div class="timeline-phase">Phase 04 · Year 2</div><div class="timeline-title">Brand Deepening</div><div class="timeline-desc">Peluncuran jurnal triwulanan CAFEIN Press. Rilis koleksi merchandise. Ekspansi layanan langganan biji kopi. Pengintaian lokasi kedua dimulai. Eksplorasi potensi kemitraan kolaborasi dengan hotel atau ruang kerja.</div><div class="timeline-tags"><span class="timeline-tag">CAFEIN Press</span><span class="timeline-tag">Merchandise</span><span class="timeline-tag">Subscriptions</span><span class="timeline-tag">Partnerships</span></div><div class="timeline-duration">04</div></div>
+    <div class="timeline-item reveal reveal-delay-4"><div class="timeline-phase">Phase 05 · Year 3–5</div><div class="timeline-title">Considered Expansion</div><div class="timeline-desc">Lokasi kedua di kota yang berbeda secara budaya. Eksplorasi lisensi merek. Perdagangan grosir internasional. Model CAFEIN sebagai pengalaman yang dapat direplikasi — bukan waralaba, melainkan sekelompok tempat yang terasa saling terhubung dan seperti satu keluarga.</div><div class="timeline-tags"><span class="timeline-tag">Second location</span><span class="timeline-tag">Wholesale</span><span class="timeline-tag">Brand licensing</span><span class="timeline-tag">International</span></div><div class="timeline-duration">05</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── FINAL CTA ─────────────────────────────────────────────── -->
+<section id="cta">
+  <div class="cta-eyebrow reveal">A closing thought</div>
+  <blockquote class="cta-quote reveal reveal-delay-1">
+    "Some people come for the coffee.<br>Some come for the <em>atmosphere.</em><br>The right people come for both."
+  </blockquote>
+  <p class="cta-sub reveal reveal-delay-2">
+    CAFEIN is looking for partners, investors, and collaborators who understand that the most enduring brands are built from genuine conviction — not market research.
+  </p>
+  <div class="cta-buttons reveal reveal-delay-3">
+    <a href="mailto:perdiansyah@cafein.id" class="btn-primary">Start a Conversation</a>
+    <a href="#story" class="btn-ghost">Read from the beginning</a>
+  </div>
+  <div class="contact-row reveal reveal-delay-4">
+    <div class="contact-item"><div class="contact-label">General Inquiry</div><div class="contact-value">perdiansyah@cafein.id</div></div>
+    <div class="contact-item"><div class="contact-label">Investment</div><div class="contact-value">perdiansyah@cafein.id</div></div>
+    <div class="contact-item"><div class="contact-label">Collaboration</div><div class="contact-value">perdiansyah@cafein.id</div></div>
+    <div class="contact-item"><div class="contact-label">Press</div><div class="contact-value">perdiansyah@cafein.id</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">CAFEIN</div>
+  <div class="footer-copy">© 2030 CAFEIN — Brand Marketing Proposal</div>
+</footer>
+
+<script>
+// ─── THEME ────────────────────────────────────────────────────
+const html = document.documentElement;
+const stored = localStorage.getItem('cafein-theme');
+if (stored) html.setAttribute('data-theme', stored);
+
+function syncBeanIcons() {
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  const d = document.getElementById('bean-icon-dark');
+  const l = document.getElementById('bean-icon-light');
+  if (d) d.style.display = isDark ? 'block' : 'none';
+  if (l) l.style.display = isDark ? 'none' : 'block';
+}
+syncBeanIcons();
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('cafein-theme', next);
+  syncBeanIcons();
+});
+
+// ─── CURSOR (desktop) ─────────────────────────────────────────
+if (!window.matchMedia('(pointer:coarse)').matches) {
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => {
+    mx=e.clientX; my=e.clientY;
+    cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+  });
+  (function anim(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px'; ring.style.top=ry+'px';
+    requestAnimationFrame(anim);
+  })();
+  document.querySelectorAll('a,button,.bean-toggle,.hamburger,.menu-item,.market-card,.persona-card,.channel-card,.swatch,.fin-row-clickable').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+}
+
+// ─── SCROLL PROGRESS ──────────────────────────────────────────
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-window.innerHeight;
+  if(max>0) document.getElementById('scroll-progress').style.width=(window.scrollY/max*100)+'%';
+},{passive:true});
+
+// ─── REVEAL ───────────────────────────────────────────────────
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      e.target.querySelectorAll&&e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('animate'));
+    }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+const barObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.querySelectorAll('.bar-fill').forEach(b=>b.classList.add('animate')); });
+},{threshold:0.2});
+document.querySelectorAll('.bar-row').forEach(el=>barObs.observe(el));
+
+// ─── CHART ────────────────────────────────────────────────────
+const chartObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.chart-bar').forEach((bar,i)=>{
+        const h=parseInt(bar.getAttribute('data-h'));
+        setTimeout(()=>{bar.style.height=h+'px';},i*80);
+      });
+    }
+  });
+},{threshold:0.2});
+const chartEl=document.getElementById('growthChart');
+if(chartEl) chartObs.observe(chartEl);
+
+// ─── HERO REVEAL ──────────────────────────────────────────────
+setTimeout(()=>document.querySelectorAll('#hero .reveal').forEach(el=>el.classList.add('visible')),100);
+
+// ─── MOBILE MENU ──────────────────────────────────────────────
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+let menuOpen=false;
+hamburger.addEventListener('click',()=>{
+  menuOpen=!menuOpen;
+  mobileMenu.classList.toggle('open',menuOpen);
+  const s=hamburger.querySelectorAll('span');
+  if(menuOpen){s[0].style.transform='rotate(45deg) translate(4px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(4px,-5px)';}
+  else{s[0].style.transform='';s[1].style.opacity='';s[2].style.transform='';}
+});
+function closeMobile(){
+  menuOpen=false; mobileMenu.classList.remove('open');
+  const s=hamburger.querySelectorAll('span');
+  s[0].style.transform='';s[1].style.opacity='';s[2].style.transform='';
+}
+window.closeMobile=closeMobile;
+
+// ─── FINANCIAL DROPDOWN ───────────────────────────────────────
+function toggleFinDD(id, trigger) {
+  const dd = document.getElementById(id);
+  const isOpen = dd.classList.contains('open');
+  // close all
+  document.querySelectorAll('.fin-dropdown').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.fin-row-clickable').forEach(r=>r.classList.remove('open'));
+  // open this one if it was closed
+  if (!isOpen) {
+    dd.classList.add('open');
+    trigger.classList.add('open');
+    // scroll into view on mobile
+    if (window.innerWidth < 768) {
+      setTimeout(()=>trigger.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+    }
+  }
+}
+window.toggleFinDD = toggleFinDD;
+
+// ─── PARALLAX ─────────────────────────────────────────────────
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      const sy=window.scrollY;
+      const g=document.querySelector('.hero-grid');
+      const b=document.querySelector('.hero-bg');
+      if(g) g.style.transform=`translateY(${sy*0.15}px)`;
+      if(b) b.style.transform=`translateY(${sy*0.08}px)`;
+      ticking=false;
+    });
+    ticking=true;
+  }
+},{passive:true});
+
+// ─── DECODE EFFECT ────────────────────────────────────────────
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·—';
+function decodeText(el,orig,dur=800){
+  let start=null; const len=orig.length;
+  function step(ts){
+    if(!start) start=ts;
+    const prog=Math.min((ts-start)/dur,1);
+    const rev=Math.floor(prog*len);
+    let res='';
+    for(let i=0;i<len;i++){
+      if(orig[i]===' '||orig[i]==='\n'){res+=orig[i];continue;}
+      res+=i<rev?orig[i]:chars[Math.floor(Math.random()*chars.length)];
+    }
+    el.textContent=res;
+    if(prog<1) requestAnimationFrame(step);
+    else el.textContent=orig;
+  }
+  requestAnimationFrame(step);
+}
+const titleObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const orig=el.getAttribute('data-original')||el.textContent;
+      el.setAttribute('data-original',orig);
+      decodeText(el,orig);
+      titleObs.unobserve(el);
+    }
+  });
+},{threshold:0.5});
+document.querySelectorAll('.section-label').forEach(el=>titleObs.observe(el));
+</script>
+</body>
+</html>
