@@ -220,8 +220,31 @@ nav.scrolled {
 #hero {
   min-height: 100vh;
   display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 0 56px 88px;
+  justify-content: center; padding: 120px 56px 88px;
   position: relative; overflow: hidden;
+}
+
+/* Decorative giant background wordmark */
+#hero::after {
+  content: 'CAFEIN';
+  position: absolute;
+  bottom: -0.15em;
+  left: -0.02em;
+  font-family: var(--serif);
+  font-size: clamp(12rem, 22vw, 26rem);
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(201,184,154,0.06);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+}
+
+/* Keep all hero content above decorative elements */
+.hero-eyebrow, .hero-title, .hero-sub, .hero-ctas {
+  position: relative; z-index: 2;
 }
 
 /* Animated steam particles */
@@ -312,6 +335,7 @@ nav.scrolled {
   color: var(--text-secondary); writing-mode: vertical-rl;
   display: flex; align-items: center; gap: 16px;
   animation: scrollPulse 3s ease-in-out infinite;
+  z-index: 2;
 }
 .hero-scroll::after { content: ''; width: 1px; height: 56px; background: var(--border); display: block; }
 @keyframes scrollPulse { 0%,100% { opacity: 0.5; } 50% { opacity: 1; } }
@@ -319,6 +343,7 @@ nav.scrolled {
   position: absolute; right: 192px; bottom: 88px;
   font-family: var(--serif); font-size: 0.8rem;
   color: var(--text-secondary); letter-spacing: 0.06em;
+  z-index: 2;
 }
 
 /* ─── SECTION BASE ──────────────────────────────────────────── */
@@ -625,51 +650,140 @@ body.dark .showcase-hint { color: #444; }
     outline: none;
 }
 
-/* Responsive untuk team gallery */
+/* ─── Team showcase responsive ─── */
 @media (max-width: 1024px) {
   .team-card { width: 260px; }
   .showcase-container { height: 460px; }
+  .showcase-wrapper { max-width: 100%; }
 }
 
+/* ── MOBILE: 1 baris horizontal, fit tanpa scroll ── */
 @media (max-width: 768px) {
-  .team-gallery { gap: 24px; }
-  .team-card { width: 240px; }
-  .team-info .name { font-size: 1.2rem; }
+
+  .showcase-wrapper {
+    max-width: 100%;
+    overflow: visible;
+  }
+
   .showcase-container {
-    height: auto;
-    grid-template-columns: 1fr !important;
-    gap: 12px;
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    grid-template-rows: none !important;
+    grid-template-areas: none !important;
+    height: 340px !important;
+    min-width: unset !important;
+    width: 100% !important;
+    gap: 5px;
+    transition: grid-template-columns 400ms cubic-bezier(0.4, 0, 0.2, 1) !important;
+    margin-top: 48px; /* beri ruang untuk offset zigzag ke atas */
   }
-  .showcase-box {
-    height: 240px;
-    transform: none !important;
-    --offset: 0px;
+
+  /* Reset grid-area agar tidak bocor dari media query lain */
+  .showcase-box-1,
+  .showcase-box-2,
+  .showcase-box-3,
+  .showcase-box-4,
+  .showcase-box-5 {
+    grid-area: unset !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+    height: 100% !important;
   }
+
+  /* Pertahankan zigzag offset seperti desktop */
+  .showcase-box:nth-child(odd)  { --offset: -20px; }
+  .showcase-box:nth-child(even) { --offset: 20px; }
+  .showcase-box { transform: translateY(var(--offset)); }
+
+  /* Matikan column-expansion saat tap (tetap equal) */
+  .showcase-container:has(.showcase-box-1:hover),
+  .showcase-container:has(.showcase-box-1:focus),
+  .showcase-container:has(.showcase-box-2:hover),
+  .showcase-container:has(.showcase-box-2:focus),
+  .showcase-container:has(.showcase-box-3:hover),
+  .showcase-container:has(.showcase-box-3:focus),
+  .showcase-container:has(.showcase-box-4:hover),
+  .showcase-container:has(.showcase-box-4:focus),
+  .showcase-container:has(.showcase-box-5:hover),
+  .showcase-container:has(.showcase-box-5:focus) {
+    grid-template-columns: repeat(5, 1fr) !important;
+  }
+
+  /* Matikan dim-siblings effect di mobile */
   .showcase-container:hover .showcase-box {
-    filter: none;
+    filter: none !important;
   }
+
+  /* Info panel — hidden by default, muncul saat .active (via JS klik) */
   .char-info-panel {
+    transform: translateY(12px) !important;
+    opacity: 0 !important;
+    transition: transform 380ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 380ms ease !important;
+    padding: 6px 7px 8px !important;
+  }
+
+  /* State aktif saat diklik — ditambahkan class .tapped via JS */
+  .showcase-box.tapped .char-info-panel {
     transform: translateY(0) !important;
     opacity: 1 !important;
   }
-  .char-info-desc { display: block !important; }
+  .showcase-box.tapped .char-accent-bar {
+    opacity: 1 !important;
+  }
+  .showcase-box.tapped .char-initial {
+    opacity: 0.15 !important;
+    transform: translateY(0) !important;
+  }
+
+  /* Teks compact agar muat di kartu sempit */
+  .char-info-name {
+    font-size: 0.5rem !important;
+    letter-spacing: 1px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    line-height: 1.25 !important;
+    margin-bottom: 2px;
+  }
+  .char-info-role {
+    font-size: 0.46rem !important;
+    letter-spacing: 0.5px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    margin-bottom: 0;
+  }
+  .char-info-desc {
+    display: none !important;
+  }
+
+  /* Huruf dekoratif lebih kecil */
+  .char-initial {
+    font-size: 3rem !important;
+  }
+
+  .showcase-hint { font-size: 0.58rem; margin-top: 10px; }
 }
 
-@media (max-width: 768px) {
-  .team-gallery { gap: 24px; }
-  .team-card { width: 240px; }
-  .team-info .name { font-size: 1.2rem; }
-}
-
-@media (max-width: 640px) {
-  .team-card { width: 220px; }
-}
-
-@media (max-width: 520px) {
-  .team-card { width: calc(50% - 20px); min-width: 160px; }
-  .team-info .name { font-size: 1rem; }
-  .team-info .role { font-size: 0.6rem; }
-  .team-info .bio { font-size: 0.72rem; }
+@media (max-width: 480px) {
+  .showcase-container {
+    height: 260px !important;
+    gap: 4px;
+    margin-top: 36px;
+  }
+  .showcase-box:nth-child(odd)  { --offset: -14px; }
+  .showcase-box:nth-child(even) { --offset: 14px; }
+  .char-info-name {
+    font-size: 0.44rem !important;
+    letter-spacing: 0.8px !important;
+  }
+  .char-info-role {
+    font-size: 0.4rem !important;
+  }
+  .char-initial {
+    font-size: 2.2rem !important;
+  }
 }
 
 /* Responsive */
@@ -1145,7 +1259,8 @@ footer {
   nav { padding: 0 32px; }
   section { padding: 96px 32px; }
   .divider, .divider-accent { margin: 0 32px; }
-  #hero { padding: 0 32px 72px; }
+  #hero { padding: 100px 32px 72px; }
+  #hero::after { font-size: clamp(9rem, 18vw, 14rem); }
   .hero-scroll, .hero-year { right: 32px; }
   .story-grid, .positioning-layout, .sourcing-section, .brand-layout, .fin-grid { grid-template-columns: 1fr; }
   .audience-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1167,7 +1282,8 @@ footer {
   .hamburger { display: flex; }
   section { padding: 72px 20px; }
   .divider, .divider-accent { margin: 0 20px; }
-  #hero { padding: 0 20px 64px; }
+  #hero { padding: 88px 20px 64px; }
+  #hero::after { display: none; }
   .hero-scroll, .hero-year { display: none; }
   .hero-ctas { flex-direction: column; }
   .btn-primary, .btn-ghost { text-align: center; }

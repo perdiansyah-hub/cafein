@@ -424,6 +424,45 @@
     };
 
     // ======================================================
+    // 12. SHOWCASE MOBILE TAP (Info panel muncul saat diklik)
+    // ======================================================
+    const showcaseMobileTap = {
+        init() {
+            // Hanya aktif di touch device
+            const isTouch = window.matchMedia('(pointer: coarse)').matches;
+            if (!isTouch) return;
+
+            const boxes = document.querySelectorAll('.showcase-box');
+            if (!boxes.length) return;
+
+            boxes.forEach(box => {
+                box.addEventListener('click', (e) => {
+                    const isAlreadyTapped = box.classList.contains('tapped');
+
+                    // Tutup semua yang sedang terbuka
+                    boxes.forEach(b => b.classList.remove('tapped'));
+
+                    // Jika belum tapped, buka yang ini
+                    if (!isAlreadyTapped) {
+                        box.classList.add('tapped');
+                    }
+
+                    e.stopPropagation();
+                });
+            });
+
+            // Klik di luar showcase menutup semua
+            document.addEventListener('click', () => {
+                boxes.forEach(b => b.classList.remove('tapped'));
+            });
+
+            // Ganti hint text jadi "tap to explore"
+            const hint = document.getElementById('showcaseHint');
+            if (hint) hint.textContent = 'tap to explore the team';
+        }
+    };
+
+    // ======================================================
     // 12. INITIALIZE ALL MODULES
     // ======================================================
     function init() {
@@ -438,6 +477,7 @@
         parallax.init();
         decodeEffect.init();
         teamCards.init();
+        showcaseMobileTap.init();
         
         console.log('CAFEIN — Initialized');
     }
