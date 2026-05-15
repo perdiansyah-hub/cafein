@@ -428,37 +428,110 @@
     // ======================================================
     const showcaseMobileTap = {
         init() {
-            // Hanya aktif di touch device
+            // Only active on touch devices
             const isTouch = window.matchMedia('(pointer: coarse)').matches;
             if (!isTouch) return;
 
-            const boxes = document.querySelectorAll('.showcase-box');
+            const boxes        = document.querySelectorAll('.showcase-box');
+            const indicators   = document.querySelectorAll('.showcase-indicator');
+            const hint         = document.getElementById('showcaseHint');
+            const indicatorWrap = document.getElementById('showcaseIndicators');
+
             if (!boxes.length) return;
 
-            boxes.forEach(box => {
+            // ── Hint text state ──
+            // Use localStorage to permanently hide hint after user has interacted twice
+            const HINT_KEY = 'cafein-team-hint-seen';
+            const hintSeen = localStorage.getItem(HINT_KEY);
+            let interactionCount = 0;
+
+            if (hint) {
+                if (hintSeen) {
+                    // User has seen the tutorial — hide hint permanently
+                    hint.classList.add('hidden');
+                } else {
+                    hint.textContent = 'tap to explore';
+                }
+            }
+
+            // ── Helper: sync indicator dots ──
+            const syncIndicators = (activeIndex) => {
+                indicators.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === activeIndex);
+                });
+            };
+
+            // ── Helper: close all cards ──
+            const closeAll = () => {
+                boxes.forEach(b => b.classList.remove('tapped'));
+                syncIndicators(-1);
+            };
+
+            // ── Tap logic ──
+            boxes.forEach((box, index) => {
                 box.addEventListener('click', (e) => {
                     const isAlreadyTapped = box.classList.contains('tapped');
 
-                    // Tutup semua yang sedang terbuka
-                    boxes.forEach(b => b.classList.remove('tapped'));
+                    // Close all first
+                    closeAll();
 
-                    // Jika belum tapped, buka yang ini
                     if (!isAlreadyTapped) {
+                        // Open this card
                         box.classList.add('tapped');
+                        syncIndicators(index);
+
+                        // ── Hint text progression ──
+                        if (!hintSeen && hint) {
+                            interactionCount++;
+
+                            if (interactionCount === 1) {
+                                // First tap: change to "tap to close" hint
+                                hint.textContent = 'tap again to close';
+                            } else if (interactionCount >= 2) {
+                                // Second interaction: user understands — fade and remember
+                                hint.classList.add('fade-out');
+                                setTimeout(() => hint.classList.add('hidden'), 500);
+                                localStorage.setItem(HINT_KEY, '1');
+                            }
+                        }
+                    } else {
+                        // Card was already open — closing it
+                        // On close, revert hint text if not yet permanently hidden
+                        if (!hintSeen && hint && !hint.classList.contains('hidden')) {
+                            hint.textContent = 'tap to explore';
+                        }
                     }
 
                     e.stopPropagation();
                 });
             });
 
-            // Klik di luar showcase menutup semua
-            document.addEventListener('click', () => {
-                boxes.forEach(b => b.classList.remove('tapped'));
+            // ── Indicator tap — acts as shortcut to open a card ──
+            indicators.forEach((dot, index) => {
+                dot.addEventListener('click', (e) => {
+                    const targetBox = boxes[index];
+                    if (!targetBox) return;
+
+                    const isAlreadyTapped = targetBox.classList.contains('tapped');
+                    closeAll();
+
+                    if (!isAlreadyTapped) {
+                        targetBox.classList.add('tapped');
+                        syncIndicators(index);
+                    }
+
+                    e.stopPropagation();
+                });
             });
 
-            // Ganti hint text jadi "tap to explore"
-            const hint = document.getElementById('showcaseHint');
-            if (hint) hint.textContent = 'tap to explore the team';
+            // ── Tap outside showcase: close all ──
+            document.addEventListener('click', () => {
+                closeAll();
+                // Restore hint if not permanently hidden
+                if (!hintSeen && hint && !hint.classList.contains('hidden')) {
+                    hint.textContent = 'tap to explore';
+                }
+            });
         }
     };
 
