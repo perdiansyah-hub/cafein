@@ -6,8 +6,8 @@
 <title>CAFEIN — Coffee for people who think deeply.</title>
 
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230e0e0c'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='38' font-weight='300' letter-spacing='-2' fill='%23c9b89a'>C</text></svg>">
-<link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%230e0e0c'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-size='38' font-weight='300' letter-spacing='-2' fill='%23c9b89a'>C</text></svg>">
+<link rel="icon" type="image/png" href="images/pavicon.png">
+<link rel="shortcut icon" type="image/png" href="images/pavicon.png">
 
 <!-- Open Graph / Social Sharing -->
 <meta property="og:type" content="website">
@@ -29,10 +29,15 @@
 
 <!-- ─── PRELOADER ──────────────────────────────────────────────── -->
 <div id="preloader">
-  <div class="preloader-logo">CAFEIN</div>
-  <div class="preloader-line"><div class="preloader-fill" id="preloaderFill"></div></div>
-  <div class="preloader-count" id="preloaderCount">0</div>
-  <div class="preloader-tagline">Coffee for people who think deeply.</div>
+  <div class="preloader-wrap">
+    <img id="preloader-logo-dark" src="images/light.png" alt="CAFEIN" class="preloader-custom-img">
+    
+    <img id="preloader-logo-light" src="images/dark.png" alt="CAFEIN" class="preloader-custom-img" style="display:none">
+    
+    <div class="preloader-line"><div class="preloader-fill" id="preloaderFill"></div></div>
+    <div class="preloader-count" id="preloaderCount">0</div>
+    <div class="preloader-tagline">Coffee for people who think deeply.</div>
+  </div>
 </div>
 
 <div id="cursor"></div>
@@ -40,18 +45,22 @@
 <div id="scroll-progress"></div>
 
 <!-- ─── SCROLL TO TOP ─────────────────────────────────────────── -->
-<button id="scroll-top" aria-label="Scroll to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+<button id="scroll-top" aria-label="Scroll to top">
   <svg viewBox="0 0 14 14"><polyline points="2,9 7,4 12,9"/></svg>
 </button>
 
 <!-- ─── NAV ──────────────────────────────────────────────────── -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo">CAFEIN</a>
+  <a href="#hero" class="nav-logo">
+    <img id="nav-logo-dark" src="images/logolight.png" alt="CAFEIN Logo" class="nav-custom-img">
+    
+    <img id="nav-logo-light" src="images/logodark.png" alt="CAFEIN Logo" class="nav-custom-img" style="display:none">
+  </a>
   <ul class="nav-links">
+    <li><a href="#team">Team</a></li>
     <li><a href="#story">Story</a></li>
     <li><a href="#market">Market</a></li>
     <li><a href="#product">Product</a></li>
-    <li><a href="#team">Team</a></li>
     <li><a href="#marketing">Marketing</a></li>
     <li><a href="#financials">Financials</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -60,14 +69,9 @@
     <button class="bean-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
       <div class="bean-glow"></div>
       <div class="bean-knob">
-        <svg id="bean-icon-dark" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="9" cy="9" rx="6.5" ry="8" fill="#c9b89a" opacity="0.9"/>
-          <path d="M9 1.5 Q5 9 9 16.5" stroke="#111110" stroke-width="1.2" fill="none"/>
-        </svg>
-        <svg id="bean-icon-light" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
-          <ellipse cx="9" cy="9" rx="6.5" ry="8" fill="#5a4e3c" opacity="0.9"/>
-          <path d="M9 1.5 Q5 9 9 16.5" stroke="#fafaf8" stroke-width="1.2" fill="none"/>
-        </svg>
+        <img id="bean-icon-dark" src="images/darkmode.png" alt="Dark Icon" class="toggle-custom-img">
+        
+        <img id="bean-icon-light" src="images/lightmode.png" alt="Light Icon" class="toggle-custom-img" style="display:none">
       </div>
     </button>
     <div class="hamburger" id="hamburger">
@@ -77,10 +81,10 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
+  <a href="#team" onclick="closeMobile()">Team</a>
   <a href="#story" onclick="closeMobile()">Story</a>
   <a href="#market" onclick="closeMobile()">Market</a>
   <a href="#product" onclick="closeMobile()">Product</a>
-  <a href="#team" onclick="closeMobile()">Team</a>
   <a href="#marketing" onclick="closeMobile()">Marketing</a>
   <a href="#financials" onclick="closeMobile()">Financials</a>
   <a href="#roadmap" onclick="closeMobile()">Roadmap</a>
@@ -101,44 +105,16 @@
     CAFEIN — tempat dimana kopi, suasana, dan pikiran bertemu dalam tenangnya malam.
   </p>
   <div class="hero-ctas reveal reveal-delay-3">
-    <a href="#story" class="btn-primary"><span>Explore Brand Vision</span></a>
-    <a href="#marketing" class="btn-ghost">View Marketing Strategy</a>
+    <a href="#team" class="btn-primary"><span>Meet The Team</span></a>
+    <a href="#story" class="btn-ghost">Explore Brand Vision</a>
   </div>
   <div class="hero-scroll">Scroll</div>
   <div class="hero-year">Est. 2030</div>
 </section>
 
-<div class="divider"></div>
-
-<!-- ─── BRAND STORY ───────────────────────────────────────────── -->
-<section id="story">
-  <div class="section-label reveal" data-number="01">Brand Story</div>
-  <div class="story-grid">
-    <div class="story-left">
-      <blockquote class="story-quote reveal">
-        "keresahan akan ramai dan bisingnya dunia membuat banyak orang kehilangan ruang untuk benar-benar berhenti, berpikir, dan menikmati waktu sejenak.
-Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati yang sudah mati."
-      </blockquote>
-      <div class="story-stat-row reveal reveal-delay-1">
-        <div class="story-stat"><div class="story-stat-num">∞</div><div class="story-stat-label">Ideas brewed</div></div>
-        <div class="story-stat"><div class="story-stat-num">1 AM</div><div class="story-stat-label">Peak clarity</div></div>
-        <div class="story-stat"><div class="story-stat-num">01</div><div class="story-stat-label">Origin vision</div></div>
-      </div>
-    </div>
-    <div class="story-right">
-      <p class="story-para reveal">Di tengah dunia yang terus bergerak, banyak orang hidup seperti mesin yang tidak pernah benar-benar berhenti. Hari dipenuhi suara notifikasi, tuntutan, tekanan, dan perlombaan yang seolah tidak ada garis akhirnya. Keramaian perlahan membuat manusia kehilangan sesuatu yang sederhana: ruang untuk berhenti. Ruang untuk bernapas. Ruang untuk mendengar isi kepalanya sendiri.</p>
-      <p class="story-para reveal reveal-delay-1">Dari keresahan itu, lahirlah CAFEIN. Bukan sekadar coffee shop, tetapi ruang kecil bagi mereka yang lelah dengan bisingnya dunia. Tempat di mana waktu berjalan lebih pelan, aroma kopi yang perlahan memberikan kenyamanan, dan satu tegukan yang mampu menghadirkan kembali rasa hidup yang sempat redup.</p>
-      <p class="story-para reveal reveal-delay-2">Kami percaya, kopi bukan hanya minuman. Ia adalah jeda. Ia adalah percakapan. Ia adalah teman bagi orang-orang yang sedang berusaha untuk bertahan.</p>
-      <p class="story-para reveal reveal-delay-3">Karena terkadang, yang dibutuhkan seseorang bukan pelarian. Cukup segelas kopi, suasana yang tenang, dan sedikit alasan untuk kembali merasa hidup.<br><br><em>Cafein. One Sip. One Pause. One More Reason to Feel Alive.</em></p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ─── OUR TEAM SECTION ───────────────────────────────────────── -->
+<!-- ─── OUR TEAM SECTION (MOVED TO POSITION 01) ─────────────────── -->
 <section id="team">
-  <div class="section-label reveal" data-number="02">Our Team</div>
+  <div class="section-label reveal" data-number="01">Our Team</div>
   <h2 class="section-title reveal reveal-delay-1">The minds behind<br><em>the brew.</em></h2>
   <p class="section-body reveal reveal-delay-2" style="max-width: 700px;">Kami adalah sekelompok individu dengan latar belakang berbeda yang dipersatukan oleh visi yang sama: menciptakan ruang di mana kopi dan pemikiran mendalam dapat bersatu.</p>
 
@@ -225,6 +201,34 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- ─── BRAND STORY ───────────────────────────────────────────── -->
+<section id="story">
+  <div class="section-label reveal" data-number="02">Brand Story</div>
+  <div class="story-grid">
+    <div class="story-left">
+      <blockquote class="story-quote reveal">
+        "keresahan akan ramai dan bisingnya dunia membuat banyak orang kehilangan ruang untuk benar-benar berhenti, berpikir, dan menikmati waktu sejenak.
+Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati yang sudah mati."
+      </blockquote>
+      <div class="story-stat-row reveal reveal-delay-1">
+        <div class="story-stat"><div class="story-stat-num">∞</div><div class="story-stat-label">Ideas brewed</div></div>
+        <div class="story-stat"><div class="story-stat-num">1 AM</div><div class="story-stat-label">Peak clarity</div></div>
+        <div class="story-stat"><div class="story-stat-num">01</div><div class="story-stat-label">Origin vision</div></div>
+      </div>
+    </div>
+    <div class="story-right">
+      <p class="story-para reveal">Di tengah dunia yang terus bergerak, banyak orang hidup seperti mesin yang tidak pernah benar-benar berhenti. Hari dipenuhi suara notifikasi, tuntutan, tekanan, dan perlombaan yang seolah tidak ada garis akhirnya. Keramaian perlahan membuat manusia kehilangan sesuatu yang sederhana: ruang untuk berhenti. Ruang untuk bernapas. Ruang untuk mendengar isi kepalanya sendiri.</p>
+      <p class="story-para reveal reveal-delay-1">Dari keresahan itu, lahirlah CAFEIN. Bukan sekadar coffee shop, tetapi ruang kecil bagi mereka yang lelah dengan bisingnya dunia. Tempat di mana waktu berjalan lebih pelan, aroma kopi yang perlahan memberikan kenyamanan, dan satu tegukan yang mampu menghadirkan kembali rasa hidup yang sempat redup.</p>
+      <p class="story-para reveal reveal-delay-2">Kami percaya, kopi bukan hanya minuman. Ia adalah jeda. Ia adalah percakapan. Ia adalah teman bagi orang-orang yang sedang berusaha untuk bertahan.</p>
+      <p class="story-para reveal reveal-delay-3">Karena terkadang, yang dibutuhkan seseorang bukan pelarian. Cukup segelas kopi, suasana yang tenang, dan sedikit alasan untuk kembali merasa hidup.<br><br><em>Cafein. One Sip. One Pause. One More Reason to Feel Alive.</em></p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
 <!-- ─── MARKET ANALYSIS ───────────────────────────────────────── -->
 <section id="market">
@@ -365,7 +369,7 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
 
 <!-- ─── MARKETING STRATEGY ────────────────────────────────────── -->
 <section id="marketing">
-  <div class="section-label reveal" data-number="07">Marketing Strategy</div>
+  <div class="section-label reveal" data-number="07">Marketing Plan</div>
   <h2 class="section-title reveal reveal-delay-1">The brand that<br>whispers <em>loudest.</em></h2>
   <p class="section-body reveal reveal-delay-2">CAFEIN percaya bahwa hal-hal yang paling berkesan tidak selalu datang dengan suara paling keras. Lewat suasana yang tenang, detail yang hangat, dan pengalaman yang intim, CAFEIN hadir secara perlahan namun tinggal lebih lama di ingatan.</p>
   <div class="marketing-channels">
@@ -571,6 +575,31 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
     </div>
   </div>
 
+  <!-- ─── INVESTMENT SIMULATOR ─────────────────────────────────── -->
+  <div class="investment-simulator reveal reveal-delay-1">
+    <div class="simulator-header">
+      <div class="simulator-title">Simulasi Investasi</div>
+      <div class="simulator-subtitle">Investment Simulator</div>
+    </div>
+    <div class="simulator-controls">
+      <input type="range" id="investSlider" class="invest-slider" min="50000000" max="1000000000" step="50000000" value="100000000">
+      <div class="simulator-value" id="investValue">Rp 100.000.000</div>
+    </div>
+    <div class="simulator-outputs">
+      <div class="output-card">
+        <div class="output-label">Perkiraan ROI</div>
+        <div class="output-label-en">Estimated Payback</div>
+        <div class="output-value" id="paybackValue">20 Bulan</div>
+      </div>
+      <div class="output-card">
+        <div class="output-label">Bagi Hasil Kuartalan</div>
+        <div class="output-label-en">Quarterly Dividend Yield</div>
+        <div class="output-value" id="dividendValue">4.8%</div>
+      </div>
+    </div>
+    <p class="simulator-note">*Proyeksi berdasarkan skala efisiensi dan kinerja operasional CAFEIN</p>
+  </div>
+
   <div class="growth-chart">
     <div class="growth-title reveal">Projected monthly revenue growth</div>
     <div class="growth-subtitle reveal">Year 1 → Year 3 trajectory · Indonesia market</div>
@@ -617,7 +646,7 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
   </p>
   <div class="cta-buttons reveal reveal-delay-3">
     <a href="mailto:perdiansyah@cafein.id" class="btn-primary"><span>Start a Conversation</span></a>
-    <a href="#story" class="btn-ghost">Read from the beginning</a>
+    <a href="#team" class="btn-ghost">Read from the beginning</a>
   </div>
   <div class="contact-row reveal reveal-delay-4">
     <div class="contact-item"><div class="contact-label">General Inquiry</div><div class="contact-value">perdiansyah@cafein.id</div></div>
@@ -636,10 +665,10 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
     </div>
     <div class="footer-center">
       <ul class="footer-nav">
+        <li><a href="#team">Our Team</a></li>
         <li><a href="#story">Brand Story</a></li>
         <li><a href="#market">Market Analysis</a></li>
         <li><a href="#product">Product Strategy</a></li>
-        <li><a href="#team">Our Team</a></li>
         <li><a href="#marketing">Marketing Plan</a></li>
         <li><a href="#financials">Financials</a></li>
         <li><a href="#roadmap">Roadmap</a></li>

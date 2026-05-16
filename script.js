@@ -1,14 +1,14 @@
 /**
  * CAFEIN - Main JavaScript File
  * Coffee for people who think deeply.
- * Version: 2.0
+ * Version: 3.0
  */
 
 (function() {
     'use strict';
 
     // ======================================================
-    // 1. PRELOADER
+    // 1. PRELOADER (Real asset caching trigger)
     // ======================================================
     const preloader = {
         fill: document.getElementById('preloaderFill'),
@@ -18,17 +18,44 @@
         init() {
             if (!this.fill || !this.count || !this.element) return;
             
+            // Cek tema yang tersimpan di browser sebelum loading berjalan
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const preloaderDarkLogo = document.getElementById('preloader-logo-dark');
+            const preloaderLightLogo = document.getElementById('preloader-logo-light');
+            
+            if (savedTheme === 'dark') {
+                if (preloaderDarkLogo) preloaderDarkLogo.style.display = 'block';
+                if (preloaderLightLogo) preloaderLightLogo.style.display = 'none';
+            } else {
+                if (preloaderDarkLogo) preloaderDarkLogo.style.display = 'none';
+                if (preloaderLightLogo) preloaderLightLogo.style.display = 'block';
+            }
+            
             let progress = 0;
+            let isLoaded = false;
+
+            // Intercept and hold preloader exit until all image assets are fully cached by the browser
+            window.addEventListener('load', () => {
+                isLoaded = true;
+            });
+            
             const interval = setInterval(() => {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
+                // If page resources aren't fully baked, clamp the loader artificially at 92% to prevent flicker
+                if (progress >= 92 && !isLoaded) {
+                    progress += (96 - progress) * 0.08;
+                } else {
+                    progress += Math.random() * 5 + 3;
+                }
+
+                if (progress >= 100 && isLoaded) {
                     progress = 100;
                     clearInterval(interval);
-                    setTimeout(() => this.element.classList.add('hidden'), 400);
+                    setTimeout(() => this.element.classList.add('hidden'), 350);
                 }
-                this.fill.style.width = progress + '%';
-                this.count.textContent = Math.floor(progress);
-            }, 60);
+                
+                if (this.fill) this.fill.style.width = progress + '%';
+                if (this.count) this.count.textContent = Math.floor(progress);
+            }, 45);
         }
     };
 
@@ -42,24 +69,37 @@
         toggleBtn: document.getElementById('themeToggle'),
         
         init() {
-            const savedTheme = localStorage.getItem('cafein-theme');
-            if (savedTheme) this.html.setAttribute('data-theme', savedTheme);
-            this.syncIcons();
-            if (this.toggleBtn) this.toggleBtn.addEventListener('click', () => this.toggle());
+            if (!this.toggleBtn) return;
+            
+            // Get saved theme or default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            this.setTheme(savedTheme);
+            
+            this.toggleBtn.addEventListener('click', () => {
+                const currentTheme = this.html.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                this.setTheme(newTheme);
+            });
         },
         
-        syncIcons() {
-            const isDark = this.html.getAttribute('data-theme') === 'dark';
-            if (this.darkIcon) this.darkIcon.style.display = isDark ? 'block' : 'none';
-            if (this.lightIcon) this.lightIcon.style.display = isDark ? 'none' : 'block';
-        },
-        
-        toggle() {
-            const current = this.html.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            this.html.setAttribute('data-theme', next);
-            localStorage.setItem('cafein-theme', next);
-            this.syncIcons();
+        setTheme(themeName) {
+            this.html.setAttribute('data-theme', themeName);
+            localStorage.setItem('theme', themeName);
+            
+            const navDark = document.getElementById('nav-logo-dark');
+            const navLight = document.getElementById('nav-logo-light');
+            
+            if (themeName === 'dark') {
+                if (this.darkIcon) this.darkIcon.style.display = 'block';
+                if (this.lightIcon) this.lightIcon.style.display = 'none';
+                if (navDark) navDark.style.display = 'block';
+                if (navLight) navLight.style.display = 'none';
+            } else {
+                if (this.darkIcon) this.darkIcon.style.display = 'none';
+                if (this.lightIcon) this.lightIcon.style.display = 'block';
+                if (navDark) navDark.style.display = 'none';
+                if (navLight) navLight.style.display = 'block';
+            }
         }
     };
 
@@ -100,7 +140,8 @@
             const hoverElements = document.querySelectorAll(
                 'a, button, .bean-toggle, .hamburger, .menu-item, .market-card, ' +
                 '.persona-card, .channel-card, .swatch, .fin-row-clickable, ' +
-                '.chart-bar, .revenue-item, .timeline-item, .collab-item, .team-card-premium'
+                '.chart-bar, .revenue-item, .timeline-item, .collab-item, .team-card-premium, ' +
+                '.invest-slider, .output-card'
             );
             
             hoverElements.forEach(el => {
@@ -120,21 +161,23 @@
         
         init() {
             window.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+            
+            if (this.scrollTopBtn) {
+                this.scrollTopBtn.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
         },
         
         handleScroll() {
             const scrollY = window.scrollY;
             const maxScroll = document.body.scrollHeight - window.innerHeight;
             
-            // Update progress bar
             if (this.progressBar && maxScroll > 0) {
                 this.progressBar.style.width = (scrollY / maxScroll * 100) + '%';
             }
             
-            // Update nav background
             if (this.nav) this.nav.classList.toggle('scrolled', scrollY > 40);
-            
-            // Show/hide scroll to top button
             if (this.scrollTopBtn) this.scrollTopBtn.classList.toggle('visible', scrollY > 600);
         }
     };
@@ -178,12 +221,10 @@
     // ======================================================
     const revealAnimations = {
         init() {
-            // Main reveal observer
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // Animate bar-fill elements inside
                         entry.target.querySelectorAll('.bar-fill').forEach(bar => bar.classList.add('animate'));
                     }
                 });
@@ -191,7 +232,6 @@
             
             document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
             
-            // Bar row observer
             const barObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -202,7 +242,6 @@
             
             document.querySelectorAll('.bar-row').forEach(el => barObserver.observe(el));
             
-            // Chart observer
             const chartObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -217,7 +256,6 @@
             const chartContainer = document.getElementById('growthChart');
             if (chartContainer) chartObserver.observe(chartContainer);
             
-            // Hero initial reveal
             setTimeout(() => {
                 document.querySelectorAll('#hero .reveal').forEach(el => el.classList.add('visible'));
             }, 200);
@@ -268,7 +306,6 @@
     // ======================================================
     const financialDropdown = {
         init() {
-            // Expose to global scope for inline onclick
             window.toggleFinDD = (id, trigger) => this.toggle(id, trigger);
         },
         
@@ -278,7 +315,6 @@
             
             const isOpen = dropdown.classList.contains('open');
             
-            // Close all dropdowns
             document.querySelectorAll('.fin-dropdown').forEach(d => d.classList.remove('open'));
             document.querySelectorAll('.fin-row-clickable').forEach(r => r.classList.remove('open'));
             
@@ -372,14 +408,13 @@
     };
 
     // ======================================================
-    // 11. TEAM CARD EFFECTS (Premium Gradient Animation)
+    // 11. TEAM CARD EFFECTS
     // ======================================================
     const teamCards = {
         init() {
             const cards = document.querySelectorAll('.team-card-premium');
             if (!cards.length) return;
             
-            // Set random gradient angles
             const angles = [-119, -125, -113, -131, -107];
             cards.forEach((card, index) => {
                 const gradientBg = card.querySelector('.card-gradient-bg');
@@ -393,7 +428,6 @@
                 }
             });
             
-            // Add mouse move effect for dynamic gradient
             cards.forEach(card => {
                 const gradientBg = card.querySelector('.card-gradient-bg');
                 if (!gradientBg) return;
@@ -424,89 +458,67 @@
     };
 
     // ======================================================
-    // 12. SHOWCASE MOBILE TAP (Info panel muncul saat diklik)
+    // 12. SHOWCASE MOBILE TAP
     // ======================================================
     const showcaseMobileTap = {
         init() {
-            // Only active on touch devices
             const isTouch = window.matchMedia('(pointer: coarse)').matches;
             if (!isTouch) return;
 
             const boxes        = document.querySelectorAll('.showcase-box');
             const indicators   = document.querySelectorAll('.showcase-indicator');
             const hint         = document.getElementById('showcaseHint');
-            const indicatorWrap = document.getElementById('showcaseIndicators');
-
-            if (!boxes.length) return;
-
-            // ── Hint text state ──
-            // Use localStorage to permanently hide hint after user has interacted twice
             const HINT_KEY = 'cafein-team-hint-seen';
             const hintSeen = localStorage.getItem(HINT_KEY);
             let interactionCount = 0;
 
             if (hint) {
                 if (hintSeen) {
-                    // User has seen the tutorial — hide hint permanently
                     hint.classList.add('hidden');
                 } else {
                     hint.textContent = 'tap to explore';
                 }
             }
 
-            // ── Helper: sync indicator dots ──
             const syncIndicators = (activeIndex) => {
                 indicators.forEach((dot, i) => {
                     dot.classList.toggle('active', i === activeIndex);
                 });
             };
 
-            // ── Helper: close all cards ──
             const closeAll = () => {
                 boxes.forEach(b => b.classList.remove('tapped'));
                 syncIndicators(-1);
             };
 
-            // ── Tap logic ──
             boxes.forEach((box, index) => {
                 box.addEventListener('click', (e) => {
                     const isAlreadyTapped = box.classList.contains('tapped');
-
-                    // Close all first
                     closeAll();
 
                     if (!isAlreadyTapped) {
-                        // Open this card
                         box.classList.add('tapped');
                         syncIndicators(index);
 
-                        // ── Hint text progression ──
                         if (!hintSeen && hint) {
                             interactionCount++;
-
                             if (interactionCount === 1) {
-                                // First tap: change to "tap to close" hint
                                 hint.textContent = 'tap again to close';
                             } else if (interactionCount >= 2) {
-                                // Second interaction: user understands — fade and remember
                                 hint.classList.add('fade-out');
                                 setTimeout(() => hint.classList.add('hidden'), 500);
                                 localStorage.setItem(HINT_KEY, '1');
                             }
                         }
                     } else {
-                        // Card was already open — closing it
-                        // On close, revert hint text if not yet permanently hidden
                         if (!hintSeen && hint && !hint.classList.contains('hidden')) {
                             hint.textContent = 'tap to explore';
                         }
                     }
-
                     e.stopPropagation();
                 });
             });
 
-            // ── Indicator tap — acts as shortcut to open a card ──
             indicators.forEach((dot, index) => {
                 dot.addEventListener('click', (e) => {
                     const targetBox = boxes[index];
@@ -519,15 +531,12 @@
                         targetBox.classList.add('tapped');
                         syncIndicators(index);
                     }
-
                     e.stopPropagation();
                 });
             });
 
-            // ── Tap outside showcase: close all ──
             document.addEventListener('click', () => {
                 closeAll();
-                // Restore hint if not permanently hidden
                 if (!hintSeen && hint && !hint.classList.contains('hidden')) {
                     hint.textContent = 'tap to explore';
                 }
@@ -536,7 +545,72 @@
     };
 
     // ======================================================
-    // 12. INITIALIZE ALL MODULES
+    // 13. INVESTMENT SIMULATOR
+    // ======================================================
+    const investmentSimulator = {
+        slider: document.getElementById('investSlider'),
+        investValue: document.getElementById('investValue'),
+        paybackValue: document.getElementById('paybackValue'),
+        dividendValue: document.getElementById('dividendValue'),
+        
+        init() {
+            if (!this.slider) return;
+            
+            this.formatCurrency = (value) => {
+                if (value >= 1000000000) {
+                    return 'Rp ' + (value / 1000000000).toFixed(1) + ' M';
+                } else if (value >= 1000000) {
+                    return 'Rp ' + (value / 1000000).toFixed(0) + ' jt';
+                }
+                return 'Rp ' + value.toLocaleString('id-ID');
+            };
+            
+            this.updateValues = () => {
+                const value = parseInt(this.slider.value, 10);
+                const maxVal = parseInt(this.slider.max, 10);
+                const minVal = parseInt(this.slider.min, 10);
+                const progress = (value - minVal) / (maxVal - minVal);
+                
+                // Payback period: 24 months down to 16 months
+                const paybackMonths = Math.round(24 - (progress * 8));
+                // Dividend yield: 4.5% up to 7.2%
+                const dividendYield = (4.5 + (progress * 2.7)).toFixed(1);
+                
+                // Update DOM with fade effect
+                if (this.investValue) {
+                    this.investValue.style.opacity = '0';
+                    setTimeout(() => {
+                        this.investValue.textContent = this.formatCurrency(value);
+                        this.investValue.style.opacity = '1';
+                    }, 100);
+                }
+                
+                if (this.paybackValue) {
+                    this.paybackValue.style.opacity = '0';
+                    setTimeout(() => {
+                        this.paybackValue.textContent = paybackMonths + ' Bulan';
+                        this.paybackValue.style.opacity = '1';
+                    }, 100);
+                }
+                
+                if (this.dividendValue) {
+                    this.dividendValue.style.opacity = '0';
+                    setTimeout(() => {
+                        this.dividendValue.textContent = dividendYield + '%';
+                        this.dividendValue.style.opacity = '1';
+                    }, 100);
+                }
+            };
+            
+            this.slider.addEventListener('input', () => this.updateValues());
+            this.slider.addEventListener('touchmove', () => this.updateValues());
+            
+            this.updateValues();
+        }
+    };
+
+    // ======================================================
+    // 14. INITIALIZE ALL MODULES
     // ======================================================
     function init() {
         preloader.init();
@@ -551,18 +625,17 @@
         decodeEffect.init();
         teamCards.init();
         showcaseMobileTap.init();
+        investmentSimulator.init();
         
         console.log('CAFEIN — Initialized');
     }
     
-    // Wait for DOM to be ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
     
-    // Expose closeMobile for inline onclick
     window.closeMobile = () => mobileMenu.close();
     
 })();
