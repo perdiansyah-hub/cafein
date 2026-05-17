@@ -24,6 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -31,9 +32,7 @@
 <div id="preloader">
   <div class="preloader-wrap">
     <img id="preloader-logo-dark" src="images/light.png" alt="CAFEIN" class="preloader-custom-img">
-    
     <img id="preloader-logo-light" src="images/dark.png" alt="CAFEIN" class="preloader-custom-img" style="display:none">
-    
     <div class="preloader-line"><div class="preloader-fill" id="preloaderFill"></div></div>
     <div class="preloader-count" id="preloaderCount">0</div>
     <div class="preloader-tagline">Coffee for people who think deeply.</div>
@@ -53,7 +52,6 @@
 <nav id="navbar">
   <a href="#hero" class="nav-logo">
     <img id="nav-logo-dark" src="images/logolight.png" alt="CAFEIN Logo" class="nav-custom-img">
-    
     <img id="nav-logo-light" src="images/logodark.png" alt="CAFEIN Logo" class="nav-custom-img" style="display:none">
   </a>
   <ul class="nav-links">
@@ -70,7 +68,6 @@
       <div class="bean-glow"></div>
       <div class="bean-knob">
         <img id="bean-icon-dark" src="images/darkmode.png" alt="Dark Icon" class="toggle-custom-img">
-        
         <img id="bean-icon-light" src="images/lightmode.png" alt="Light Icon" class="toggle-custom-img" style="display:none">
       </div>
     </button>
@@ -93,8 +90,16 @@
 
 <!-- ─── HERO ─────────────────────────────────────────────────── -->
 <section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
+  <div class="hero-video-container">
+    <video autoplay muted loop playsinline class="hero-video">
+      <source src="images/vids.mp4" type="video/mp4">
+    </video>
+  </div>
+  
+  <div class="hero-bottom-logo-container">
+    <img id="hero-logo-dark" src="images/logolight.png" alt="CAFEIN Logo" class="hero-bottom-logo">
+    <img id="hero-logo-light" src="images/logodark.png" alt="CAFEIN Logo" class="hero-bottom-logo" style="display:none">
+  </div>
   <div class="hero-vignette"></div>
   <div class="hero-particles" id="heroParticles"></div>
   <div class="hero-eyebrow reveal">Coffee Shop Concept Proposal · 2030</div>
@@ -112,21 +117,16 @@
   <div class="hero-year">Est. 2030</div>
 </section>
 
-<!-- ─── OUR TEAM SECTION (MOVED TO POSITION 01) ─────────────────── -->
+<!-- ─── OUR TEAM SECTION ─────────────────────────────────────── -->
 <section id="team">
   <div class="section-label reveal" data-number="01">Our Team</div>
   <h2 class="section-title reveal reveal-delay-1">The minds behind<br><em>the brew.</em></h2>
   <p class="section-body reveal reveal-delay-2" style="max-width: 700px;">Kami adalah sekelompok individu dengan latar belakang berbeda yang dipersatukan oleh visi yang sama: menciptakan ruang di mana kopi dan pemikiran mendalam dapat bersatu.</p>
 
-  <!-- Team Showcase Gallery -->
   <div class="team-gallery">
     <div class="showcase-wrapper reveal reveal-delay-1">
       <div class="showcase-container">
-
-        <!-- 1. rizki m husnun -->
-        <div class="showcase-box showcase-box-1"
-             style="--img: url(images/team-rizki.jpg); --accent: #c9b89a;"
-             tabindex="0" role="button" aria-label="Team: Rizki M Husnun – Founder & CEO">
+        <div class="showcase-box showcase-box-1" style="--img: url(images/team-rizki.jpg); --accent: #c9b89a;" tabindex="0">
           <div class="char-accent-bar"></div>
           <div class="char-initial">R</div>
           <div class="char-info-panel">
@@ -135,11 +135,7 @@
             <div class="char-info-desc">Seniman di balik setiap cangkir. Mengolah biji kopi pilihan menjadi pengalaman rasa yang tidak terlupakan — karena kopi yang baik adalah bahasa universal.</div>
           </div>
         </div>
-
-        <!-- 2. Melinda Nur'aini -->
-        <div class="showcase-box showcase-box-2"
-             style="--img: url(images/team-melinda.jpg); --accent: #d4a97a;"
-             tabindex="0" role="button" aria-label="Team: Melinda Nur'aini – Head of Operations">
+        <div class="showcase-box showcase-box-2" style="--img: url(images/team-melinda.jpg); --accent: #d4a97a;" tabindex="0">
           <div class="char-accent-bar"></div>
           <div class="char-initial">M</div>
           <div class="char-info-panel">
@@ -148,11 +144,7 @@
             <div class="char-info-desc">Memastikan setiap detail berjalan dengan sempurna — dari alur dapur hingga pengalaman tamu pertama kali duduk. Efisiensi adalah bentuk cintanya pada brand.</div>
           </div>
         </div>
-
-        <!-- 3. Perdiansyah -->
-        <div class="showcase-box showcase-box-3"
-             style="--img: url(images/team-perdiansyah.jpg); --accent: #8a7d6a;"
-             tabindex="0" role="button" aria-label="Team: Perdiansyah – Head Barista">
+        <div class="showcase-box showcase-box-3" style="--img: url(images/team-perdiansyah.jpg); --accent: #8a7d6a;" tabindex="0">
           <div class="char-accent-bar"></div>
           <div class="char-initial">P</div>
           <div class="char-info-panel">
@@ -161,11 +153,7 @@
             <div class="char-info-desc">Visioner di balik CAFEIN. Membangun brand dari keresahan akan ruang yang hilang — tempat untuk berhenti, berpikir, dan benar-benar menikmati kopi.</div>
           </div>
         </div>
-
-        <!-- 4. Nabila Siti Nurhayati -->
-        <div class="showcase-box showcase-box-4"
-             style="--img: url(images/team-nabila.jpg); --accent: #b8a88a;"
-             tabindex="0" role="button" aria-label="Team: Nabila Siti Nurhayati – Creative Director">
+        <div class="showcase-box showcase-box-4" style="--img: url(images/team-nabila.jpg); --accent: #b8a88a;" tabindex="0">
           <div class="char-accent-bar"></div>
           <div class="char-initial">N</div>
           <div class="char-info-panel">
@@ -174,11 +162,7 @@
             <div class="char-info-desc">Arsitek visual CAFEIN. Menjaga konsistensi estetika brand — dari interior, packaging, hingga setiap frame konten yang muncul di layar pelanggan.</div>
           </div>
         </div>
-
-        <!-- 5. Shaqira Queeneta -->
-        <div class="showcase-box showcase-box-5"
-             style="--img: url(images/team-shaqira.jpg); --accent: #a09278;"
-             tabindex="0" role="button" aria-label="Team: Shaqira Queeneta – Marketing Strategist">
+        <div class="showcase-box showcase-box-5" style="--img: url(images/team-shaqira.jpg); --accent: #a09278;" tabindex="0">
           <div class="char-accent-bar"></div>
           <div class="char-initial">S</div>
           <div class="char-info-panel">
@@ -187,11 +171,9 @@
             <div class="char-info-desc">Membangun narasi brand yang menyentuh hati dan pikiran. Strateginya sederhana: cerita yang autentik selalu lebih kuat dari iklan manapun.</div>
           </div>
         </div>
-
       </div>
-      <p class="showcase-hint" id="showcaseHint" aria-hidden="true">hover to explore the team</p>
-      <!-- Mobile member initials indicator -->
-      <div class="showcase-indicators" id="showcaseIndicators" aria-hidden="true">
+      <p class="showcase-hint" id="showcaseHint">hover to explore the team</p>
+      <div class="showcase-indicators" id="showcaseIndicators">
         <span class="showcase-indicator" data-index="0">R</span>
         <span class="showcase-indicator" data-index="1">M</span>
         <span class="showcase-indicator" data-index="2">P</span>
@@ -399,7 +381,10 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
   <div class="brand-layout">
     <div>
       <div class="logo-showcase reveal">
-        <div class="logo-main">CAFEIN</div>
+        <div class="visual-brand-logo-container">
+          <img id="visual-logo-dark" src="images/logolight.png" alt="CAFEIN Visual Logo" class="visual-brand-custom-img">
+          <img id="visual-logo-light" src="images/logodark.png" alt="CAFEIN Visual Logo" class="visual-brand-custom-img" style="display:none">
+        </div>
         <div class="logo-tagline">Coffee for people who think deeply.</div>
         <div class="logo-version-row">
           <div class="logo-ver">CAFEIN</div>
@@ -520,102 +505,184 @@ Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati
 
 <div class="divider"></div>
 
-<!-- ─── FINANCIAL PROJECTIONS ─────────────────────────────────── -->
-<section id="financials">
+<!-- ─── FINANCIAL PROJECTION ───────────────────────────────────── -->
+<section id="financials" class="fin-fullscreen">
+  <div class="fin-ambient-glow" id="finAmbientGlow"></div>
+  
   <div class="section-label reveal" data-number="10">Financial Projection</div>
-  <h2 class="section-title reveal reveal-delay-1">Built to sustain,<br>designed to <em>grow.</em></h2>
-
-  <div class="fin-grid">
-    <div class="fin-panel reveal">
-      <div class="fin-panel-title">Initial Investment</div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd1',this)"><span class="fin-row-label">Location &amp; lease deposit</span><span class="fin-row-value">Rp 180.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd1"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Lokasi &amp; Deposit Sewa</span><div class="fin-dd-item"><span class="fin-dd-name">Deposit sewa 3 bulan pertama (jaminan ke pemilik, dikembalikan)</span><span class="fin-dd-amount">Rp 90.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Biaya notaris, survei, &amp; administrasi perjanjian sewa</span><span class="fin-dd-amount">Rp 15.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Sewa bulan 1–2 (masa pra-operasional)</span><span class="fin-dd-amount">Rp 56.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Izin lokasi, HO, pengurusan NIB &amp; perizinan usaha</span><span class="fin-dd-amount">Rp 19.000.000</span></div><div class="fin-dd-note">Asumsi luas 80–120 m², area semi-komersial dekat jalan raya. Harga sewa bervariasi sesuai negosiasi.</div></div></div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd2',this)"><span class="fin-row-label">Interior design &amp; construction</span><span class="fin-row-value">Rp 250.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd2"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Desain Interior &amp; Konstruksi</span><div class="fin-dd-item"><span class="fin-dd-name">Jasa arsitek/desainer interior (konsep, gambar kerja, pengawasan)</span><span class="fin-dd-amount">Rp 35.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Pekerjaan sipil: dinding, lantai beton poles, plafon industrial exposed</span><span class="fin-dd-amount">Rp 70.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Instalasi listrik, sistem pencahayaan warm tungsten, titik lampu sorot</span><span class="fin-dd-amount">Rp 35.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Furnitur: meja, kursi, bangku bar, sofa custom minimal-industrial</span><span class="fin-dd-amount">Rp 55.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Meja bar kopi, counter kasir, rak display custom kayu &amp; besi</span><span class="fin-dd-amount">Rp 30.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Sistem akustik (panel peredam), instalasi AC &amp; ventilasi</span><span class="fin-dd-amount">Rp 25.000.000</span></div><div class="fin-dd-note">Material utama: beton, kayu natural, besi matte, kaca — estetika Jepang-Skandinavia-industrial.</div></div></div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd3',this)"><span class="fin-row-label">Espresso equipment (La Marzocco)</span><span class="fin-row-value">Rp 140.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd3"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Peralatan Espresso</span><div class="fin-dd-item"><span class="fin-dd-name">Mesin espresso La Marzocco Linea Mini 2-group</span><span class="fin-dd-amount">Rp 100.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Grinder espresso Mahlkönig E65S / Eureka Mignon Specialita (2 unit)</span><span class="fin-dd-amount">Rp 25.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Aksesori: tamper, distributor, knock box, tray, pitcher (set lengkap)</span><span class="fin-dd-amount">Rp 8.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Instalasi plumbing khusus mesin + filter air RO &amp; softener</span><span class="fin-dd-amount">Rp 7.000.000</span></div><div class="fin-dd-note">La Marzocco = simbol kualitas specialty coffee. Bisa dipertimbangkan unit second bergaransi untuk efisiensi biaya awal.</div></div></div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd4',this)"><span class="fin-row-label">Brewing equipment &amp; tools</span><span class="fin-row-value">Rp 45.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd4"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Peralatan Seduhan &amp; Perkakas</span><div class="fin-dd-item"><span class="fin-dd-name">Set pour-over: Hario V60, Chemex, Kalita Wave (masing-masing 2 unit)</span><span class="fin-dd-amount">Rp 8.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Grinder manual: Comandante C40 / Fellow Ode Brew (2 unit)</span><span class="fin-dd-amount">Rp 10.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Cold brew system: toddler maker, botol kaca, kulkas display 2 pintu</span><span class="fin-dd-amount">Rp 12.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Timbangan presisi Acaia Pearl, thermometer, timer, kettle leher angsa</span><span class="fin-dd-amount">Rp 8.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Peralatan dapur: blender, perangkat es batu, kulkas bahan, rak penyimpanan</span><span class="fin-dd-amount">Rp 7.000.000</span></div><div class="fin-dd-note">Semua alat dipilih berdasarkan standar specialty coffee dan estetika yang selaras dengan identitas CAFEIN.</div></div></div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd5',this)"><span class="fin-row-label">Brand identity &amp; digital</span><span class="fin-row-value">Rp 35.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd5"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Identitas Brand &amp; Digital</span><div class="fin-dd-item"><span class="fin-dd-name">Jasa desain logo, sistem identitas visual, brand guidelines lengkap</span><span class="fin-dd-amount">Rp 10.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Desain &amp; cetak packaging: cup sleeve, paper bag, stiker, kartu nama</span><span class="fin-dd-amount">Rp 8.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Website, landing page, domain &amp; hosting 1 tahun</span><span class="fin-dd-amount">Rp 7.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Setup media sosial, template konten, preset foto &amp; video sinematik</span><span class="fin-dd-amount">Rp 5.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Produksi konten pre-launch: sesi foto brand + video profil 60 detik</span><span class="fin-dd-amount">Rp 5.000.000</span></div><div class="fin-dd-note">Investasi identitas brand kuat di awal mengurangi biaya rebranding dan mempercepat pembentukan persepsi premium.</div></div></div>
-      <div class="fin-row-clickable" onclick="toggleFinDD('dd6',this)"><span class="fin-row-label">Opening inventory</span><span class="fin-row-value">Rp 20.000.000</span><span class="fin-expand-icon">+</span></div>
-      <div class="fin-dropdown" id="dd6"><div class="fin-dropdown-body"><span class="fin-dropdown-head">Rincian · Inventaris Pembukaan</span><div class="fin-dd-item"><span class="fin-dd-name">Stok biji kopi awal: 3–5 varietas single origin (50kg) dari mitra roastery</span><span class="fin-dd-amount">Rp 7.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Keramik servis: cangkir espresso, filter, gelas, teko (set 40 meja)</span><span class="fin-dd-amount">Rp 6.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Bahan minuman: susu oat, kakao Flores, sirup premium, hojicha</span><span class="fin-dd-amount">Rp 4.000.000</span></div><div class="fin-dd-item"><span class="fin-dd-name">Perlengkapan operasional: kain lap, wadah, formulir order, sistem POS</span><span class="fin-dd-amount">Rp 3.000.000</span></div><div class="fin-dd-note">Stok awal untuk 2–3 minggu pertama. Pemesanan rutin mingguan setelah operasional berjalan.</div></div></div>
-      <div class="fin-total"><span class="fin-total-label">Total Investment</span><span class="fin-total-value">Rp 670jt</span></div>
-    </div>
-
-    <div class="fin-panel reveal reveal-delay-1">
-      <div class="fin-panel-title">Monthly Operating Costs</div>
-      <div class="fin-row"><span class="fin-row-label">Rent &amp; utilities</span><span class="fin-row-value">Rp 28.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Staff (4 baristas + manager)</span><span class="fin-row-value">Rp 32.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Coffee &amp; consumables</span><span class="fin-row-value">Rp 18.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Marketing &amp; content</span><span class="fin-row-value">Rp 8.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Maintenance &amp; misc</span><span class="fin-row-value">Rp 6.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Packaging &amp; merchandise</span><span class="fin-row-value">Rp 5.000.000</span></div>
-      <div class="fin-total"><span class="fin-total-label">Total Monthly</span><span class="fin-total-value">Rp 97jt</span></div>
-    </div>
-
-    <div class="fin-panel reveal reveal-delay-2">
-      <div class="fin-panel-title">Monthly Revenue Projection (Year 1)</div>
-      <div class="fin-row"><span class="fin-row-label">In-store beverages (60 cups/day)</span><span class="fin-row-value">Rp 81.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Retail beans &amp; subscriptions</span><span class="fin-row-value">Rp 22.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Memberships (target: 80 members)</span><span class="fin-row-value">Rp 18.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Merchandise &amp; events</span><span class="fin-row-value">Rp 12.000.000</span></div>
-      <div class="fin-row"><span class="fin-row-label">Digital products</span><span class="fin-row-value">Rp 4.000.000</span></div>
-      <div class="fin-total"><span class="fin-total-label">Total Revenue</span><span class="fin-total-value">Rp 137jt</span></div>
-    </div>
-
-    <div class="fin-panel reveal reveal-delay-3">
-      <div class="fin-panel-title">Key Metrics</div>
-      <div class="fin-row"><span class="fin-row-label">Gross margin target</span><span class="fin-row-value">68%</span></div>
-      <div class="fin-row"><span class="fin-row-label">Monthly net profit (Y1)</span><span class="fin-row-value">Rp 40jt</span></div>
-      <div class="fin-row"><span class="fin-row-label">Break-even timeline</span><span class="fin-row-value">16–20 months</span></div>
-      <div class="fin-row"><span class="fin-row-label">Target daily customers (Y1)</span><span class="fin-row-value">60–80</span></div>
-      <div class="fin-row"><span class="fin-row-label">Target daily customers (Y3)</span><span class="fin-row-value">120–160</span></div>
-      <div class="fin-row"><span class="fin-row-label">Revenue growth Y2–Y3</span><span class="fin-row-value">+35–45%</span></div>
-    </div>
-  </div>
-
-  <!-- ─── INVESTMENT SIMULATOR ─────────────────────────────────── -->
-  <div class="investment-simulator reveal reveal-delay-1">
-    <div class="simulator-header">
-      <div class="simulator-title">Simulasi Investasi</div>
-      <div class="simulator-subtitle">Investment Simulator</div>
-    </div>
-    <div class="simulator-controls">
-      <input type="range" id="investSlider" class="invest-slider" min="50000000" max="1000000000" step="50000000" value="100000000">
-      <div class="simulator-value" id="investValue">Rp 100.000.000</div>
-    </div>
-    <div class="simulator-outputs">
-      <div class="output-card">
-        <div class="output-label">Perkiraan ROI</div>
-        <div class="output-label-en">Estimated Payback</div>
-        <div class="output-value" id="paybackValue">20 Bulan</div>
+  <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 28px;">Built to sustain,<br>designed to <em>grow.</em></h2>
+  
+  <div class="fin-dashboard">
+    
+    <div class="fin-card fin-card-control">
+      <div class="fin-card-header">01 · CAPITAL CONTROL</div>
+      
+      <div class="fin-slider-area">
+        <div class="fin-slider-top">
+          <span class="fin-slider-label">INVESTMENT AMOUNT</span>
+          <span class="fin-range-badge" id="rangeBadge">RANGE 03</span>
+        </div>
+        
+        <div class="fin-slider-wrapper">
+          <input type="range" id="finSlider" class="fin-slider" min="0" max="5" step="1" value="2">
+          <div class="fin-slider-track-fill" id="sliderFill"></div>
+        </div>
+        
+        <div class="fin-slider-values">
+          <span>25JT</span><span>50JT</span><span>100JT</span><span>250JT</span><span>500JT</span><span>1M+</span>
+        </div>
       </div>
-      <div class="output-card">
-        <div class="output-label">Bagi Hasil Kuartalan</div>
-        <div class="output-label-en">Quarterly Dividend Yield</div>
-        <div class="output-value" id="dividendValue">4.8%</div>
+      
+      <div class="fin-investment-box">
+        <div class="fin-investment-label">ACTIVE CAPITAL</div>
+        <div class="fin-investment-number" id="liveCapital">Rp 175.000.000</div>
+      </div>
+      
+      <div class="fin-metrics">
+        <div class="fin-metric-item">
+          <div class="fin-metric-label">PROJECTED ROI</div>
+          <div class="fin-metric-value" id="metricRoi">29.2%</div>
+          <div class="fin-metric-note">annual return</div>
+        </div>
+        <div class="fin-metric-item">
+          <div class="fin-metric-label">PAYBACK PERIOD</div>
+          <div class="fin-metric-value" id="metricPayback">11-13 mo</div>
+          <div class="fin-metric-note">to break-even</div>
+        </div>
+        <div class="fin-metric-item">
+          <div class="fin-metric-label">BREAK-EVEN POINT</div>
+          <div class="fin-metric-value" id="metricBreakeven">Month 8</div>
+          <div class="fin-metric-note">at projected traffic</div>
+        </div>
+      </div>
+      
+      <div class="fin-scenario-area">
+        <div class="fin-scenario-label">PROJECTION SCENARIO</div>
+        <div class="fin-scenario-buttons">
+          <button class="fin-scenario-btn" data-scenario="conservative">Conservative</button>
+          <button class="fin-scenario-btn active" data-scenario="moderate">Moderate</button>
+          <button class="fin-scenario-btn" data-scenario="aggressive">Aggressive</button>
+        </div>
       </div>
     </div>
-    <p class="simulator-note">*Proyeksi berdasarkan skala efisiensi dan kinerja operasional CAFEIN</p>
-  </div>
-
-  <div class="growth-chart">
-    <div class="growth-title reveal">Projected monthly revenue growth</div>
-    <div class="growth-subtitle reveal">Year 1 → Year 3 trajectory · Indonesia market</div>
-    <div class="chart-container reveal reveal-delay-1" id="growthChart">
-      <div class="chart-grid-line" style="bottom:25%"></div>
-      <div class="chart-grid-line" style="bottom:50%"></div>
-      <div class="chart-grid-line" style="bottom:75%"></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 72jt</div><div class="chart-bar" data-h="40"></div><div class="chart-label">M1</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 85jt</div><div class="chart-bar" data-h="55"></div><div class="chart-label">M3</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 97jt</div><div class="chart-bar" data-h="70"></div><div class="chart-label">M6</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 115jt</div><div class="chart-bar" data-h="90"></div><div class="chart-label">M9</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 137jt</div><div class="chart-bar" data-h="110"></div><div class="chart-label">M12</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 165jt</div><div class="chart-bar" data-h="138"></div><div class="chart-label">Y2</div></div>
-      <div class="chart-bar-wrap"><div class="chart-value">Rp 198jt</div><div class="chart-bar" data-h="168"></div><div class="chart-label">Y3</div></div>
+    
+    <div class="fin-card fin-card-chart">
+      <div class="fin-card-header">02 · REVENUE TRAJECTORY</div>
+      
+      <div class="fin-chart-area">
+        <canvas id="revenueChart" width="500" height="240" style="width:100%; height:auto; max-height:240px;"></canvas>
+      </div>
+      
+      <div class="fin-chart-insight">
+        <span class="fin-insight-icon">◆</span>
+        <span>12-month revenue: </span>
+        <strong id="insightValue">Rp 294 JT</strong>
+        <span class="fin-insight-sub" id="insightSub">(moderate)</span>
+      </div>
+      
+      <div class="fin-equity-card">
+        <div class="fin-equity-title">EQUITY OFFERING</div>
+        <div class="fin-equity-value" id="equityValue">7.0%</div>
+        <div class="fin-equity-desc" id="equityDesc">pre-money valuation Rp 2.5B</div>
+        <div class="fin-equity-min">minimum ticket: Rp 25.000.000</div>
+      </div>
     </div>
+    
+    <div class="fin-card fin-card-equity">
+      <div class="fin-card-header">03 · ALLOCATION MANIFESTO</div>
+      
+      <div class="fin-alloc-list">
+        <div class="fin-alloc-item">
+          <div class="fin-alloc-header">
+            <div class="fin-alloc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+            </div>
+            <span class="fin-alloc-name">Location & Space</span>
+            <span class="fin-alloc-perc" id="allocSpacePerc">25%</span>
+          </div>
+          <div class="fin-alloc-bar-track">
+            <div class="fin-alloc-bar-fill" id="allocSpaceBar" style="width: 25%"></div>
+          </div>
+          <div class="fin-alloc-row-bottom">
+            <span class="fin-alloc-amount" id="allocSpaceAmt">Rp 43.8 jt</span>
+            <span class="fin-alloc-desc" id="allocSpaceDesc">Sewa ruko strategis + deposit</span>
+          </div>
+        </div>
+        
+        <div class="fin-alloc-item">
+          <div class="fin-alloc-header">
+            <div class="fin-alloc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33"/>
+                <path d="M4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33"/>
+              </svg>
+            </div>
+            <span class="fin-alloc-name">Coffee Tech & Equipment</span>
+            <span class="fin-alloc-perc" id="allocEquipPerc">35%</span>
+          </div>
+          <div class="fin-alloc-bar-track">
+            <div class="fin-alloc-bar-fill" id="allocEquipBar" style="width: 35%"></div>
+          </div>
+          <div class="fin-alloc-row-bottom">
+            <span class="fin-alloc-amount" id="allocEquipAmt">Rp 61.3 jt</span>
+            <span class="fin-alloc-desc" id="allocEquipDesc">Mesin espresso + grinder + roaster</span>
+          </div>
+        </div>
+        
+        <div class="fin-alloc-item">
+          <div class="fin-alloc-header">
+            <div class="fin-alloc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="4" y="2" width="16" height="20" rx="2"/>
+                <line x1="8" y1="6" x2="16" y2="6"/>
+                <line x1="8" y1="10" x2="16" y2="10"/>
+                <line x1="8" y1="14" x2="12" y2="14"/>
+              </svg>
+            </div>
+            <span class="fin-alloc-name">Architectural Fit-Out</span>
+            <span class="fin-alloc-perc" id="allocRenoPerc">25%</span>
+          </div>
+          <div class="fin-alloc-bar-track">
+            <div class="fin-alloc-bar-fill" id="allocRenoBar" style="width: 25%"></div>
+          </div>
+          <div class="fin-alloc-row-bottom">
+            <span class="fin-alloc-amount" id="allocRenoAmt">Rp 43.8 jt</span>
+            <span class="fin-alloc-desc" id="allocRenoDesc">Renovasi + desain interior + furniture</span>
+          </div>
+        </div>
+        
+        <div class="fin-alloc-item">
+          <div class="fin-alloc-header">
+            <div class="fin-alloc-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/>
+              </svg>
+            </div>
+            <span class="fin-alloc-name">Brand & Working Capital</span>
+            <span class="fin-alloc-perc" id="allocBrandPerc">15%</span>
+          </div>
+          <div class="fin-alloc-bar-track">
+            <div class="fin-alloc-bar-fill" id="allocBrandBar" style="width: 15%"></div>
+          </div>
+          <div class="fin-alloc-row-bottom">
+            <span class="fin-alloc-amount" id="allocBrandAmt">Rp 26.3 jt</span>
+            <span class="fin-alloc-desc" id="allocBrandDesc">Pre-launch campaign + inventory + legal</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="fin-total-bar">
+        <span>Total deployed capital</span>
+        <strong id="totalCapitalReminder">Rp 175.000.000</strong>
+      </div>
+    </div>
+    
   </div>
+  
 </section>
 
 <div class="divider"></div>
