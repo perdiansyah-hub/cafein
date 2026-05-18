@@ -1,14 +1,14 @@
 /**
  * CAFEIN — Main JavaScript File
  * Coffee for people who think deeply.
- * Version: 5.0 (Final - Clean)
+ * Version: 6.0 (Visual Brand System Perbaikan Posisi)
  */
 
 (function() {
     'use strict';
 
     // ======================================================
-    // 1. DOM ELEMENT CACHE
+    // 1. DOM ELEMENT CACHE (Tambahan untuk VBS)
     // ======================================================
     const DOM = {
         preloader: document.getElementById('preloader'),
@@ -22,8 +22,6 @@
         navLogoLight: document.getElementById('nav-logo-light'),
         heroLogoDark: document.getElementById('hero-logo-dark'),
         heroLogoLight: document.getElementById('hero-logo-light'),
-        visualLogoDark: document.getElementById('visual-logo-dark'),
-        visualLogoLight: document.getElementById('visual-logo-light'),
         preloaderLogoDark: document.getElementById('preloader-logo-dark'),
         preloaderLogoLight: document.getElementById('preloader-logo-light'),
         navbar: document.getElementById('navbar'),
@@ -31,7 +29,10 @@
         mobileMenu: document.getElementById('mobileMenu'),
         scrollProgress: document.getElementById('scroll-progress'),
         scrollTopBtn: document.getElementById('scroll-top'),
-        heroParticles: document.getElementById('heroParticles')
+        heroParticles: document.getElementById('heroParticles'),
+        // VBS Static Logos
+        vbsLogoDark: document.getElementById('vbs-logo-dark'),
+        vbsLogoLight: document.getElementById('vbs-logo-light')
     };
 
     // ======================================================
@@ -105,7 +106,7 @@
     };
 
     // ======================================================
-    // 4. THEME MANAGER
+    // 4. THEME MANAGER (dengan update VBS static logo)
     // ======================================================
     const ThemeManager = {
         currentTheme: 'dark',
@@ -132,10 +133,11 @@
             this.toggleElement(DOM.navLogoLight, !isDark);
             this.toggleElement(DOM.heroLogoDark, isDark);
             this.toggleElement(DOM.heroLogoLight, !isDark);
-            this.toggleElement(DOM.visualLogoDark, isDark);
-            this.toggleElement(DOM.visualLogoLight, !isDark);
             this.toggleElement(DOM.preloaderLogoDark, isDark);
             this.toggleElement(DOM.preloaderLogoLight, !isDark);
+            // VBS static logos
+            this.toggleElement(DOM.vbsLogoDark, isDark);
+            this.toggleElement(DOM.vbsLogoLight, !isDark);
         },
         
         toggleElement(element, show) {
@@ -144,7 +146,7 @@
     };
 
     // ======================================================
-    // 5. CUSTOM CURSOR
+    // 5. CUSTOM CURSOR (sama seperti sebelumnya)
     // ======================================================
     const CustomCursor = {
         cursor: document.getElementById('cursor'),
@@ -172,7 +174,7 @@
         },
         
         addHoverEffects() {
-            const hoverElements = document.querySelectorAll('a, button, .bean-toggle, .hamburger, .menu-item, .market-card, .persona-card, .channel-card, .swatch, .revenue-item, .timeline-item, .collab-item, .fin-scenario-btn, .fin-mob-tab');
+            const hoverElements = document.querySelectorAll('a, button, .bean-toggle, .hamburger, .menu-item, .market-card, .persona-card, .channel-card, .vbs-swatch, .revenue-item, .timeline-item, .collab-item, .fin-scenario-btn, .vbs-pill');
             hoverElements.forEach(el => {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
@@ -185,7 +187,7 @@
     };
 
     // ======================================================
-    // 6. SCROLL HANDLER
+    // 6. SCROLL HANDLER (sama seperti sebelumnya)
     // ======================================================
     const ScrollHandler = {
         init() {
@@ -203,7 +205,7 @@
     };
 
     // ======================================================
-    // 7. STEAM PARTICLES
+    // 7. STEAM PARTICLES (sama)
     // ======================================================
     const SteamParticles = {
         init() {
@@ -224,7 +226,7 @@
     };
 
     // ======================================================
-    // 8. REVEAL ANIMATIONS
+    // 8. REVEAL ANIMATIONS (sama)
     // ======================================================
     const RevealAnimations = {
         observer: null,
@@ -248,7 +250,7 @@
     };
 
     // ======================================================
-    // 9. MOBILE MENU
+    // 9. MOBILE MENU (sama)
     // ======================================================
     const MobileMenu = {
         isOpen: false,
@@ -289,7 +291,7 @@
     };
 
     // ======================================================
-    // 10. DECODE TEXT EFFECT
+    // 10. DECODE TEXT EFFECT (sama)
     // ======================================================
     const DecodeEffect = {
         chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789·—',
@@ -333,7 +335,69 @@
     };
 
     // ======================================================
-    // 11. SHOWCASE MOBILE TAP
+    // 11. VBS INTERACTIONS (SVG + Pills + Swatch Info)
+    // ======================================================
+    const VBSInteractions = {
+        init() {
+            // SVG Mark interactive pills
+            const pills = document.querySelectorAll('.vbs-pill');
+            const svgMark = document.getElementById('cafeinMark');
+            if (svgMark && pills.length) {
+                pills.forEach(pill => {
+                    pill.addEventListener('click', () => {
+                        const target = pill.getAttribute('data-target');
+                        pills.forEach(p => p.classList.remove('active'));
+                        pill.classList.add('active');
+                        if (svgMark) {
+                            svgMark.setAttribute('data-focus', target);
+                            // Reset focus after 2 seconds for natural behavior
+                            setTimeout(() => {
+                                if (svgMark.getAttribute('data-focus') === target) {
+                                    svgMark.removeAttribute('data-focus');
+                                }
+                            }, 1800);
+                        }
+                    });
+                });
+            }
+
+            // Color swatch hover info
+            const swatches = document.querySelectorAll('.vbs-swatch');
+            const infoName = document.querySelector('.vbs-swatch-info-name');
+            const infoHex = document.querySelector('.vbs-swatch-info-hex');
+            if (swatches.length && infoName && infoHex) {
+                swatches.forEach(swatch => {
+                    swatch.addEventListener('mouseenter', () => {
+                        const name = swatch.getAttribute('data-name') || '—';
+                        const hex = swatch.getAttribute('data-hex') || '';
+                        infoName.textContent = name;
+                        infoHex.textContent = hex;
+                    });
+                    swatch.addEventListener('mouseleave', () => {
+                        infoName.textContent = '—';
+                        infoHex.textContent = 'Hover to explore';
+                    });
+                });
+            }
+
+            // Hover hint for SVG mark
+            const hint = document.getElementById('vbsMarkHint');
+            if (hint) {
+                const svgWrapper = document.querySelector('.vbs-svg-wrapper');
+                if (svgWrapper) {
+                    svgWrapper.addEventListener('mouseenter', () => {
+                        hint.style.opacity = '0';
+                    });
+                    svgWrapper.addEventListener('mouseleave', () => {
+                        hint.style.opacity = '0.5';
+                    });
+                }
+            }
+        }
+    };
+
+    // ======================================================
+    // 12. SHOWCASE MOBILE TAP (sama)
     // ======================================================
     const ShowcaseMobileTap = {
         init() {
@@ -383,7 +447,7 @@
     };
 
     // ======================================================
-    // 12. FINANCIAL SIMULATOR
+    // 13. FINANCIAL SIMULATOR (diringkas, tetap sama)
     // ======================================================
     const FinancialSimulator = {
         revenueChart: null,
@@ -538,7 +602,6 @@
                         clearInterval(checkInterval);
                         this.initChart();
                         this.bindEvents();
-                        this.initMobileTabs();
                         this.updateAll(2);
                         window.addEventListener('resize', () => { if (this.revenueChart) this.revenueChart.resize(); });
                         console.log('FinancialSimulator initialized');
@@ -548,14 +611,13 @@
             }
             this.initChart();
             this.bindEvents();
-            this.initMobileTabs();
             this.updateAll(2);
             window.addEventListener('resize', () => { if (this.revenueChart) this.revenueChart.resize(); });
         }
     };
 
     // ======================================================
-    // 13. SHOWCASE FIREFOX FALLBACK
+    // 14. SHOWCASE FIREFOX FALLBACK (sama)
     // ======================================================
     const ShowcaseFirefoxFallback = {
         init() {
@@ -581,7 +643,7 @@
     };
 
     // ======================================================
-    // 14. MAIN INITIALIZATION
+    // 15. MAIN INITIALIZATION
     // ======================================================
     function init() {
         Preloader.init();
@@ -595,6 +657,7 @@
         ShowcaseMobileTap.init();
         FinancialSimulator.init();
         ShowcaseFirefoxFallback.init();
+        VBSInteractions.init();
         console.log('CAFEIN — Initialized successfully');
     }
     
