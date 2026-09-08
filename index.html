@@ -1,527 +1,897 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAFEIN — Coffee for people who think deeply.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAFEIN — Coffee for people who think deeply.</title>
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="images/pavicon.png">
-<link rel="shortcut icon" type="image/png" href="images/pavicon.png">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/pavicon.png">
+  <link rel="shortcut icon" type="image/png" href="images/pavicon.png">
 
-<!-- Open Graph / Social Sharing -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="CAFEIN — Coffee for people who think deeply.">
-<meta property="og:description" content="Specialty coffee shop dengan identitas minimalist, cinematic, dan intellectual. Sebuah ruang untuk berpikir, berkarya, dan menikmati ritual kopi.">
-<meta property="og:url" content="https://cafein.id">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="description" content="CAFEIN adalah specialty coffee shop dengan suasana minimalist, cinematic, dan intellectual — bukan sekadar café, melainkan ruang untuk berpikir.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CAFEIN — Coffee for people who think deeply.">
+  <meta property="og:description" content="CAFEIN adalah ruang untuk berhenti sejenak — tempat kopi, suasana, dan pikiran bertemu.">
+  <meta property="og:url" content="https://cafein.id">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="description" content="CAFEIN — coffee & lifestyle experience.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- ─── PRELOADER ──────────────────────────────────────────────── -->
-<div id="preloader">
-  <div class="preloader-wrap">
-    <img id="preloader-logo-dark" src="images/light.png" alt="CAFEIN" class="preloader-custom-img">
-    <img id="preloader-logo-light" src="images/dark.png" alt="CAFEIN" class="preloader-custom-img" style="display:none">
-    <div class="preloader-line"><div class="preloader-fill" id="preloaderFill"></div></div>
-    <div class="preloader-count" id="preloaderCount">0</div>
-    <div class="preloader-tagline">Coffee for people who think deeply.</div>
-  </div>
-</div>
-
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-<div id="scroll-progress"></div>
-
-<!-- ─── SCROLL TO TOP ─────────────────────────────────────────── -->
-<button id="scroll-top" aria-label="Scroll to top">
-  <svg viewBox="0 0 14 14"><polyline points="2,9 7,4 12,9"/></svg>
-</button>
-
-<!-- ─── NAV ──────────────────────────────────────────────────── -->
-<nav id="navbar">
-  <a href="#hero" class="nav-logo">
-    <img id="nav-logo-dark" src="images/logolight.png" alt="CAFEIN Logo" class="nav-custom-img">
-    <img id="nav-logo-light" src="images/logodark.png" alt="CAFEIN Logo" class="nav-custom-img" style="display:none">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#team">Team</a></li>
-    <li><a href="#story">Story</a></li>
-    <li><a href="#market">Market</a></li>
-    <li><a href="#product">Product</a></li>
-    <li><a href="#marketing">Marketing</a></li>
-    <li><a href="#financials">Financials</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-  </ul>
-  <div class="nav-right">
-    <button class="bean-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
-      <div class="bean-glow"></div>
-      <div class="bean-knob">
-        <img id="bean-icon-dark" src="images/darkmode.png" alt="Dark Icon" class="toggle-custom-img">
-        <img id="bean-icon-light" src="images/lightmode.png" alt="Light Icon" class="toggle-custom-img" style="display:none">
+  <!-- ========================================================== -->
+  <!-- PRELOADER                                                  -->
+  <!-- ========================================================== -->
+  <div id="preloader">
+    <div class="preloader-wrap">
+      <img id="preloader-logo-dark" src="images/light.png" alt="CAFEIN" class="preloader-custom-img">
+      <img id="preloader-logo-light" src="images/dark.png" alt="CAFEIN" class="preloader-custom-img" style="display:none">
+      <div class="preloader-line">
+        <div class="preloader-fill" id="preloaderFill"></div>
       </div>
-    </button>
-    <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+      <div class="preloader-count" id="preloaderCount">0</div>
+      <div class="preloader-tagline">Coffee for people who think deeply.</div>
     </div>
   </div>
-</nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#team" onclick="closeMobile()">Team</a>
-  <a href="#story" onclick="closeMobile()">Story</a>
-  <a href="#market" onclick="closeMobile()">Market</a>
-  <a href="#product" onclick="closeMobile()">Product</a>
-  <a href="#marketing" onclick="closeMobile()">Marketing</a>
-  <a href="#financials" onclick="closeMobile()">Financials</a>
-  <a href="#roadmap" onclick="closeMobile()">Roadmap</a>
-  <a href="#cta" onclick="closeMobile()">Contact</a>
-</div>
+  <!-- ========================================================== -->
+  <!-- CUSTOM CURSOR & SCROLL PROGRESS                            -->
+  <!-- ========================================================== -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+  <div id="scroll-progress"></div>
 
-<!-- ─── HERO ─────────────────────────────────────────────────── -->
-<section id="hero">
-  <div class="hero-video-container">
-    <video autoplay muted loop playsinline class="hero-video">
+  <!-- ========================================================== -->
+  <!-- SCROLL TO TOP                                              -->
+  <!-- ========================================================== -->
+  <button id="scroll-top" aria-label="Scroll to top">
+    <svg viewBox="0 0 14 14"><polyline points="2,9 7,4 12,9"/></svg>
+  </button>
+
+  <!-- ========================================================== -->
+  <!-- NAVIGATION                                                 -->
+  <!-- ========================================================== -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">
+      <img id="nav-logo-dark" src="images/logolight.png" alt="CAFEIN" class="nav-custom-img">
+      <img id="nav-logo-light" src="images/logodark.png" alt="CAFEIN" class="nav-custom-img" style="display:none">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#philosophy">Philosophy</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#store">Store</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#join-team">Join Us</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="#location" class="nav-cta">Visit Us</a>
+      <button class="bean-toggle" id="themeToggle" title="Toggle theme">
+        <div class="bean-glow"></div>
+        <div class="bean-knob">
+          <img id="bean-icon-dark" src="images/darkmode.png" alt="Dark" class="toggle-custom-img">
+          <img id="bean-icon-light" src="images/lightmode.png" alt="Light" class="toggle-custom-img" style="display:none">
+        </div>
+      </button>
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================== -->
+  <!-- MOBILE MENU                                                -->
+  <!-- ========================================================== -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#philosophy" onclick="closeMobile()">Philosophy</a>
+    <a href="#experience" onclick="closeMobile()">Experience</a>
+    <a href="#menu" onclick="closeMobile()">Menu</a>
+    <a href="#store" onclick="closeMobile()">Store</a>
+    <a href="#people" onclick="closeMobile()">Community</a>
+    <a href="#journal" onclick="closeMobile()">Journal</a>
+    <a href="#join-team" onclick="closeMobile()">Join Us</a>
+    <a href="#location" onclick="closeMobile()">Location</a>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- 01. HERO                                                   -->
+  <!-- ========================================================== -->
+  <section id="hero">
+    <div class="hero-video-container">
+      <video autoplay muted loop playsinline preload="metadata" class="hero-video" id="heroVideo" poster="images/hero-poster.jpg">
       <source src="images/vids.mp4" type="video/mp4">
-    </video>
-  </div>
-  
-  <div class="hero-bottom-logo-container">
-    <img id="hero-logo-dark" src="images/logolight.png" alt="CAFEIN Logo" class="hero-bottom-logo">
-    <img id="hero-logo-light" src="images/logodark.png" alt="CAFEIN Logo" class="hero-bottom-logo" style="display:none">
-  </div>
-  <div class="hero-vignette"></div>
-  <div class="hero-particles" id="heroParticles"></div>
-  <div class="hero-eyebrow reveal">Coffee Shop Concept Proposal · 2030</div>
-  <h1 class="hero-title reveal reveal-delay-1">
-    Coffee for people<br>who <em>think deeply.</em>
-  </h1>
-  <p class="hero-sub reveal reveal-delay-2">
-    CAFEIN — tempat dimana kopi, suasana, dan pikiran bertemu dalam tenangnya malam.
-  </p>
-  <div class="hero-ctas reveal reveal-delay-3">
-    <a href="#team" class="btn-primary"><span>Meet The Team</span></a>
-    <a href="#story" class="btn-ghost">Explore Brand Vision</a>
-  </div>
-  <div class="hero-scroll">Scroll</div>
-  <div class="hero-year">Est. 2030</div>
-</section>
+      </video>
+    </div>
 
-<!-- ─── OUR TEAM SECTION ─────────────────────────────────────── -->
-<section id="team">
-  <div class="section-label reveal" data-number="01">Our Team</div>
-  <h2 class="section-title reveal reveal-delay-1">The minds behind<br><em>the brew.</em></h2>
-  <p class="section-body reveal reveal-delay-2" style="max-width: 700px;">Kami adalah sekelompok individu dengan latar belakang berbeda yang dipersatukan oleh visi yang sama: menciptakan ruang di mana kopi dan pemikiran mendalam dapat bersatu.</p>
+    <div class="hero-bottom-logo-container">
+      <img id="hero-logo-dark" src="images/logolight.png" alt="CAFEIN" class="hero-bottom-logo">
+      <img id="hero-logo-light" src="images/logodark.png" alt="CAFEIN" class="hero-bottom-logo" style="display:none">
+    </div>
 
-  <div class="team-gallery">
-    <div class="showcase-wrapper reveal reveal-delay-1">
-      <div class="showcase-container">
-        <div class="showcase-box showcase-box-1" style="--img: url(images/team-rizki.jpg); --accent: #c9b89a;" tabindex="0">
-          <div class="char-accent-bar"></div>
-          <div class="char-initial">R</div>
-          <div class="char-info-panel">
-            <div class="char-info-name">RIZKI M HUSNUN</div>
-            <div class="char-info-role">Head Barista</div>
-            <div class="char-info-desc">Mengkurasi dan meracik biji kopi pilihan menjadi sajian berkualitas dengan karakter rasa yang konsisten. Mengedepankan presisi, kualitas, dan pengalaman pelanggan dalam setiap cangkir yang disajikan.</div>
+    <div class="hero-vignette"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+
+    <div class="hero-eyebrow reveal">A room for slower thinking</div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      Coffee for people<br>who <em>think deeply.</em>
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">
+      CAFEIN adalah ruang untuk berhenti sejenak — tempat kopi, suasana, dan pikiran bertemu, dari pagi yang perlahan hingga malam yang paling sunyi.
+    </p>
+    <div class="hero-ctas reveal reveal-delay-3">
+      <a href="#philosophy" class="btn-primary"><span>Explore CAFEIN</span></a>
+      <a href="#menu" class="btn-ghost">See the Menu</a>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+    <div class="hero-year">Est. 2026</div>
+  </section>
+
+  <!-- ========================================================== -->
+  <!-- 02. PHILOSOPHY                                             -->
+  <!-- ========================================================== -->
+  <section id="philosophy">
+    <div class="section-label reveal" data-number="01">Philosophy</div>
+    <h2 class="section-title reveal reveal-delay-1">Coffee is never<br>just <em>coffee.</em></h2>
+
+    <div class="story-grid">
+      <div class="story-left">
+        <blockquote class="story-quote reveal">
+          "Keresahan akan ramai dan bisingnya dunia membuat banyak orang kehilangan ruang untuk benar-benar berhenti, berpikir, dan menikmati waktu sejenak. Ambilah segelas kopi, rasakan satu tegukan untuk menghidupkan kembali hati yang sudah lelah."
+        </blockquote>
+      </div>
+      <div class="story-right">
+        <p class="story-para reveal">Di tengah dunia yang terus bergerak, banyak orang hidup seperti mesin yang tidak pernah benar-benar berhenti. Hari dipenuhi notifikasi, tuntutan, dan perlombaan yang seolah tidak ada garis akhirnya. Keramaian perlahan membuat manusia kehilangan sesuatu yang sederhana: ruang untuk berhenti, untuk bernapas, untuk mendengar isi kepalanya sendiri.</p>
+        <p class="story-para reveal reveal-delay-1">Dari keresahan itu, lahirlah CAFEIN. Bukan sekadar coffee shop, tetapi ruang kecil bagi mereka yang lelah dengan bisingnya dunia. Tempat di mana waktu berjalan lebih pelan, aroma kopi memberi kenyamanan, dan satu tegukan mampu menghadirkan kembali rasa hidup yang sempat redup.</p>
+        <p class="story-para reveal reveal-delay-2">Kami percaya, kopi bukan hanya minuman. Ia adalah jeda. Ia adalah percakapan. Ia adalah teman bagi orang-orang yang sedang berusaha untuk bertahan.</p>
+        <p class="story-para reveal reveal-delay-3">Karena terkadang, yang dibutuhkan seseorang bukan pelarian. Cukup segelas kopi, suasana yang tenang, dan sedikit alasan untuk kembali merasa hidup.<br><br><em>Cafein. One sip. One pause. One more reason to feel alive.</em></p>
+      </div>
+    </div>
+
+    <!-- Visual Brand System -->
+    <div class="mark-section">
+      <div class="mark-heading reveal">
+        <div class="mark-label">The Meaning Behind the Mark</div>
+        <p class="mark-intro">Nama dan logo CAFEIN bukan kebetulan. Keduanya lahir dari filosofi yang sama tentang kejernihan pikiran.</p>
+      </div>
+
+      <div class="vbs-logo-row reveal reveal-delay-1">
+        <div class="vbs-static-logo">
+          <img src="images/logolight.png" alt="CAFEIN Dark" id="vbs-logo-dark" class="vbs-static-img">
+          <img src="images/logodark.png" alt="CAFEIN Light" id="vbs-logo-light" class="vbs-static-img" style="display:none;">
+        </div>
+        <div class="vbs-svg-wrapper">
+          <svg class="vbs-svg-mark" id="cafeinMark" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#d4a97a" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#d4a97a" stop-opacity="0"/>
+              </radialGradient>
+              <clipPath id="eyeClip"><ellipse cx="160" cy="100" rx="78" ry="42"/></clipPath>
+            </defs>
+            <ellipse class="vbs-eye-rim" cx="160" cy="100" rx="78" ry="42" fill="none" stroke="var(--accent)" stroke-width="0.8" opacity="0.5"/>
+            <path class="vbs-lid-top" d="M 82 100 Q 160 52 238 100" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+            <path class="vbs-lid-bot" d="M 82 100 Q 160 148 238 100" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
+            <circle class="vbs-sun-halo" cx="125" cy="100" r="28" fill="url(#sunGlow)" opacity="0.6"/>
+            <circle class="vbs-sun" cx="125" cy="100" r="18" fill="none" stroke="#d4a97a" stroke-width="1"/>
+            <g class="vbs-rays" stroke="#d4a97a" stroke-width="0.7" opacity="0.5">
+              <line x1="125" y1="75" x2="125" y2="68"/>
+              <line x1="125" y1="125" x2="125" y2="132"/>
+              <line x1="100" y1="100" x2="93" y2="100"/>
+              <line x1="150" y1="100" x2="157" y2="100"/>
+              <line x1="107" y1="82" x2="102" y2="77"/>
+              <line x1="143" y1="82" x2="148" y2="77"/>
+              <line x1="107" y1="118" x2="102" y2="123"/>
+              <line x1="143" y1="118" x2="148" y2="123"/>
+            </g>
+            <g clip-path="url(#eyeClip)">
+              <circle class="vbs-moon-shadow" cx="155" cy="100" r="20" fill="var(--bg)" opacity="0.92"/>
+              <circle class="vbs-moon-crescent" cx="155" cy="100" r="20" fill="none" stroke="#c9b89a" stroke-width="1"/>
+            </g>
+            <circle class="vbs-iris" cx="160" cy="100" r="10" fill="none" stroke="var(--accent)" stroke-width="0.9" opacity="0.8"/>
+            <circle class="vbs-pupil" cx="160" cy="100" r="4" fill="var(--accent)" opacity="0.9"/>
+            <circle class="vbs-reflex" cx="163" cy="97" r="1.5" fill="var(--text)" opacity="0.6"/>
+            <text class="vbs-wordmark" x="160" y="168" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="300" letter-spacing="10" fill="var(--text)" opacity="0.9">CAFEIN</text>
+            <text class="vbs-submark" x="160" y="182" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="5" font-weight="300" letter-spacing="3.5" fill="var(--text-secondary)" opacity="0.7">COFFEE FOR PEOPLE WHO THINK DEEPLY</text>
+          </svg>
+          <div class="vbs-mark-hint" id="vbsMarkHint">hover · explore the mark</div>
+        </div>
+      </div>
+
+      <div class="vbs-philosophy-pills reveal reveal-delay-1">
+        <div class="vbs-pill active" data-target="sun">
+          <span class="vbs-pill-symbol">☀</span>
+          <div><div class="vbs-pill-name">The Sun</div><div class="vbs-pill-sub">Logic · Clarity · Day</div></div>
+        </div>
+        <div class="vbs-pill-connector">+</div>
+        <div class="vbs-pill" data-target="moon">
+          <span class="vbs-pill-symbol">☽</span>
+          <div><div class="vbs-pill-name">The Moon</div><div class="vbs-pill-sub">Creativity · Night · Depth</div></div>
+        </div>
+        <div class="vbs-pill-connector">=</div>
+        <div class="vbs-pill" data-target="eye">
+          <span class="vbs-pill-symbol">◉</span>
+          <div><div class="vbs-pill-name">The Eye</div><div class="vbs-pill-sub">Consciousness · Focus · CAFEIN</div></div>
+        </div>
+      </div>
+
+      <div class="vbs-philosophy reveal reveal-delay-2">
+        <div class="vbs-phil-item">
+          <div class="vbs-phil-num">01</div>
+          <div class="vbs-phil-body">
+            <div class="vbs-phil-label">The Name</div>
+            <p class="vbs-phil-text">Berakar dari <em>Caféine</em> Prancis, melacak silsilahnya ke bahasa Arab <strong>Qahwah — قهوة</strong>. Kekuatan yang membangkitkan; ritual kejernihan yang memisahkan pikiran dari bisingnya dunia.</p>
           </div>
         </div>
-        <div class="showcase-box showcase-box-2" style="--img: url(images/team-melinda.jpg); --accent: #d4a97a;" tabindex="0">
-          <div class="char-accent-bar"></div>
-          <div class="char-initial">M</div>
-          <div class="char-info-panel">
-            <div class="char-info-name">MELINDA NUR'AINI</div>
-            <div class="char-info-role">Head of Operations</div>
-            <div class="char-info-desc">Memastikan seluruh operasional berjalan efektif dan terorganisir, mulai dari koordinasi tim, standar layanan, hingga pengalaman pelanggan secara menyeluruh. Berorientasi pada efisiensi tanpa mengurangi kualitas pelayanan.</div>
+        <div class="vbs-phil-item">
+          <div class="vbs-phil-num">02</div>
+          <div class="vbs-phil-body">
+            <div class="vbs-phil-label">The Mark: Eclipse &amp; Cosmic Eye</div>
+            <p class="vbs-phil-text">Matahari dan bulan sabit melebur menjadi <strong>Mata Kesadaran</strong>. Ketika dua penguasa langit bersatu dalam gerhana batin, waktu berhenti — dan kita mulai melihat ke dalam.</p>
           </div>
         </div>
-        <div class="showcase-box showcase-box-3" style="--img: url(images/team-perdiansyah.jpg); --accent: #8a7d6a;" tabindex="0">
-          <div class="char-accent-bar"></div>
-          <div class="char-initial">P</div>
-          <div class="char-info-panel">
-            <div class="char-info-name">PERDIANSYAH</div>
-            <div class="char-info-role">Founder &amp; CEO</div>
-            <div class="char-info-desc">Visioner di balik CAFEIN. Membangun ruang di mana kopi, suasana, dan percakapan hadir lebih bermakna dalam setiap pengalaman.</div>
-          </div>
-        </div>
-        <div class="showcase-box showcase-box-4" style="--img: url(images/team-nabila.jpg); --accent: #b8a88a;" tabindex="0">
-          <div class="char-accent-bar"></div>
-          <div class="char-initial">N</div>
-          <div class="char-info-panel">
-            <div class="char-info-name">NABILA SITI NURHAYATI</div>
-            <div class="char-info-role">Creative Director</div>
-            <div class="char-info-desc">Arsitek visual CAFEIN. Mengarahkan seluruh proses kreatif brand dari ide hingga eksekusi, memastikan setiap elemen visual dan komunikasi selaras dalam membentuk pengalaman yang kuat, konsisten, dan bermakna.</div>
-          </div>
-        </div>
-        <div class="showcase-box showcase-box-5" style="--img: url(images/team-shaqira.jpg); --accent: #a09278;" tabindex="0">
-          <div class="char-accent-bar"></div>
-          <div class="char-initial">S</div>
-          <div class="char-info-panel">
-            <div class="char-info-name">SHAKIRA QUINETTA</div>
-            <div class="char-info-role">Marketing Strategist</div>
-            <div class="char-info-desc">Mengembangkan strategi pemasaran berbasis insight dan storytelling yang kuat untuk membangun koneksi autentik antara brand dan audiens. Berfokus pada komunikasi yang relevan, berkelanjutan, dan berdampak nyata bagi pertumbuhan brand.</div>
+        <div class="vbs-phil-item">
+          <div class="vbs-phil-num">03</div>
+          <div class="vbs-phil-body">
+            <div class="vbs-phil-label">The Focal Point</div>
+            <p class="vbs-phil-text">Bentuk mata bekerja layaknya lensa batin — menarik pandangan tepat ke pusatnya; rasa tenang sesapan pertama kopi yang mengunci fokus dan mengusir kabut di kepala.</p>
           </div>
         </div>
       </div>
-      <p class="showcase-hint" id="showcaseHint">hover to explore the team</p>
-      <div class="showcase-indicators" id="showcaseIndicators">
-        <span class="showcase-indicator" data-index="0">R</span>
-        <span class="showcase-indicator" data-index="1">M</span>
-        <span class="showcase-indicator" data-index="2">P</span>
-        <span class="showcase-indicator" data-index="3">N</span>
-        <span class="showcase-indicator" data-index="4">S</span>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================================================== -->
+  <!-- 03. THE EXPERIENCE                                         -->
+  <!-- ========================================================== -->
+  <section id="experience">
+    <div class="section-label reveal" data-number="02">The Experience</div>
+    <h2 class="section-title reveal reveal-delay-1">One space,<br>four <em>rhythms.</em></h2>
+    <p class="section-body reveal reveal-delay-2">CAFEIN tidak berubah sepanjang hari — tapi cara orang menggunakannya berubah. Pagi, siang, sore, dan malam masing-masing punya karakternya sendiri.</p>
+
+    <div class="exp-layout reveal reveal-delay-2">
+      <div class="exp-tabs" role="tablist">
+        <button class="exp-tab active" data-target="pagi" role="tab" aria-selected="true">
+          <span class="exp-tab-num">i.</span>
+          <span class="exp-tab-name">Pagi <em>· Morning</em></span>
+          <span class="exp-tab-desc">Untuk yang memulai — fokus, kopi cepat, energi awal.</span>
+        </button>
+        <button class="exp-tab" data-target="siang" role="tab" aria-selected="false">
+          <span class="exp-tab-num">ii.</span>
+          <span class="exp-tab-name">Siang <em>· Midday</em></span>
+          <span class="exp-tab-desc">Untuk yang bertemu — obrolan, rapat santai, jeda kerja.</span>
+        </button>
+        <button class="exp-tab" data-target="sore" role="tab" aria-selected="false">
+          <span class="exp-tab-num">iii.</span>
+          <span class="exp-tab-name">Sore <em>· Late Afternoon</em></span>
+          <span class="exp-tab-desc">Untuk yang berkarya — menulis, meracik ide, kerja panjang.</span>
+        </button>
+        <button class="exp-tab" data-target="malam" role="tab" aria-selected="false">
+          <span class="exp-tab-num">iv.</span>
+          <span class="exp-tab-name">Malam <em>· Night</em></span>
+          <span class="exp-tab-desc">Untuk yang berpikir — sunyi, reflektif, jam paling jernih.</span>
+        </button>
+      </div>
+
+      <div class="exp-panel-frame">
+        <div class="exp-panel active" data-panel="pagi" style="--img:url(images/experience-pagi.jpg)">
+          <div class="exp-panel-quote">"Kopi pertama selalu yang paling jujur."</div>
+        </div>
+        <div class="exp-panel" data-panel="siang" style="--img:url(images/experience-siang.jpg)">
+          <div class="exp-panel-quote">"Percakapan terbaik terjadi tanpa terburu-buru."</div>
+        </div>
+        <div class="exp-panel" data-panel="sore" style="--img:url(images/experience-sore.jpg)">
+          <div class="exp-panel-quote">"Di sinilah ide setengah jadi akhirnya selesai."</div>
+        </div>
+        <div class="exp-panel" data-panel="malam" style="--img:url(images/experience-malam.jpg)">
+          <div class="exp-panel-quote">"Jam-jam paling sunyi, pikiran paling jernih."</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- ─── BRAND STORY ───────────────────────────────────────────── -->
-<section id="story">
-  <div class="section-label reveal" data-number="02">Brand Story</div>
-  <div class="story-grid">
-    <div class="story-left">
-      <blockquote class="story-quote reveal">
-        "keresahan akan ramai dan bisingnya dunia membuat banyak orang kehilangan ruang untuk benar-benar berhenti, berpikir, dan menikmati waktu sejenak.
-        Ambilah segelas kopi rasakan satu tegukan cafein untuk menghidupkan kembali hati yang sudah mati."
-      </blockquote>
-      <div class="story-stat-row reveal reveal-delay-1">
-        <div class="story-stat"><div class="story-stat-num">∞</div><div class="story-stat-label">Ideas brewed</div></div>
-        <div class="story-stat"><div class="story-stat-num">1 AM</div><div class="story-stat-label">Peak clarity</div></div>
-        <div class="story-stat"><div class="story-stat-num">01</div><div class="story-stat-label">Origin vision</div></div>
+  <!-- ========================================================== -->
+  <!-- 04. MENU — SHOWCASE ADAPTASI V6.0                          -->
+  <!-- ========================================================== -->
+  <section id="menu">
+    <div class="section-label reveal" data-number="03">Menu</div>
+    <h2 class="section-title reveal reveal-delay-1">A menu as <em>considered</em><br>as a quiet room.</h2>
+    <p class="section-body reveal reveal-delay-2">Tidak banyak pilihan. Hanya pilihan yang tepat.</p>
+
+    <!-- Tabs -->
+    <div class="menu-tabs reveal reveal-delay-2" role="tablist">
+      <button class="menu-tab active" data-menu-target="coffee">Coffee</button>
+      <button class="menu-tab" data-menu-target="non-coffee">Non-Coffee</button>
+      <button class="menu-tab" data-menu-target="signature">Signature</button>
+    </div>
+
+    <!-- ===== COFFEE SHOWCASE ===== -->
+    <div class="menu-panel active" data-menu-panel="coffee">
+      <!-- Desktop hint -->
+      <p class="showcase-hint-desktop">↕ hover to explore</p>
+      <!-- Mobile hint -->
+      <p class="showcase-hint-mobile">👆 tap card to explore</p>
+      <div class="showcase-wrapper">
+        <div class="showcase-container">
+          <!-- 1. Espresso -->
+          <div class="showcase-box showcase-box-1" style="--img: url(images/menu-espresso.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">E</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Espresso</div>
+              <div class="char-info-role">Single origin · Rp 22.000</div>
+              <div class="char-info-desc">Single origin pilihan, diekstrak pada suhu dan tekanan sempurna untuk menghasilkan rasa yang bersih dan kuat.</div>
+            </div>
+          </div>
+
+          <!-- 2. Americano -->
+          <div class="showcase-box showcase-box-2" style="--img: url(images/menu-americano.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">A</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Americano</div>
+              <div class="char-info-role">Hot or iced · Rp 25.000</div>
+              <div class="char-info-desc">Klasik yang tak lekang waktu. Espresso yang diencerkan dengan air panas atau es, tetap mempertahankan karakter biji kopi.</div>
+            </div>
+          </div>
+
+          <!-- 3. Latte -->
+          <div class="showcase-box showcase-box-3" style="--img: url(images/menu-latte.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">L</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Latte</div>
+              <div class="char-info-role">Steamed milk · Rp 30.000</div>
+              <div class="char-info-desc">Keseimbangan sempurna antara espresso dan susu. Creamy, lembut, dan selalu menjadi pilihan favorit.</div>
+            </div>
+          </div>
+
+          <!-- 4. Gula Aren -->
+          <div class="showcase-box showcase-box-4" style="--img: url(images/menu-aren.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">R</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Gula Aren</div>
+              <div class="char-info-role">Gula Aren · Rp 32.000</div>
+              <div class="char-info-desc">Sentuhan lokal dengan gula aren pilihan. Manis alami yang berpadu harmonis dengan espresso dan susu segar.</div>
+            </div>
+          </div>
+
+          <!-- 5. Cappuccino -->
+          <div class="showcase-box showcase-box-5" style="--img: url(images/menu-Lemon.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">C</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Black Lemon Tonic</div>
+              <div class="char-info-role">Espresso, Lemon & Tonic· Rp 30.000</div>
+              <div class="char-info-desc">Perpaduan klasik Espresso beremu segarnya Lemon tonic. Tradisi menikmati pahitnya kopi dan segarnya lemon tonic.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="showcase-indicators" id="showcaseIndicatorsCoffee">
+          <span class="showcase-indicator" data-index="0">E</span>
+          <span class="showcase-indicator" data-index="1">A</span>
+          <span class="showcase-indicator" data-index="2">L</span>
+          <span class="showcase-indicator" data-index="3">R</span>
+          <span class="showcase-indicator" data-index="4">C</span>
+        </div>
       </div>
     </div>
-    <div class="story-right">
-      <p class="story-para reveal">Di tengah dunia yang terus bergerak, banyak orang hidup seperti mesin yang tidak pernah benar-benar berhenti. Hari dipenuhi suara notifikasi, tuntutan, tekanan, dan perlombaan yang seolah tidak ada garis akhirnya. Keramaian perlahan membuat manusia kehilangan sesuatu yang sederhana: ruang untuk berhenti. Ruang untuk bernapas. Ruang untuk mendengar isi kepalanya sendiri.</p>
-      <p class="story-para reveal reveal-delay-1">Dari keresahan itu, lahirlah CAFEIN. Bukan sekadar coffee shop, tetapi ruang kecil bagi mereka yang lelah dengan bisingnya dunia. Tempat di mana waktu berjalan lebih pelan, aroma kopi yang perlahan memberikan kenyamanan, dan satu tegukan yang mampu menghadirkan kembali rasa hidup yang sempat redup.</p>
-      <p class="story-para reveal reveal-delay-2">Kami percaya, kopi bukan hanya minuman. Ia adalah jeda. Ia adalah percakapan. Ia adalah teman bagi orang-orang yang sedang berusaha untuk bertahan.</p>
-      <p class="story-para reveal reveal-delay-3">Karena terkadang, yang dibutuhkan seseorang bukan pelarian. Cukup segelas kopi, suasana yang tenang, dan sedikit alasan untuk kembali merasa hidup.<br><br><em>Cafein. One Sip. One Pause. One More Reason to Feel Alive.</em></p>
-    </div>
-  </div>
-</section>
 
-<div class="divider"></div>
+    <!-- ===== NON-COFFEE SHOWCASE ===== -->
+    <div class="menu-panel" data-menu-panel="non-coffee">
+      <!-- Desktop hint -->
+      <p class="showcase-hint-desktop">↕ hover to explore</p>
+      <!-- Mobile hint -->
+      <p class="showcase-hint-mobile">👆 tap card to explore</p>
+      <div class="showcase-wrapper">
+        <div class="showcase-container">
+          <!-- 1. Matcha -->
+          <div class="showcase-box showcase-box-1" style="--img: url(images/menu-matcha.webp);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">M</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Matcha Latte</div>
+              <div class="char-info-role">Ceremonial matcha · Rp 32.000</div>
+              <div class="char-info-desc">Matcha ceremonial grade dari Jepang, dikocok dengan susu segar. Hijau, creamy, dan penuh antioksidan.</div>
+            </div>
+          </div>
 
-<!-- ─── MARKET ANALYSIS ───────────────────────────────────────── -->
-<section id="market">
-  <div class="section-label reveal" data-number="03">Market Analysis</div>
-  <h2 class="section-title reveal reveal-delay-1">The specialty coffee<br><em>landscape</em> is shifting.</h2>
-  <p class="section-body reveal reveal-delay-2">Perubahan gaya hidup melahirkan generasi baru penikmat kopi yang tidak lagi mencari sekadar minuman, tetapi pengalaman, suasana, dan identitas dalam setiap kunjungan.</p>
-  <div class="market-grid">
-    <div class="market-card reveal"><div class="market-card-num">01</div><div class="market-card-title">Third-Wave Coffee Growth</div><div class="market-card-body">Pasar kopi spesialti global diproyeksikan mencapai $83,5B pada tahun 2025 dengan pertumbuhan tahunan sebesar 11,2%. Konsumen mulai beralih dari kopi komoditas biasa menuju pengalaman kopi berkualitas yang memiliki asal-usul jelas dan nilai lebih.</div><div class="market-highlight">$83.5B market by 2025</div></div>
-    <div class="market-card reveal reveal-delay-1"><div class="market-card-num">02</div><div class="market-card-title">Gen Z Creative Consumer</div><div class="market-card-body">Gen Z menghabiskan 2,4× lebih banyak untuk pengalaman dibanding generasi sebelumnya. Mereka tertarik pada brand yang memiliki identitas dan filosofi yang jelas, bukan sekadar produk, tetapi cara pandang dan gaya hidup yang bisa mereka rasakan dan bagikan.</div><div class="market-highlight">2.4× experiential spending</div></div>
-    <div class="market-card reveal reveal-delay-2"><div class="market-card-num">03</div><div class="market-card-title">Remote Work Culture</div><div class="market-card-body">Sebanyak 68% pekerja berbasis pengetahuan kini bekerja dari luar kantor setidaknya 3 hari dalam seminggu. Ruang café premium yang mendukung fokus dan produktivitas mendalam mengalami peningkatan permintaan yang belum pernah terjadi sebelumnya.</div><div class="market-highlight">68% remote/hybrid workers</div></div>
-    <div class="market-card reveal reveal-delay-1"><div class="market-card-num">04</div><div class="market-card-title">Aesthetic-Driven Discovery</div><div class="market-card-body">Lebih dari 74% kunjungan baru ke café dari kelompok usia 18–30 tahun dipengaruhi oleh penemuan melalui platform sosial visual. Identitas brand yang kuat dan konsisten secara visual kini menjadi saluran pemasaran utama.</div><div class="market-highlight">74% visual discovery</div></div>
-    <div class="market-card reveal reveal-delay-2"><div class="market-card-num">05</div><div class="market-card-title">Premiumisation</div><div class="market-card-body">Segmen kopi premium tumbuh 4 kali lebih cepat dibanding pasar kopi massal. Konsumen kini mulai melihat kopi bukan sekadar kebutuhan, tetapi bagian dari gaya hidup dan kemewahan harian yang memiliki makna lebih.</div><div class="market-highlight">4× premium growth rate</div></div>
-    <div class="market-card reveal reveal-delay-3"><div class="market-card-num">06</div><div class="market-card-title">Community &amp; Belonging</div><div class="market-card-body">Pasca pandemi, 61% konsumen mulai mencari "ruang ketiga" fisik, yaitu tempat yang bukan rumah maupun tempat kerja. Café dengan identitas yang kuat kini hadir mengisi kebutuhan tersebut dan membangun loyalitas pelanggan yang tinggi.</div><div class="market-highlight">61% seek third places</div></div>
-  </div>
-  <div class="market-bar-section">
-    <div class="market-bar-title reveal">Consumer preference trends</div>
-    <div class="bar-row reveal"><div class="bar-label">Specialty quality</div><div class="bar-track"><div class="bar-fill" style="--w:87%"></div></div><div class="bar-value">87%</div></div>
-    <div class="bar-row reveal reveal-delay-1"><div class="bar-label">Aesthetic environment</div><div class="bar-track"><div class="bar-fill" style="--w:79%"></div></div><div class="bar-value">79%</div></div>
-    <div class="bar-row reveal reveal-delay-2"><div class="bar-label">Brand identity</div><div class="bar-track"><div class="bar-fill" style="--w:71%"></div></div><div class="bar-value">71%</div></div>
-    <div class="bar-row reveal reveal-delay-3"><div class="bar-label">Ethical sourcing</div><div class="bar-track"><div class="bar-fill" style="--w:65%"></div></div><div class="bar-value">65%</div></div>
-    <div class="bar-row reveal reveal-delay-4"><div class="bar-label">Exclusive coffees</div><div class="bar-track"><div class="bar-fill" style="--w:58%"></div></div><div class="bar-value">58%</div></div>
-  </div>
-</section>
+          <!-- 2. Chocolate -->
+          <div class="showcase-box showcase-box-2" style="--img: url(images/menu-chocolate.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">H</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Chocolate</div>
+              <div class="char-info-role">Belgian cocoa · Rp 30.000</div>
+              <div class="char-info-desc">Cokelat Belgian premium yang dilelehkan dan dicampur dengan susu panas. Hangat, nikmat, dan memanjakan.</div>
+            </div>
+          </div>
 
-<div class="divider"></div>
+          <!-- 3. Red Velvet -->
+          <div class="showcase-box showcase-box-3" style="--img: url(images/menu-redvelvet.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">V</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Red Velvet</div>
+              <div class="char-info-role">Cream cheese foam · Rp 32.000</div>
+              <div class="char-info-desc">Sentuhan manis dengan foam cream cheese di atasnya. Warna merah yang menggoda dan rasa yang lembut.</div>
+            </div>
+          </div>
 
-<!-- ─── AUDIENCE ──────────────────────────────────────────────── -->
-<section id="audience">
-  <div class="section-label reveal" data-number="04">Target Audience</div>
-  <h2 class="section-title reveal reveal-delay-1">Those who arrive early<br>and leave <em>late.</em></h2>
-  <div class="audience-grid">
-    <div class="persona-card reveal"><div class="persona-icon">✦</div><div class="persona-type">Persona 01</div><div class="persona-name">The Night Creator</div><div class="persona-desc">Penulis, desainer, dan musisi yang menemukan ide terbaik mereka di malam hari. Mereka membutuhkan ruang yang selaras dengan ritme berpikir mereka, tenang, tidak terburu-buru, dan memiliki suasana estetis yang mendalam.</div><div class="persona-tags"><span class="persona-tag">Age 22–32</span><span class="persona-tag">Creative industry</span><span class="persona-tag">Night owl</span></div></div>
-    <div class="persona-card reveal reveal-delay-1"><div class="persona-icon">◎</div><div class="persona-type">Persona 02</div><div class="persona-name">The Deep Worker</div><div class="persona-desc">Freelancer, pekerja remote, dan pekerja kreatif yang membutuhkan suasana nyaman untuk menjaga fokus dalam waktu lama. Mereka cenderung loyal pada tempat yang mampu menghargai dan mendukung konsentrasi mereka.</div><div class="persona-tags"><span class="persona-tag">Age 26–40</span><span class="persona-tag">Remote work</span><span class="persona-tag">High income</span></div></div>
-    <div class="persona-card reveal reveal-delay-2"><div class="persona-icon">◇</div><div class="persona-type">Persona 03</div><div class="persona-name">The Curious Student</div><div class="persona-desc">Mahasiswa yang menekuni bidang desain, arsitektur, filsafat, film, atau sastra. Mereka sedang membangun selera dan identitas diri, serta tertarik pada brand yang mencerminkan pribadi yang ingin mereka menjadi.</div><div class="persona-tags"><span class="persona-tag">Age 18–24</span><span class="persona-tag">University</span><span class="persona-tag">Aesthetic-led</span></div></div>
-    <div class="persona-card reveal reveal-delay-3"><div class="persona-icon">△</div><div class="persona-type">Persona 04</div><div class="persona-name">The Coffee Purist</div><div class="persona-desc">Penikmat specialty coffee yang memahami asal biji kopi dan menikmati diskusi tentang teknik brewing. Mereka menghargai kualitas dan proses, serta menjadi pendukung awal yang paling berharga bagi sebuah brand.</div><div class="persona-tags"><span class="persona-tag">Age 28–45</span><span class="persona-tag">Coffee-led</span><span class="persona-tag">Advocate</span></div></div>
-    <div class="persona-card reveal"><div class="persona-icon">○</div><div class="persona-type">Persona 05</div><div class="persona-name">The Quiet Romantic</div><div class="persona-desc">Orang-orang yang menemukan makna dalam kesendirian — membaca, menulis jurnal, dan mengamati sekitar. Mereka memandang ritual minum kopi sebagai pengalaman yang intim dan mencari ruang yang terasa seperti adegan dalam film kehidupan mereka sendiri.</div><div class="persona-tags"><span class="persona-tag">Age 20–35</span><span class="persona-tag">Introvert</span><span class="persona-tag">Ritualistic</span></div></div>
-    <div class="persona-card reveal reveal-delay-1"><div class="persona-icon">⬡</div><div class="persona-type">Persona 06</div><div class="persona-name">The Cultural Tastemaker</div><div class="persona-desc">Influencer, editor, dan individu yang menjadi penghubung dalam komunitasnya. Satu unggahan yang autentik dari mereka mampu menjangkau ribuan orang dengan selera dan pemikiran serupa.</div><div class="persona-tags"><span class="persona-tag">Age 24–36</span><span class="persona-tag">Social influence</span><span class="persona-tag">Multiplier</span></div></div>
-    <div class="persona-card reveal reveal-delay-2"><div class="persona-icon">▽</div><div class="persona-type">Persona 07</div><div class="persona-name">The Intentional Pair</div><div class="persona-desc">Dua orang yang ingin benar-benar berbicara, bukan sekadar duduk sambil sibuk dengan layar masing-masing. Suasana CAFEIN hadir sebagai ruang untuk percakapan yang bermakna, hingga mereka menjadi yang paling tulus menceritakan pengalaman tentang brand ini.</div><div class="persona-tags"><span class="persona-tag">Age 22–40</span><span class="persona-tag">Conversational</span><span class="persona-tag">Loyal visitor</span></div></div>
-    <div class="persona-card reveal reveal-delay-3"><div class="persona-icon">◉</div><div class="persona-type">Persona 08</div><div class="persona-name">The Premium Seeker</div><div class="persona-desc">Para profesional yang memiliki selera tinggi dan menghargai segala sesuatu yang dibuat dengan kualitas serta perhatian terhadap detail. Mereka tidak keberatan membayar lebih selama pengalaman yang diberikan benar-benar sepadan.</div><div class="persona-tags"><span class="persona-tag">Age 30–50</span><span class="persona-tag">Premium segment</span><span class="persona-tag">Detail-aware</span></div></div>
-  </div>
-</section>
+          <!-- 4. Murmur -->
+          <div class="showcase-box showcase-box-4" style="--img: url(images/menu-murmur.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">U</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">Murmur</div>
+              <div class="char-info-role">Ceremonial cacao · Rp 34.000</div>
+              <div class="char-info-desc">Kakao ceremonial yang diseduh dengan susu hangat. Rasa yang menenangkan, seperti bisikan di tengah keramaian.</div>
+            </div>
+          </div>
+        </div>
 
-<div class="divider"></div>
-
-<!-- ─── BRAND POSITIONING ──────────────────────────────────────── -->
-<section id="positioning">
-  <div class="section-label reveal" data-number="05">Brand Positioning</div>
-  <h2 class="section-title reveal reveal-delay-1">Where <em>precision</em><br>meets atmosphere.</h2>
-  <div class="positioning-layout">
-    <div class="value-props">
-      <div class="value-prop reveal"><div class="vp-num">i.</div><div class="vp-content"><div class="vp-title">Coffee as a thinking tool</div><div class="vp-desc">CAFEIN positions coffee not as fuel but as ritual — a practice that frames and elevates thought. Our coffee is selected, prepared, and served as a deliberate act, not a transaction.</div></div></div>
-      <div class="value-prop reveal reveal-delay-1"><div class="vp-num">ii.</div><div class="vp-content"><div class="vp-title">Atmosphere as product</div><div class="vp-desc">Ruang di CAFEIN dirancang seistimewa kopinya. Tata suara, pencahayaan, kenyamanan furnitur, hingga aroma ruangan dipikirkan secara detail. Karena yang ditawarkan bukan hanya minuman, tetapi pengalaman dan suasana yang mampu mengubah cara seseorang menikmati waktu.</div></div></div>
-      <div class="value-prop reveal reveal-delay-2"><div class="vp-num">iii.</div><div class="vp-content"><div class="vp-title">Minimal, memorable identity</div><div class="vp-desc">CAFEIN memilih satu identitas dan menjaganya dengan konsisten. Tanpa gimmick musiman atau tren sesaat, melainkan karakter brand yang kuat dan bertahan lama, tetap relevan dari tahun pertama hingga tahun-tahun berikutnya.</div></div></div>
-      <div class="value-prop reveal reveal-delay-3"><div class="vp-num">iv.</div><div class="vp-content"><div class="vp-title">Community without noise</div><div class="vp-desc">CAFEIN membangun komunitas seperti toko buku independen terbaik — menarik orang-orang yang memiliki selera, cara berpikir, dan suasana yang sama, hingga tercipta komunitas secara alami tanpa perlu dipaksakan.</div></div></div>
-    </div>
-    <div>
-      <div class="competitor-map reveal reveal-delay-2">
-        <div class="map-axis-h"></div>
-        <div class="map-axis-v"></div>
-        <span class="map-label top">Premium</span>
-        <span class="map-label bottom">Commodity</span>
-        <span class="map-label left2">Functional</span>
-        <span class="map-label right2">Experiential</span>
-        <div class="map-dot cafein" style="left:75%;top:20%;"></div>
-        <div class="map-dot-label" style="left:75%;top:20%;color:var(--accent);font-size:0.68rem;font-weight:500;transform:translate(-50%,14px);">CAFEIN</div>
-        <div class="map-dot" style="left:55%;top:55%;background:var(--text-secondary);"></div>
-        <div class="map-dot-label" style="left:55%;top:55%;transform:translate(-50%,12px);">Starbucks</div>
-        <div class="map-dot" style="left:35%;top:42%;background:var(--text-secondary);"></div>
-        <div class="map-dot-label" style="left:35%;top:42%;transform:translate(-50%,12px);">Local Chains</div>
-        <div class="map-dot" style="left:65%;top:32%;background:var(--text-secondary);"></div>
-        <div class="map-dot-label" style="left:65%;top:32%;transform:translate(-50%,12px);">Specialty Shops</div>
-        <div class="map-dot" style="left:25%;top:75%;background:var(--text-secondary);"></div>
-        <div class="map-dot-label" style="left:25%;top:75%;transform:translate(-50%,12px);">Street Coffee</div>
+        <!-- Indicators -->
+        <div class="showcase-indicators" id="showcaseIndicatorsNonCoffee">
+          <span class="showcase-indicator" data-index="0">M</span>
+          <span class="showcase-indicator" data-index="1">H</span>
+          <span class="showcase-indicator" data-index="2">V</span>
+          <span class="showcase-indicator" data-index="3">U</span>
+        </div>
       </div>
-      <p style="font-size:0.68rem;color:var(--text-secondary);margin-top:14px;letter-spacing:0.06em;text-align:center;">Brand perception map — Premium × Experiential positioning</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ─── PRODUCT STRATEGY ──────────────────────────────────────── -->
-<section id="product">
-  <div class="section-label reveal" data-number="06">Product Strategy</div>
-  <h2 class="section-title reveal reveal-delay-1">A menu as <em>considered</em><br>as a curated playlist.</h2>
-  <div class="menu-grid">
-    <div class="menu-item reveal"><div class="menu-temp">— Hot / Signature</div><div class="menu-name">Noir</div><div class="menu-sub">Single origin espresso</div><div class="menu-desc">Espresso murni dengan karakter rasa yang jernih dan berkelas. Menggunakan biji single origin pilihan dari berbagai micro-lot terbaik, disajikan tepat pada momen ekstraksi paling sempurna. Tanpa susu. Tanpa tambahan berlebihan. Hanya kopi dalam bentuk terbaiknya.</div><div class="menu-price">From Rp 38.000</div></div>
-    <div class="menu-item reveal reveal-delay-1"><div class="menu-temp">— Hot / Signature</div><div class="menu-name">Solitude</div><div class="menu-sub">Hand-drip filter</div><div class="menu-desc">Manual brew yang menghargai kesabaran. Diseduh langsung saat dipesan, dengan proses selama dua belas menit untuk mengeluarkan setiap karakter rasa secara perlahan dan sempurna.</div><div class="menu-price">From Rp 52.000</div></div>
-    <div class="menu-item reveal reveal-delay-2"><div class="menu-temp">— Cold / Signature</div><div class="menu-name">Dusk</div><div class="menu-sub">Cold-brew clarity</div><div class="menu-desc">Proses ekstraksi selama delapan belas jam pada suhu rendah menghasilkan kopi dengan rasa yang lembut, dalam, dan berbeda dari biasanya. Gelap namun tetap ringan dinikmati.</div><div class="menu-price">From Rp 48.000</div></div>
-    <div class="menu-item reveal"><div class="menu-temp">— Milk / Signature</div><div class="menu-name">Lumen</div><div class="menu-sub">Oat milk cortado</div><div class="menu-desc">Perpaduan seimbang antara espresso dan oat milk, seperti harmoni antara percakapan dan keheningan. Oat milk dipanaskan pada suhu yang tepat untuk menjaga karakter dan kompleksitas rasa kopi.</div><div class="menu-price">From Rp 44.000</div></div>
-    <div class="menu-item reveal reveal-delay-1"><div class="menu-temp">— Seasonal</div><div class="menu-name">Umbra</div><div class="menu-sub">Hojicha espresso tonic</div><div class="menu-desc">Espresso tonic yang dipadukan ulang dengan hojicha panggang khas Jepang dan disajikan di atas es potong handmade. Perpaduan antara rasa pahit dan segar yang unik dalam setiap tegukan.</div><div class="menu-price">From Rp 56.000</div></div>
-    <div class="menu-item reveal reveal-delay-2"><div class="menu-temp">— Non-caffeine</div><div class="menu-name">Murmur</div><div class="menu-sub">Warm cacao ceremonial</div><div class="menu-desc">Untuk mereka yang datang mencari suasana, bukan sekadar stimulasi. Menggunakan ceremonial cacao pilihan dari Flores yang disiapkan dengan perhatian yang sama seperti espresso terbaik kami.</div><div class="menu-price">From Rp 46.000</div></div>
-  </div>
-  <div class="sourcing-section">
-    <div class="sourcing-text">
-      <h3 class="section-title reveal" style="font-size:2.2rem;">Our sourcing<br><em>philosophy.</em></h3>
-      <p class="section-body reveal reveal-delay-1" style="max-width:100%;">CAFEIN bekerja langsung dengan koperasi petani di Aceh, Flores, Toraja, Jawa Barat, hingga perkebunan pilihan yang menghasilkan varietas premium seperti Geisha, Typica, dan Bourbon. Kami juga berkolaborasi dengan Selaawi Coffee sebagai representasi kopi lokal Tasikmalaya.</p>
-      <p class="section-body reveal reveal-delay-2" style="max-width:100%;margin-top:20px;">Kami membayar di atas standar Fair Trade dan mengunjungi setiap kebun secara rutin untuk memastikan kualitas, keberlanjutan, dan hubungan yang lebih manusiawi dengan para petani.</p>
-    </div>
-    <div class="sourcing-visual reveal reveal-delay-2">
-      <div class="sourcing-icon">☽</div>
-      <div class="sourcing-tagline">"From altitude to atmosphere."</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ─── MARKETING STRATEGY ────────────────────────────────────── -->
-<section id="marketing">
-  <div class="section-label reveal" data-number="07">Marketing Plan</div>
-  <h2 class="section-title reveal reveal-delay-1">The brand that<br>whispers <em>loudest.</em></h2>
-  <p class="section-body reveal reveal-delay-2">CAFEIN percaya bahwa hal-hal yang paling berkesan tidak selalu datang dengan suara paling keras. Lewat suasana yang tenang, detail yang hangat, dan pengalaman yang intim, CAFEIN hadir secara perlahan namun tinggal lebih lama di ingatan.</p>
-  <div class="marketing-channels">
-    <div class="channel-card reveal"><div class="channel-platform">Platform 01 · Instagram</div><div class="channel-title">Visual<br>Stillness</div><div class="channel-desc">Instagram menjadi portofolio visual brand — sebuah kurasi estetika yang berada di antara nuansa majalah editorial dan jurnal kopi modern. Setiap unggahan dirancang sebagai sebuah karya visual, bukan sekadar media promosi.</div><ul class="channel-tactics"><li>Fotografi editorial monokrom dengan penggunaan ruang kosong yang terarah dan elegan</li><li>Konten dokumentasi proses pembuatan kopi — menampilkan proses, bukan hanya hasil akhir</li><li>Reels atmosferik yang menghadirkan suara seduhan kopi, uap, keramik, dan keheningan sebagai pengalaman visual dan audio</li><li>Seri bulanan “Reading List” di Instagram Story — rekomendasi buku yang dipadukan dengan karakter menu kami</li><li>Desain tipografi minimalis: satu kalimat, satu gagasan, setiap minggunya</li></ul></div>
-    <div class="channel-card reveal reveal-delay-1"><div class="channel-platform">Platform 02 · TikTok</div><div class="channel-title">Cinematic<br>Intimacy</div><div class="channel-desc">TikTok menjadi ruang di mana karakter dan suasana brand benar-benar hidup. Bukan mengikuti tren atau tarian viral, melainkan menghadirkan film pendek sinematik berdurasi 60 detik yang menangkap pengalaman berada di CAFEIN melalui atmosfer, detail, dan emosi.</div><ul class="channel-tactics"><li>Seri “It’s 1 AM at CAFEIN” — ambience café bergaya ASMR dengan narasi suara yang intim dan menenangkan</li><li>Dokumentasi perjalanan asal kopi — eksplorasi singkat ke perkebunan dan proses di balik setiap biji kopi pilihan</li><li>Perspektif barista (POV) — menampilkan proses pour-over sebagai ritual yang presisi, tenang, dan meditatif</li><li>Caption reflektif dan filosofis yang mendorong percakapan, bukan sekadar interaksi singkat</li><li>Konten duet interaktif seperti “What are you working on?” untuk membangun koneksi dan keterlibatan komunitas kreatif</li></ul></div>
-    <div class="channel-card reveal reveal-delay-2"><div class="channel-platform">Strategy 03 · Creators</div><div class="channel-title">Earned<br>Authority</div><div class="channel-desc">Kami menciptakan kondisi bagi advokasi yang autentik. Kami mengundang kreator yang memiliki kepekaan estetika selaras dengan kami, dan memberi mereka kebebasan kreatif penuh.</div><ul class="channel-tactics"><li>Program residensi: desainer & penulis menghabiskan satu bulan bekerja dari CAFEIN</li><li>Kapsul "Designed Here" terbatas — merchandise hasil kolaborasi dengan seniman yang kami tampilkan</li><li>Tanpa konten skrip — kreator mendokumentasikan secara jujur, atau tidak sama sekali</li><li>Fokus mikro-influencer (10k–100k): kedalaman mengalahkan luasnya jangkauan</li><li>komunitas akademik: satu keanggotaan gratis per fakultas desain universitas</li></ul></div>
-    <div class="channel-card reveal reveal-delay-3"><div class="channel-platform">Strategy 04 · Community</div><div class="channel-title">A Place<br>Worth Naming</div><div class="channel-desc">Bentuk pemasaran terdalam yang dapat dicapai CAFEIN adalah menciptakan ruang yang begitu khas sehingga pelanggan tetap menggambarkannya kepada orang-orang yang belum pernah datang. Earned word-of-mouth adalah satu-satunya media yang terus berlipat ganda.</div><ul class="channel-tactics"><li>Malam "Late Edit" bulanan: diskusi, pemutaran film, pembacaan puisi — setelah jam tutup</li><li>CAFEIN Press: jurnal cetak kuartalan yang dibagikan gratis di dalam toko</li><li>Wi-Fi terbuka dengan satu esai harian — terhubung ke internet berarti terhubung pada sebuah gagasan</li><li>Members' wall: papan gabus berisi karya pelanggan tetap, diperbarui setiap bulan</li><li>Kemitraan dengan toko buku independen untuk aktivasi lintas komunitas</li></ul></div>
-  </div>
-  <div class="collab-section">
-    <div class="collab-title reveal">Creator collaboration archetypes</div>
-    <div class="collab-grid">
-      <div class="collab-item reveal"><span class="collab-emoji">✏️</span><div class="collab-name">The Writer</div><div class="collab-role">Long-form journalist, novelist, essayist</div></div>
-      <div class="collab-item reveal reveal-delay-1"><span class="collab-emoji">📷</span><div class="collab-name">The Photographer</div><div class="collab-role">Editorial, documentary, still life</div></div>
-      <div class="collab-item reveal reveal-delay-2"><span class="collab-emoji">🎵</span><div class="collab-name">The Composer</div><div class="collab-role">Ambient, neo-classical, generative</div></div>
-      <div class="collab-item reveal reveal-delay-3"><span class="collab-emoji">🎨</span><div class="collab-name">The Visual Artist</div><div class="collab-role">Illustrator, typographer, designer</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ─── VISUAL BRAND SYSTEM ───────────────────────────────────── -->
-<!-- Perbaikan: Logo statis dan SVG diletakkan berdekatan dalam satu baris -->
-<section id="brand-system">
-  <div class="section-label reveal" data-number="08">Visual Brand System</div>
-  <h2 class="section-title reveal reveal-delay-1">The Concept of<br>Our <em>Philosophy.</em></h2>
-
-  <!-- LOGO ROW: Logo Statis + SVG Interaktif dalam baris yang sama -->
-  <div class="vbs-logo-row reveal reveal-delay-1">
-    <!-- Logo statis (PNG) -->
-    <div class="vbs-static-logo">
-      <img src="images/logolight.png" alt="CAFEIN Logo Dark" id="vbs-logo-dark" class="vbs-static-img">
-      <img src="images/logodark.png" alt="CAFEIN Logo Light" id="vbs-logo-light" class="vbs-static-img" style="display:none;">
     </div>
 
-    <!-- Logo interaktif SVG -->
-    <div class="vbs-svg-wrapper">
-      <svg class="vbs-svg-mark" id="cafeinMark" viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" aria-label="CAFEIN Mark — Eclipse Eye">
-        <defs>
-          <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#d4a97a" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#d4a97a" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#c9b89a" stop-opacity="0.2"/>
-            <stop offset="100%" stop-color="#c9b89a" stop-opacity="0"/>
-          </radialGradient>
-          <clipPath id="eyeClip">
-            <ellipse cx="160" cy="100" rx="78" ry="42"/>
-          </clipPath>
-          <filter id="softGlow">
-            <feGaussianBlur stdDeviation="3" result="blur"/>
-            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-          </filter>
-        </defs>
+    <!-- ===== SIGNATURE SHOWCASE ===== -->
+    <div class="menu-panel" data-menu-panel="signature">
+      <!-- Desktop hint -->
+      <p class="showcase-hint-desktop">↕ hover to explore</p>
+      <!-- Mobile hint -->
+      <p class="showcase-hint-mobile">👆 tap card to explore</p>
+      <div class="showcase-wrapper">
+        <div class="showcase-container">
+          <!-- 1. NOIR -->
+          <div class="showcase-box showcase-box-1" style="--img: url(images/menu-noir.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">N</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">NOIR</div>
+              <div class="char-info-role">Single origin · Rp 38.000</div>
+              <div class="char-info-desc">Espresso murni dengan karakter rasa jernih. Biji single origin pilihan, disajikan tepat pada momen ekstraksi paling sempurna.</div>
+            </div>
+          </div>
 
-        <ellipse class="vbs-halo" cx="160" cy="100" rx="96" ry="55" fill="url(#sunGlow)" opacity="0"/>
-        <ellipse class="vbs-eye-rim" cx="160" cy="100" rx="78" ry="42" fill="none" stroke="var(--accent)" stroke-width="0.8" opacity="0.5"/>
-        <path class="vbs-lid-top" d="M 82 100 Q 160 52 238 100" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        <path class="vbs-lid-bot" d="M 82 100 Q 160 148 238 100" fill="none" stroke="var(--accent)" stroke-width="1.2"/>
-        <circle class="vbs-sun-halo" cx="125" cy="100" r="28" fill="url(#sunGlow)" opacity="0.6"/>
-        <circle class="vbs-sun" cx="125" cy="100" r="18" fill="none" stroke="#d4a97a" stroke-width="1"/>
-        <g class="vbs-rays" stroke="#d4a97a" stroke-width="0.7" opacity="0.5">
-          <line x1="125" y1="75"  x2="125" y2="68"/>
-          <line x1="125" y1="125" x2="125" y2="132"/>
-          <line x1="100" y1="100" x2="93"  y2="100"/>
-          <line x1="150" y1="100" x2="157" y2="100"/>
-          <line x1="107" y1="82"  x2="102" y2="77"/>
-          <line x1="143" y1="82"  x2="148" y2="77"/>
-          <line x1="107" y1="118" x2="102" y2="123"/>
-          <line x1="143" y1="118" x2="148" y2="123"/>
-        </g>
-        <g clip-path="url(#eyeClip)">
-          <circle class="vbs-moon-shadow" cx="155" cy="100" r="20" fill="var(--bg)" opacity="0.92"/>
-          <circle class="vbs-moon-crescent" cx="155" cy="100" r="20" fill="none" stroke="#c9b89a" stroke-width="1"/>
-        </g>
-        <circle class="vbs-iris" cx="160" cy="100" r="10" fill="none" stroke="var(--accent)" stroke-width="0.9" opacity="0.8"/>
-        <circle class="vbs-pupil" cx="160" cy="100" r="4" fill="var(--accent)" opacity="0.9"/>
-        <circle class="vbs-reflex" cx="163" cy="97" r="1.5" fill="var(--text)" opacity="0.6"/>
-        <text class="vbs-wordmark" x="160" y="168" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="300" letter-spacing="10" fill="var(--text)" opacity="0.9">CAFEIN</text>
-        <text class="vbs-submark" x="160" y="182" text-anchor="middle" font-family="'DM Sans', sans-serif" font-size="5" font-weight="300" letter-spacing="3.5" fill="var(--text-secondary)" opacity="0.7">COFFEE FOR PEOPLE WHO THINK DEEPLY</text>
-      </svg>
-      <div class="vbs-mark-hint" id="vbsMarkHint">hover · explore the mark</div>
+          <!-- 2. SOLITUDE -->
+          <div class="showcase-box showcase-box-2" style="--img: url(images/menu-solitude.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">S</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">SOLITUDE</div>
+              <div class="char-info-role">Hand-drip · Rp 52.000</div>
+              <div class="char-info-desc">Manual brew yang menghargai kesabaran. Diseduh saat dipesan, dua belas menit untuk mengeluarkan karakter rasa secara perlahan.</div>
+            </div>
+          </div>
+
+          <!-- 3. DUSK -->
+          <div class="showcase-box showcase-box-3" style="--img: url(images/menu-dusk.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">D</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">DUSK</div>
+              <div class="char-info-role">Cold-brew · Rp 48.000</div>
+              <div class="char-info-desc">Ekstraksi delapan belas jam pada suhu rendah menghasilkan rasa lembut dan dalam. Gelap namun tetap ringan dinikmati.</div>
+            </div>
+          </div>
+
+          <!-- 4. LUMEN -->
+          <div class="showcase-box showcase-box-4" style="--img: url(images/menu-lumen.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">L</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">LUMEN</div>
+              <div class="char-info-role">Oat milk cortado · Rp 44.000</div>
+              <div class="char-info-desc">Perpaduan seimbang espresso dan oat milk — harmoni antara percakapan dan keheningan.</div>
+            </div>
+          </div>
+
+          <!-- 5. UMBRA -->
+          <div class="showcase-box showcase-box-5" style="--img: url(images/menu-umbra.jpg);" tabindex="0">
+            <div class="char-accent-bar"></div>
+            <div class="char-initial">U</div>
+            <div class="char-info-panel">
+              <div class="char-info-name">UMBRA</div>
+              <div class="char-info-role">Hojicha espresso tonic · Rp 56.000</div>
+              <div class="char-info-desc">Espresso tonic dipadukan hojicha panggang khas Jepang, disajikan di atas es potong. Pahit dan segar dalam satu tegukan.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indicators -->
+        <div class="showcase-indicators" id="showcaseIndicatorsSignature">
+          <span class="showcase-indicator" data-index="0">N</span>
+          <span class="showcase-indicator" data-index="1">S</span>
+          <span class="showcase-indicator" data-index="2">D</span>
+          <span class="showcase-indicator" data-index="3">L</span>
+          <span class="showcase-indicator" data-index="4">U</span>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- Philosophy pills -->
-  <div class="vbs-philosophy-pills">
-    <div class="vbs-pill active" data-target="sun">
-      <span class="vbs-pill-symbol">☀</span>
-      <div><div class="vbs-pill-name">The Sun</div><div class="vbs-pill-sub">Logic · Clarity · Day</div></div>
+    <!-- Sourcing -->
+    <div class="sourcing-section">
+      <div class="sourcing-text">
+        <h3 class="section-title reveal" style="font-size:2.2rem;">Our sourcing<br><em>philosophy.</em></h3>
+        <p class="section-body reveal reveal-delay-1" style="max-width:100%;">CAFEIN bekerja langsung dengan koperasi petani di Selaawi sebagai representasi kopi lokal Tasikmalaya — memilih varietas premium seperti Geisha, Typica, dan Bourbon.</p>
+        <p class="section-body reveal reveal-delay-2" style="max-width:100%;margin-top:20px;">Kami membayar di atas standar Fair Trade dan mengunjungi setiap kebun secara rutin, memastikan kualitas dan hubungan yang lebih manusiawi dengan para petani.</p>
+      </div>
+      <div class="sourcing-visual reveal reveal-delay-2">
+        <div class="sourcing-icon">☽</div>
+        <div class="sourcing-tagline">"From Farmer to your Cup."</div>
+      </div>
     </div>
-    <div class="vbs-pill-connector">+</div>
-    <div class="vbs-pill" data-target="moon">
-      <span class="vbs-pill-symbol">☽</span>
-      <div><div class="vbs-pill-name">The Moon</div><div class="vbs-pill-sub">Creativity · Night · Depth</div></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================================================== -->
+  <!-- 05. STORE — KATALOG PRODUK LOKAL                          -->
+  <!-- ========================================================== -->
+  <section id="store">
+    <div class="section-label reveal" data-number="04">Store</div>
+    <h2 class="section-title reveal reveal-delay-1">Curated from <em>local</em><br>harvest.</h2>
+    <p class="section-body reveal reveal-delay-2">Setiap produk di sini adalah hasil dari petani dan pengrajin lokal yang kami percaya. Dengan membeli, Anda ikut menjaga ekosistem mereka tetap hidup.</p>
+
+    <div class="store-grid reveal reveal-delay-2">
+      <!-- Produk 1 -->
+      <div class="store-card">
+        <div class="store-card-image" style="--img:url(images/arabica.webp);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Selaawi Coffee</div>
+          <h3 class="store-card-title">Selaawi Arabica</h3>
+          <div class="store-card-price">Rp 100.000 <span>/ 250gr</span></div>
+          <p class="store-card-desc">Single origin dari ketinggian 1.300 mdpl. Profil rasa: jeruk, gula merah, dark chocolate.</p>
+          <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20membeli%20Selaawi%20Arabica%20(250gr)" class="btn-primary" target="_blank" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;">
+            <span>Beli via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Produk 2 -->
+      <div class="store-card">
+        <div class="store-card-image" style="--img:url(images/robusta.webp);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Selaawi Coffee</div>
+          <h3 class="store-card-title">Selaawi Robusta</h3>
+          <div class="store-card-price">Rp 50.000 <span>/ 250gr</span></div>
+          <p class="store-card-desc">Robusta berkualitas tinggi dengan profil rasa dark chocolate, kacang, dan rempah.</p>
+          <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20membeli%20Selaawi%20Robusta%20(250gr)" class="btn-primary" target="_blank" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;">
+            <span>Beli via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Produk 3 -->
+      <div class="store-card">
+        <div class="store-card-image" style="--img:url(images/arabica1kg.webp);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Selaawi Coffee</div>
+          <h3 class="store-card-title">Selaawi Arabica</h3>
+          <div class="store-card-price">Rp 380.000 <span>/ 1kg</span></div>
+          <p class="store-card-desc">Single origin dari ketinggian 1.300 mdpl. Profil rasa: jeruk, gula merah, dark chocolate.</p>
+          <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20membeli%20Selaawi%20Arabica%20(250gr)" class="btn-primary" target="_blank" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;">
+            <span>Beli via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Produk 4 -->
+      <div class="store-card">
+        <div class="store-card-image" style="--img:url(images/robusta1kg.webp);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Selaawi Coffee</div>
+          <h3 class="store-card-title">Selaawi Robusta</h3>
+          <div class="store-card-price">Rp 180.000 <span>/ 1kg</span></div>
+          <p class="store-card-desc">Robusta berkualitas tinggi dengan profil rasa dark chocolate, kacang, dan rempah.</p>
+          <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20membeli%20Kopi%20Bubuk%20Selaawi%20(200gr)" class="btn-primary" target="_blank" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;">
+            <span>Beli via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Produk 5 -->
+      <div class="store-card">
+        <div class="store-card-image" style="--img:url(images/aren.webp);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Lokal</div>
+          <h3 class="store-card-title">Gula Aren Lokal</h3>
+          <div class="store-card-price">Rp 40.000 <span>/ 500ml</span></div>
+          <p class="store-card-desc">Gula aren murni dari Desa Selaawi. Diproses secara tradisional tanpa bahan pengawet.</p>
+          <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20membeli%20Madu%20Hutan%20Selaawi%20(500ml)" class="btn-primary" target="_blank" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;">
+            <span>Beli via WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Produk 6 — placeholder untuk produk baru -->
+      <div class="store-card store-card-placeholder">
+        <div class="store-card-image" style="--img:url(images/coming-soon.jpg);"></div>
+        <div class="store-card-body">
+          <div class="store-card-tag">Coming Soon</div>
+          <h3 class="store-card-title">Produk Lokal Lainnya</h3>
+          <div class="store-card-price">—</div>
+          <p class="store-card-desc">Kami sedang menjajaki kolaborasi dengan lebih banyak petani dan pengrajin lokal.</p>
+          <a href="#join-team" class="btn-ghost" style="padding:10px 24px;font-size:0.6rem;width:100%;text-align:center;display:block;">
+            Jadi Mitra Lokal
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="vbs-pill-connector">=</div>
-    <div class="vbs-pill" data-target="eye">
-      <span class="vbs-pill-symbol">◉</span>
-      <div><div class="vbs-pill-name">The Eye</div><div class="vbs-pill-sub">Consciousness · Focus · CAFEIN</div></div>
+
+    <!-- Store CTA -->
+    <div class="store-cta reveal reveal-delay-3">
+      <p>Ingin produk lokal Anda di sini? <a href="#join-team">Jadi mitra CAFEIN</a> dan bantu kami membawa lebih banyak hasil bumi lokal ke meja Anda.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- Philosophy 3 blocks -->
-  <div class="vbs-philosophy reveal reveal-delay-2">
-    <div class="vbs-phil-item"><div class="vbs-phil-num">01</div><div class="vbs-phil-body"><div class="vbs-phil-label">The Name</div><p class="vbs-phil-text">Berakar dari <em>Caféine</em> Prancis, melacak silsilahnya ke bahasa Arab <strong>Qahwah — قهوة</strong>. Kekuatan yang membangkitkan; ritual kejernihan yang memisahkan pikiran dari bisingnya dunia.</p></div></div>
-    <div class="vbs-phil-item"><div class="vbs-phil-num">02</div><div class="vbs-phil-body"><div class="vbs-phil-label">The Mark: Eclipse & Cosmic Eye</div><p class="vbs-phil-text">Matahari dan bulan sabit melebur menjadi <strong>Mata Kesadaran</strong>. Ketika dua penguasa langit bersatu dalam gerhana batin, waktu berhenti — dan kita mulai melihat ke dalam.</p></div></div>
-    <div class="vbs-phil-item"><div class="vbs-phil-num">03</div><div class="vbs-phil-body"><div class="vbs-phil-label">The Focal Point</div><p class="vbs-phil-text">Bentuk mata bekerja layaknya lensa batin — menarik pandangan tepat ke pusatnya; rasa tenang sesapan pertama kopi yang mengunci fokus dan mengusir kabut di kepala.</p></div></div>
-  </div>
+  <div class="divider"></div>
 
-  <!-- Brand tokens -->
-  <div class="vbs-tokens reveal reveal-delay-2">
-    <div class="vbs-token-block"><div class="vbs-token-label">Colour Palette</div><div class="vbs-colour-strip"><div class="vbs-swatch" style="background:#0e0e0c;" data-name="Obsidian" data-hex="#0e0e0c"></div><div class="vbs-swatch" style="background:#181816;" data-name="Noir" data-hex="#181816"></div><div class="vbs-swatch" style="background:#3a342a;" data-name="Roast" data-hex="#3a342a"></div><div class="vbs-swatch" style="background:#8a7d6a;" data-name="Umber" data-hex="#8a7d6a"></div><div class="vbs-swatch" style="background:#c9b89a;" data-name="Cream" data-hex="#c9b89a"></div><div class="vbs-swatch" style="background:#e8e6e0;" data-name="Linen" data-hex="#e8e6e0"></div></div><div class="vbs-swatch-info" id="vbsSwatchInfo"><span class="vbs-swatch-info-name">—</span><span class="vbs-swatch-info-hex">Hover to explore</span></div><p class="vbs-token-note">Derived from the actual palette of exceptional coffee — deep near-black of a lungo to the warm ivory of steamed milk.</p></div>
-    <div class="vbs-token-block"><div class="vbs-token-label">Typography</div><div class="vbs-type-stack"><div class="vbs-type-row"><span class="vbs-type-role">Display</span><span class="vbs-type-sample vbs-t-display">Cormorant</span></div><div class="vbs-type-row"><span class="vbs-type-role">Accent</span><span class="vbs-type-sample vbs-t-accent">Italic Serif</span></div><div class="vbs-type-row"><span class="vbs-type-role">Body</span><span class="vbs-type-sample vbs-t-body">Coffee for people who think deeply.</span></div><div class="vbs-type-row"><span class="vbs-type-role">Label</span><span class="vbs-type-sample vbs-t-label">Single Origin · Specialty</span></div></div></div>
-    <div class="vbs-token-block"><div class="vbs-token-label">Photography Direction</div><div class="vbs-photo-stack"><div class="vbs-photo-row"><span class="vbs-photo-key">Light</span><span class="vbs-photo-val">Warm tungsten, window, dawn & dusk</span></div><div class="vbs-photo-row"><span class="vbs-photo-key">Texture</span><span class="vbs-photo-val">Ceramic, linen, aged paper, concrete</span></div><div class="vbs-photo-row"><span class="vbs-photo-key">Mood</span><span class="vbs-photo-val">Introspective, cinematic, underexposed</span></div><div class="vbs-photo-row vbs-photo-avoid"><span class="vbs-photo-key">Avoid</span><span class="vbs-photo-val">Bright flash, saturated filters, forced smiles</span></div></div></div>
-  </div>
-</section>
+  <!-- ========================================================== -->
+  <!-- 06. PEOPLE & COMMUNITY                                     -->
+  <!-- ========================================================== -->
+  <section id="people">
+    <div class="section-label reveal" data-number="05">People &amp; Community</div>
+    <h2 class="section-title reveal reveal-delay-1">Some come for coffee.<br>Most come back for the <em>company.</em></h2>
+    <p class="section-body reveal reveal-delay-2">CAFEIN bukan hanya tentang kopi. Ini tentang siapa yang duduk di sana, dan apa yang terjadi selagi mereka tinggal.</p>
 
-<div class="divider"></div>
-
-<!-- ─── BUSINESS MODEL ────────────────────────────────────────── -->
-<section id="business">
-  <div class="section-label reveal" data-number="09">Business Model</div>
-  <h2 class="section-title reveal reveal-delay-1">Revenue built on<br><em>meaning,</em> not volume.</h2>
-  <div class="revenue-grid">
-    <div class="revenue-item reveal"><div class="revenue-pct">42%</div><div class="revenue-name">In-store Beverages</div><div class="revenue-desc">The primary revenue stream. Premium pricing justified by exceptional product, atmosphere, and service ritual. Average ticket size 2.8× market average.</div></div>
-    <div class="revenue-item reveal reveal-delay-1"><div class="revenue-pct">18%</div><div class="revenue-name">Retail Beans</div><div class="revenue-desc">Single-origin bags and seasonal blends available in-store and through a direct subscription. The beans enter people's homes and become part of a daily private ritual.</div></div>
-    <div class="revenue-item reveal reveal-delay-2"><div class="revenue-pct">15%</div><div class="revenue-name">Membership Program</div><div class="revenue-desc">Monthly and annual memberships offering early access, extended-hours reservations, and priority seating. Predictable recurring revenue with high retention.</div></div>
-    <div class="revenue-item reveal reveal-delay-1"><div class="revenue-pct">12%</div><div class="revenue-name">Merchandise</div><div class="revenue-desc">Purposely minimal: one ceramic, one notebook, one tote — designed to be objects worth owning. Each piece is a portable brand advertisement carried by someone who cares.</div></div>
-    <div class="revenue-item reveal reveal-delay-2"><div class="revenue-pct">8%</div><div class="revenue-name">Events &amp; Space Hire</div><div class="revenue-desc">After-hours bookings for intimate creative events, brand dinners, editorial shoots, and private gatherings. Each event curated to maintain brand integrity.</div></div>
-    <div class="revenue-item reveal reveal-delay-3"><div class="revenue-pct">5%</div><div class="revenue-name">Digital Products</div><div class="revenue-desc">A downloadable ambient soundscape series, a quarterly digital zine, and a coffee brewing guide — digital extensions of the CAFEIN world for those who cannot yet visit.</div></div>
-  </div>
-  <div class="membership-section reveal reveal-delay-1">
-    <div class="membership-header"><div class="membership-header-inner"><div class="mb-main"><div class="mb-title">The CAFEIN Membership</div><div class="mb-desc">A membership for people who don't want to explain why they like this place. They just want to be here — regularly, without ceremony, with a seat that feels theirs.</div></div><div class="mb-badge"><div class="mb-badge-label">Active members</div><div class="mb-badge-value">Target: 80+</div></div></div></div>
-    <div class="mb-tiers-grid">
-      <div class="mb-tier-card"><div class="mb-tier-name">Dawn</div><div class="mb-tier-sub">Tier Pemula</div><div class="mb-tier-price">Rp 180k</div><div class="mb-tier-freq">/ bulan</div><div class="mb-tier-divider"></div><ul class="mb-tier-benefits"><li class="mb-tier-benefit">1 minuman gratis per minggu (pilihan tertentu)</li><li class="mb-tier-benefit">Diskon 10% untuk semua menu</li><li class="mb-tier-benefit">Akses ke reading list bulanan CAFEIN</li><li class="mb-tier-benefit">Member card eksklusif edisi pertama</li><li class="mb-tier-benefit dim">Priority seating (tidak termasuk)</li><li class="mb-tier-benefit dim">Akses Late Edit Events (tidak termasuk)</li></ul></div>
-      <div class="mb-tier-card featured"><div class="mb-tier-name">Dusk</div><div class="mb-tier-sub">Tier Utama</div><div class="mb-tier-price">Rp 320k</div><div class="mb-tier-freq">/ bulan</div><div class="mb-tier-divider"></div><ul class="mb-tier-benefits"><li class="mb-tier-benefit">2 minuman gratis per minggu (pilihan bebas)</li><li class="mb-tier-benefit">Diskon 15% untuk semua menu &amp; merchandise</li><li class="mb-tier-benefit">Priority seating — kursi favorit tersedia untukmu</li><li class="mb-tier-benefit">Akses penuh ke Late Edit Evening setiap bulan</li><li class="mb-tier-benefit">Satu edisi CAFEIN Press kuartalan</li><li class="mb-tier-benefit">Nama di Members' Wall selama aktif berlangganan</li></ul></div>
-      <div class="mb-tier-card"><div class="mb-tier-name">Noir</div><div class="mb-tier-sub">Tier Tahunan</div><div class="mb-tier-price">Rp 1.6jt</div><div class="mb-tier-freq">/ tahun · hemat 2 bulan</div><div class="mb-tier-divider"></div><ul class="mb-tier-benefits"><li class="mb-tier-benefit">Semua benefit Dusk sepanjang tahun</li><li class="mb-tier-benefit">Undangan eksklusif Soft Opening &amp; preview menu</li><li class="mb-tier-benefit">Satu set merchandise Noir edisi terbatas (nilai Rp 150k)</li><li class="mb-tier-benefit">Sesi brewing private 1 kali bersama head barista</li><li class="mb-tier-benefit">Akses khusus "After Midnight Hours" — buka lebih malam</li><li class="mb-tier-benefit">Profil member di CAFEIN Press edisi tahunan</li></ul></div>
+    <div class="people-grid reveal reveal-delay-2">
+      <div class="people-card people-card-lg" style="--img:url(images/people-1.jpg)">
+        <div class="people-caption">Menulis draft skripsi, ditemani cappuccino kedua.</div>
+      </div>
+      <div class="people-card" style="--img:url(images/people-2.jpg)">
+        <div class="people-caption">Rapat kecil yang berubah jadi obrolan dua jam.</div>
+      </div>
+      <div class="people-card" style="--img:url(images/people-3.jpg)">
+        <div class="people-caption">Barista yang mengenal pesananmu sebelum kamu duduk.</div>
+      </div>
+      <div class="people-card" style="--img:url(images/people-4.jpg)">
+        <div class="people-caption">Kelompok belajar yang menetap sampai tutup.</div>
+      </div>
+      <div class="people-card people-card-lg" style="--img:url(images/people-5.jpg)">
+        <div class="people-caption">Yang datang sendirian, pulang membawa ide baru.</div>
+      </div>
     </div>
-  </div>
-</section>
 
-<div class="divider"></div>
+    <p class="people-closing reveal reveal-delay-3">Kalau kamu membaca ini sambil membayangkan dirimu duduk di sana — kamu sudah mengerti CAFEIN.</p>
+  </section>
 
-<!-- ─── FINANCIAL PROJECTION ───────────────────────────────────── -->
-<section id="financials" class="fin-fullscreen">
-  <div class="fin-ambient-glow" id="finAmbientGlow"></div>
-  <div class="section-label reveal" data-number="10">Financial Projection</div>
-  <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 28px;">Built to sustain,<br>designed to <em>grow.</em></h2>
-  <div class="fin-dashboard">
-    <div class="fin-card fin-card-control"><div class="fin-card-header">01 · CAPITAL CONTROL</div><div class="fin-slider-area"><div class="fin-slider-top"><span class="fin-slider-label">INVESTMENT AMOUNT</span><span class="fin-range-badge" id="rangeBadge">RANGE 03</span></div><div class="fin-slider-wrapper"><input type="range" id="finSlider" class="fin-slider" min="0" max="5" step="1" value="2"><div class="fin-slider-track-fill" id="sliderFill"></div></div><div class="fin-slider-values"><span>25JT</span><span>50JT</span><span>100JT</span><span>250JT</span><span>500JT</span><span>1M+</span></div></div><div class="fin-investment-box"><div class="fin-investment-label">ACTIVE CAPITAL</div><div class="fin-investment-number" id="liveCapital">Rp 175.000.000</div></div><div class="fin-metrics"><div class="fin-metric-item"><div class="fin-metric-label">PROJECTED ROI</div><div class="fin-metric-value" id="metricRoi">29.2%</div><div class="fin-metric-note">annual return</div></div><div class="fin-metric-item"><div class="fin-metric-label">PAYBACK PERIOD</div><div class="fin-metric-value" id="metricPayback">11-13 mo</div><div class="fin-metric-note">to break-even</div></div><div class="fin-metric-item"><div class="fin-metric-label">BREAK-EVEN POINT</div><div class="fin-metric-value" id="metricBreakeven">Month 8</div><div class="fin-metric-note">at projected traffic</div></div></div><div class="fin-scenario-area"><div class="fin-scenario-label">PROJECTION SCENARIO</div><div class="fin-scenario-buttons"><button class="fin-scenario-btn" data-scenario="conservative">Conservative</button><button class="fin-scenario-btn active" data-scenario="moderate">Moderate</button><button class="fin-scenario-btn" data-scenario="aggressive">Aggressive</button></div></div></div>
-    <div class="fin-card fin-card-chart"><div class="fin-card-header">02 · REVENUE TRAJECTORY</div><div class="fin-chart-area"><canvas id="revenueChart" width="500" height="240" style="width:100%; height:auto; max-height:240px;"></canvas></div><div class="fin-chart-insight"><span class="fin-insight-icon">◆</span><span>12-month revenue: </span><strong id="insightValue">Rp 294 JT</strong><span class="fin-insight-sub" id="insightSub">(moderate)</span></div><div class="fin-equity-card"><div class="fin-equity-title">EQUITY OFFERING</div><div class="fin-equity-value" id="equityValue">7.0%</div><div class="fin-equity-desc" id="equityDesc">pre-money valuation Rp 2.5B</div><div class="fin-equity-min">minimum ticket: Rp 25.000.000</div></div></div>
-    <div class="fin-card fin-card-equity"><div class="fin-card-header">03 · ALLOCATION MANIFESTO</div><div class="fin-alloc-list"><div class="fin-alloc-item"><div class="fin-alloc-header"><div class="fin-alloc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div><span class="fin-alloc-name">Location & Space</span><span class="fin-alloc-perc" id="allocSpacePerc">25%</span></div><div class="fin-alloc-bar-track"><div class="fin-alloc-bar-fill" id="allocSpaceBar" style="width: 25%"></div></div><div class="fin-alloc-row-bottom"><span class="fin-alloc-amount" id="allocSpaceAmt">Rp 43.8 jt</span><span class="fin-alloc-desc" id="allocSpaceDesc">Sewa ruko strategis + deposit</span></div></div><div class="fin-alloc-item"><div class="fin-alloc-header"><div class="fin-alloc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33"/><path d="M4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33"/></svg></div><span class="fin-alloc-name">Coffee Tech & Equipment</span><span class="fin-alloc-perc" id="allocEquipPerc">35%</span></div><div class="fin-alloc-bar-track"><div class="fin-alloc-bar-fill" id="allocEquipBar" style="width: 35%"></div></div><div class="fin-alloc-row-bottom"><span class="fin-alloc-amount" id="allocEquipAmt">Rp 61.3 jt</span><span class="fin-alloc-desc" id="allocEquipDesc">Mesin espresso + grinder + roaster</span></div></div><div class="fin-alloc-item"><div class="fin-alloc-header"><div class="fin-alloc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg></div><span class="fin-alloc-name">Architectural Fit-Out</span><span class="fin-alloc-perc" id="allocRenoPerc">25%</span></div><div class="fin-alloc-bar-track"><div class="fin-alloc-bar-fill" id="allocRenoBar" style="width: 25%"></div></div><div class="fin-alloc-row-bottom"><span class="fin-alloc-amount" id="allocRenoAmt">Rp 43.8 jt</span><span class="fin-alloc-desc" id="allocRenoDesc">Renovasi + desain interior + furniture</span></div></div><div class="fin-alloc-item"><div class="fin-alloc-header"><div class="fin-alloc-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2z"/></svg></div><span class="fin-alloc-name">Brand & Working Capital</span><span class="fin-alloc-perc" id="allocBrandPerc">15%</span></div><div class="fin-alloc-bar-track"><div class="fin-alloc-bar-fill" id="allocBrandBar" style="width: 15%"></div></div><div class="fin-alloc-row-bottom"><span class="fin-alloc-amount" id="allocBrandAmt">Rp 26.3 jt</span><span class="fin-alloc-desc" id="allocBrandDesc">Pre-launch campaign + inventory + legal</span></div></div></div><div class="fin-total-bar"><span>Total deployed capital</span><strong id="totalCapitalReminder">Rp 175.000.000</strong></div></div>
-  </div>
-</section>
+  <div class="divider"></div>
 
-<div class="divider"></div>
+  <!-- ========================================================== -->
+  <!-- 07. IMPACT — DAMPAK SOSIAL                                 -->
+  <!-- ========================================================== -->
+  <section id="impact">
+    <div class="section-label reveal" data-number="06">Our Impact</div>
+    <h2 class="section-title reveal reveal-delay-1">Every sip<br>has a <em>story.</em></h2>
+    <p class="section-body reveal reveal-delay-2">Setiap produk yang Anda beli dari CAFEIN adalah langkah kecil untuk menjaga ekosistem lokal tetap hidup.</p>
 
-<!-- ─── ROADMAP ───────────────────────────────────────────────── -->
-<section id="roadmap">
-  <div class="section-label reveal" data-number="11">Development Roadmap</div>
-  <h2 class="section-title reveal reveal-delay-1">Every icon starts as<br>a <em>single room.</em></h2>
-  <div class="timeline">
-    <div class="timeline-item reveal"><div class="timeline-phase">Phase 01 · Months 1–4</div><div class="timeline-title">Foundation</div><div class="timeline-desc">Penyempurnaan identitas brand. Pencarian lokasi dan negosiasi tempat. Pengembangan konsep interior. Pengadaan peralatan. Perekrutan dan pelatihan tim awal. Membangun kehadiran digital secara perlahan melalui 90 hari konten sebelum pintu pertama kali dibuka.</div><div class="timeline-tags"><span class="timeline-tag">Brand identity</span><span class="timeline-tag">Location</span><span class="timeline-tag">Recruitment</span><span class="timeline-tag">Pre-launch content</span></div><div class="timeline-duration">01</div></div>
-    <div class="timeline-item reveal reveal-delay-1"><div class="timeline-phase">Phase 02 · Months 5–6</div><div class="timeline-title">Soft Opening</div><div class="timeline-desc">Pembukaan secara tertutup untuk 200 tamu undangan — para kreator, tokoh industri kopi, serta calon penggerak komunitas. Tanpa siaran pers, tanpa pengumuman. Hanya melalui komunikasi dari mulut ke mulut.</div><div class="timeline-tags"><span class="timeline-tag">Soft opening</span><span class="timeline-tag">Community seed</span><span class="timeline-tag">Operations refinement</span></div><div class="timeline-duration">02</div></div>
-    <div class="timeline-item reveal reveal-delay-2"><div class="timeline-phase">Phase 03 · Months 7–12</div><div class="timeline-title">Content &amp; Community</div><div class="timeline-desc">Pembukaan penuh untuk umum. Mesin konten berjalan dengan kecepatan penuh. Peluncuran program keanggotaan. Seri acara 'Late Edit' yang pertama. Program residensi kreator dimulai. Target: 500+ pelanggan tetap bulanan, 100+ anggota aktif.</div><div class="timeline-tags"><span class="timeline-tag">Full opening</span><span class="timeline-tag">Membership launch</span><span class="timeline-tag">Events series</span><span class="timeline-tag">Content scale</span></div><div class="timeline-duration">03</div></div>
-    <div class="timeline-item reveal reveal-delay-3"><div class="timeline-phase">Phase 04 · Year 2</div><div class="timeline-title">Brand Deepening</div><div class="timeline-desc">Peluncuran jurnal triwulanan CAFEIN Press. Rilis koleksi merchandise. Ekspansi layanan langganan biji kopi. Pengintaian lokasi kedua dimulai. Eksplorasi potensi kemitraan kolaborasi dengan hotel atau ruang kerja.</div><div class="timeline-tags"><span class="timeline-tag">CAFEIN Press</span><span class="timeline-tag">Merchandise</span><span class="timeline-tag">Subscriptions</span><span class="timeline-tag">Partnerships</span></div><div class="timeline-duration">04</div></div>
-    <div class="timeline-item reveal reveal-delay-4"><div class="timeline-phase">Phase 05 · Year 3–5</div><div class="timeline-title">Considered Expansion</div><div class="timeline-desc">Lokasi kedua di kota yang berbeda secara budaya. Eksplorasi lisensi merek. Perdagangan grosir internasional. Model CAFEIN sebagai pengalaman yang dapat direplikasi — bukan waralaba, melainkan sekelompok tempat yang terasa saling terhubung dan seperti satu keluarga.</div><div class="timeline-tags"><span class="timeline-tag">Second location</span><span class="timeline-tag">Wholesale</span><span class="timeline-tag">Brand licensing</span><span class="timeline-tag">International</span></div><div class="timeline-duration">05</div></div>
-  </div>
-</section>
+    <div class="impact-grid reveal reveal-delay-2">
+      <div class="impact-card">
+        <div class="impact-number">1</div>
+        <div class="impact-content">
+          <h3>Petani Lokal</h3>
+          <p>Kami bekerja langsung dengan koperasi petani di Selaawi dan sekitarnya, memastikan mereka mendapat harga yang adil.</p>
+        </div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-number">2</div>
+        <div class="impact-content">
+          <h3>Pengrajin Lokal</h3>
+          <p>Gula aren, madu hutan, dan produk lokal lainnya kami ambil dari pengrajin yang menjaga metode tradisional.</p>
+        </div>
+      </div>
+      <div class="impact-card">
+        <div class="impact-number">3</div>
+        <div class="impact-content">
+          <h3>Lingkungan</h3>
+          <p>Kami mendukung praktik pertanian berkelanjutan dan pengemasan ramah lingkungan untuk setiap produk.</p>
+        </div>
+      </div>
+    </div>
 
-<div class="divider"></div>
+    <blockquote class="impact-quote reveal reveal-delay-3">
+      "Kami percaya bahwa <em>kebaikan</em> adalah rasa yang paling penting."
+    </blockquote>
+  </section>
 
-<!-- ─── FINAL CTA ─────────────────────────────────────────────── -->
-<section id="cta">
-  <div class="cta-eyebrow reveal">A closing thought</div>
-  <blockquote class="cta-quote reveal reveal-delay-1">
-    "Some people come for the coffee.<br>Some come for the <em>atmosphere.</em><br>The right people come for both."
-  </blockquote>
-  <div class="cta-buttons reveal reveal-delay-3">
-    <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut%20mengenai%20proposal%20ini." class="btn-primary" target="_blank"><span>Start a Conversation</span></a>
-    <a href="#team" class="btn-ghost">Read from the beginning</a>
-  </div>
-  <div class="contact-row reveal reveal-delay-4">
-    <div class="contact-item"><div class="contact-label">General Inquiry</div><div class="contact-value">perdiansyah@cafein.id</div></div>
-    <div class="contact-item"><div class="contact-label">Investment</div><div class="contact-value">perdiansyah@cafein.id</div></div>
-    <div class="contact-item"><div class="contact-label">Collaboration</div><div class="contact-value">perdiansyah@cafein.id</div></div>
-    <div class="contact-item"><div class="contact-label">Press</div><div class="contact-value">perdiansyah@cafein.id</div></div>
-  </div>
-</section>
+  <div class="divider"></div>
 
-<!-- ─── FOOTER ────────────────────────────────────────────────── -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-left"><div class="footer-logo">CAFEIN</div><div class="footer-tagline">Coffee for people who think deeply.</div></div>
-    <div class="footer-center"><ul class="footer-nav"><li><a href="#team">Our Team</a></li><li><a href="#story">Brand Story</a></li><li><a href="#market">Market Analysis</a></li><li><a href="#product">Product Strategy</a></li><li><a href="#marketing">Marketing Plan</a></li><li><a href="#financials">Financials</a></li><li><a href="#roadmap">Roadmap</a></li></ul></div>
-    <div class="footer-right"><div class="footer-social"><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">LinkedIn</a></div><p style="font-size:0.72rem;color:var(--text-secondary);line-height:1.8;max-width:240px;">A brand built for those who believe the best conversations happen over exceptional coffee.</p></div>
-  </div>
-  <div class="footer-bottom"><div class="footer-copy">© 2030 CAFEIN — Brand Marketing Proposal. All rights reserved.</div><div class="footer-made">Crafted with conviction.</div></div>
-</footer>
+  <!-- ========================================================== -->
+  <!-- 08. JOURNAL                                                 -->
+  <!-- ========================================================== -->
+  <section id="journal">
+    <div class="section-label reveal" data-number="07">Journal</div>
+    <h2 class="section-title reveal reveal-delay-1">What's brewing<br>right <em>now.</em></h2>
+    <p class="section-body reveal reveal-delay-2">Cerita dari balik meja racik — proses, orang, dan hal-hal kecil yang membentuk CAFEIN.</p>
 
-<script src="script.js"></script>
+    <div class="journal-grid reveal reveal-delay-2">
+      <a href="#journal" class="journal-card journal-card-lg" style="--img:url(images/journal-1.jpg)">
+        <span class="journal-meta">Sourcing · Coming soon</span>
+        <span class="journal-title">Dari Kebun ke Cangkir</span>
+        <span class="journal-excerpt">Menyusuri jalur biji kopi Toraja, dari ketinggian 1.400 mdpl sampai ke meja racik kami.</span>
+      </a>
+      <a href="#journal" class="journal-card" style="--img:url(images/journal-2.jpg)">
+        <span class="journal-meta">Events · Coming soon</span>
+        <span class="journal-title">Late Edit Vol. 01</span>
+        <span class="journal-excerpt">Malam pertama diskusi &amp; musik setelah jam tutup.</span>
+      </a>
+      <a href="#journal" class="journal-card" style="--img:url(images/journal-3.jpg)">
+        <span class="journal-meta">Brewing · Coming soon</span>
+        <span class="journal-title">Meracik Aren Latte di Rumah</span>
+        <span class="journal-excerpt">Tiga langkah sederhana, satu rahasia gula aren.</span>
+      </a>
+      <a href="#journal" class="journal-card" style="--img:url(images/journal-4.jpg)">
+        <span class="journal-meta">Notes · Coming soon</span>
+        <span class="journal-title">Catatan Soft Opening</span>
+        <span class="journal-excerpt">Yang kami pelajari dari tamu-tamu pertama CAFEIN.</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================================================== -->
+  <!-- 09. JOIN OUR TEAM                                           -->
+  <!-- ========================================================== -->
+  <section id="join-team">
+    <div class="section-label reveal" data-number="08">Join Our Team</div>
+    <h2 class="section-title reveal reveal-delay-1">Maybe you<br><em>belong</em> here.</h2>
+
+    <div class="team-layout">
+      <div class="founder-card reveal reveal-delay-1" style="--img:url(images/founder-perdiansyah.jpg)">
+        <div class="founder-overlay">
+          <div class="founder-name">Perdiansyah</div>
+          <div class="founder-role">Founder, CAFEIN</div>
+        </div>
+      </div>
+      <div class="founder-note reveal reveal-delay-2">
+        <p class="founder-quote">"CAFEIN dimulai dari satu orang dengan satu keyakinan sederhana — bahwa kopi bisa jadi alasan orang berhenti sejenak. Sekarang, saatnya mencari orang-orang yang percaya hal yang sama, untuk membangunnya bersama."</p>
+        <div class="founder-signoff">— Perdiansyah, Founder</div>
+      </div>
+    </div>
+
+    <!-- Join Tim -->
+    <div class="roles-section reveal reveal-delay-2">
+      <div class="roles-heading">Open Roles</div>
+      <div class="roles-list">
+        <div class="role-item">
+          <div class="role-name">Barista</div>
+          <div class="role-desc">Meracik kopi dengan presisi dan rasa yang konsisten.</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Kitchen</div>
+          <div class="role-desc">Menyiapkan menu pendamping dengan standar yang sama tingginya dengan kopi kami.</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Service</div>
+          <div class="role-desc">Menjaga setiap pengalaman tamu tetap hangat dan diperhatikan.</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Marketing</div>
+          <div class="role-desc">Menceritakan CAFEIN ke dunia dengan cara yang jujur, bukan berisik.</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Creative</div>
+          <div class="role-desc">Menjaga identitas visual dan suasana CAFEIN tetap utuh di setiap detail.</div>
+        </div>
+        <div class="role-item">
+          <div class="role-name">Management</div>
+          <div class="role-desc">Membantu operasional harian berjalan rapi tanpa kehilangan karakter.</div>
+        </div>
+      </div>
+      <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20untuk%20bergabung%20dengan%20tim%20CAFEIN." class="btn-primary" target="_blank" style="margin-top:40px;"><span>Join Our Team</span></a>
+    </div>
+
+    <!-- Partner Lokal -->
+    <div class="partner-section reveal reveal-delay-2">
+      <div class="roles-heading" style="margin-top:64px;">For Local Partners</div>
+      <p class="section-body" style="max-width:100%;margin-bottom:32px;">Apakah Anda petani kopi, pengrajin gula aren, produsen madu, atau memiliki produk lokal lainnya? CAFEIN adalah wadah untuk produk Anda. Mari kita bangun ekosistem lokal bersama.</p>
+      <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20tertarik%20untuk%20menjadi%20mitra%20lokal." class="btn-primary" target="_blank"><span>Jadi Mitra Lokal</span></a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========================================================== -->
+  <!-- 10. LOCATION                                                -->
+  <!-- ========================================================== -->
+  <section id="location">
+    <div class="section-label reveal" data-number="09">Location</div>
+    <h2 class="section-title reveal reveal-delay-1">Find your<br>way <em>here.</em></h2>
+
+    <div class="location-layout">
+      <div class="location-info reveal reveal-delay-1">
+        <div class="location-block">
+          <div class="location-label">Address</div>
+          <div class="location-value">Jl. [Nama Jalan] No. [—], [Kecamatan], [Kota]</div>
+        </div>
+        <div class="location-block">
+          <div class="location-label">Hours</div>
+          <div class="location-value">Setiap hari · 09.00 – 23.00</div>
+        </div>
+        <div class="location-block">
+          <div class="location-label">Contact</div>
+          <div class="location-value">perdiansyah@cafein.id<br>+62 822-6292-5446</div>
+        </div>
+        <div class="location-block">
+          <div class="location-label">Social</div>
+          <div class="location-social">
+            <a href="#" target="_blank">Instagram</a>
+            <a href="https://wa.me/6282262925446" target="_blank">WhatsApp</a>
+            <a href="#" target="_blank">TikTok</a>
+          </div>
+        </div>
+        <a href="https://wa.me/6282262925446?text=Halo%20CAFEIN%2C%20saya%20ingin%20berkunjung." class="btn-ghost" target="_blank" style="margin-top:12px;">Chat with us</a>
+      </div>
+      <div class="location-map reveal reveal-delay-2">
+        <div class="location-map-placeholder">
+          <span>Map — to be added once location is finalized</span>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="closing-quote reveal reveal-delay-3">
+      "Some people come for the coffee.<br>Some come for the <em>atmosphere.</em><br>The right people come for both."
+    </blockquote>
+  </section>
+
+  <!-- ========================================================== -->
+  <!-- 11. FOOTER                                                  -->
+  <!-- ========================================================== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-logo">CAFEIN</div>
+        <div class="footer-tagline">Coffee · People · Ideas</div>
+        <div class="footer-tagline" style="font-size:0.6rem;opacity:0.5;margin-top:4px;">🌱 Mendukung produk lokal Indonesia</div>
+      </div>
+      <div class="footer-center">
+        <ul class="footer-nav">
+          <li><a href="#philosophy">Philosophy</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#store">Store</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#join-team">Join Our Team</a></li>
+          <li><a href="#location">Location</a></li>
+        </ul>
+      </div>
+      <div class="footer-right">
+        <div class="footer-social">
+          <a href="#">Instagram</a>
+          <a href="https://wa.me/6282262925446" target="_blank">WhatsApp</a>
+          <a href="#join-team" style="opacity:0.6;">Jadi Mitra Lokal</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 CAFEIN. All rights reserved.</div>
+      <div class="footer-made">Crafted with conviction. 🌱</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
