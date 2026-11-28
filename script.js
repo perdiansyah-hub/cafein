@@ -1,6 +1,6 @@
 /**
  * CAFEIN — Main JavaScript
- * Coffee for people who think deeply.
+ * more than just coffee.
  * Version: 6.1 — Menu Showcase Adaptation with Click Hints
  */
 
